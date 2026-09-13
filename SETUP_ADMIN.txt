@@ -1,0 +1,18 @@
+NEXORA ALPHA — ADMIN SETUP
+
+1) Supabase Dashboard -> SQL Editor -> New query.
+2) Open SUPABASE_ADMIN_SETUP.sql.
+3) Replace YOUR_ADMIN_EMAIL_HERE with the email of the Nexora owner/admin account.
+4) Run the entire SQL.
+5) Reload/re-login to Nexora. Your navbar will show an ADMIN button.
+6) Tap ADMIN to open the Admin Dashboard.
+
+WHAT THIS ADDS
+- Existing owner account becomes role=admin.
+- New accounts are role=member automatically.
+- Members cannot promote themselves to admin from the browser.
+- Admin dashboard shows total members and live members online.
+- Online presence uses Supabase Realtime Presence. Only admins are authorized to receive the online presence channel.
+\IMPORTANT
+- Never put a Supabase secret/service_role key into Vercel frontend code. Keep using the publishable/anon browser key.
+- If the admin button does not appear after running SQL, log out and log back in once.
