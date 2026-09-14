@@ -56,7 +56,7 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
 .cms-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .cms-btn{border:1px solid rgba(157,189,255,.22);background:rgba(157,189,255,.08);color:#fff;border-radius:12px;padding:10px 13px;font-weight:800;cursor:pointer}
 .cms-btn.primary{background:rgba(86,132,255,.2);border-color:rgba(120,160,255,.4)}
-.cms-btn.danger{background:rgba(255,75,100,.1);border-color:rgba(255,100,120,.25)}
+.cms-btn.danger{background:rgba(255,75,100,.1);border-color:rgba(255,100,120,.25)}.cms-btn:disabled{opacity:.55;cursor:not-allowed}.cms-upload-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.cms-upload-row .cms-btn{flex:0 0 auto}.cms-upload-status{font-size:12px;color:#9eacc7}.cms-image-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:8px}.cms-image-preview img{width:100%;height:90px;object-fit:cover;border-radius:10px;border:1px solid rgba(157,189,255,.18)}
 .cms-list{display:grid;gap:10px;margin-top:12px}
 .cms-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);border-radius:14px}
 .cms-row-main{min-width:0}.cms-row-main b{display:block}.cms-row-main small{display:block;color:#9eacc7;margin-top:4px}.cms-row-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
@@ -254,6 +254,9 @@ function openRiskIndex(){showPage('riskPage');location.hash='risk'}
 function openLiquidityIndex(){showPage('liquidityPage');location.hash='liquidity'}
 function normalizeCmsChapter(c){const box=document.createElement('div');box.innerHTML=c.content_html||'';const out=[];let cur=null;[...box.childNodes].forEach(n=>{if(n.nodeType===1&&/^H[12]$/i.test(n.tagName)){cur={t:n.textContent.trim(),h:''};out.push(cur)}else if(cur){cur.h+=n.nodeType===3?String(n.textContent).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])):n.outerHTML}else if((n.textContent||'').trim())out.push({t:'Materi',h:n.outerHTML||n.textContent});});return {id:c.slug,icon:window.nexoraCMS?.modules?.find(m=>m.slug===c.module_slug)?.icon||'📚',title:c.title,intro:c.subtitle||'',sections:out.length?out.map(x=>[x.t,x.h]):[['Materi',c.content_html||'']],module_slug:c.module_slug};}
 function openLesson(id){
+  if(window.nexoraCMS?.loaded && window.nexoraCMS.modules?.some(m=>m.slug===id)){
+    return openCmsModule(id);
+  }
   if(id==='psychology'){openPsychologyIndex();return}
   if(id==='risk'){openRiskIndex();return}
   if(id==='liquidity'){openLiquidityIndex();return}
@@ -414,7 +417,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   window.renderCmsAdmin=function(){
     const box=document.getElementById('cmsAdminList');if(!box)return;
     if(!state.modules.length){box.innerHTML='<div class="empty-online">Belum ada modul di database. Tekan “Import Materi Lama” untuk memasukkan materi yang sudah ada.</div>';return}
-    box.innerHTML=state.modules.map(m=>{const cs=chaptersFor(m.slug);return `<div class="cms-row"><div class="cms-row-main"><b>${esc(m.icon||'📚')} ${esc(m.title)}</b><small>${cs.length} bab • ${esc(m.description||'')}</small></div><div class="cms-row-actions"><button class="cms-btn" onclick="cmsEditModule('${esc(m.slug)}')">Edit</button><button class="cms-btn primary" onclick="cmsAddChapter('${esc(m.slug)}')">＋ Bab</button><button class="cms-btn" onclick="cmsManageChapters('${esc(m.slug)}')">Kelola</button></div></div>`}).join('');
+    box.innerHTML=state.modules.map(m=>{const cs=chaptersFor(m.slug);return `<div class="cms-row"><div class="cms-row-main"><b>${esc(m.icon||'📚')} ${esc(m.title)}</b><small>${cs.length} bab • ${esc(m.description||'')}</small></div><div class="cms-row-actions"><button type="button" class="cms-btn" onclick="cmsEditModule('${esc(m.slug)}')">Edit</button><button type="button" class="cms-btn primary" onclick="cmsAddChapter('${esc(m.slug)}')">＋ Bab</button><button type="button" class="cms-btn" onclick="cmsManageChapters('${esc(m.slug)}')">Kelola</button><button type="button" class="cms-btn danger" onclick="cmsDeleteModule('${esc(m.slug)}')">Hapus</button></div></div>`}).join('');
   };
   window.cmsEditModule=function(slug){const m=moduleBySlug(slug);if(m)openModuleModal(m)};
   window.cmsAddModule=function(){
@@ -424,26 +427,147 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   };
   window.cmsAddChapter=function(slug){openChapterModal(null,slug)};
   window.cmsManageChapters=function(slug){const m=moduleBySlug(slug);if(!m)return;openChaptersModal(m)};
-  function openModal(id,title,body){const root=document.getElementById(id);if(root)root.remove();const d=document.createElement('div');d.id=id;d.className='cms-modal open';d.innerHTML=`<div class="cms-dialog">${title}${body}</div>`;d.addEventListener('click',e=>{if(e.target===d)d.remove()});document.body.appendChild(d);return d}
-  function closeModal(id){document.getElementById(id)?.remove()}
+  function openModal(id,title,body){
+    const root=document.getElementById(id);if(root)root.remove();
+    const d=document.createElement('div');
+    d.id=id;d.className='cms-modal open';
+    d.innerHTML=`<div class="cms-dialog">${title}${body}</div>`;
+    d.addEventListener('click',e=>{if(e.target===d)closeModal(id)});
+    document.body.appendChild(d);
+    return d;
+  }
+  function closeModal(id){
+    const el=document.getElementById(id);
+    if(el)el.remove();
+  }
+  window.cmsCloseModal=closeModal;
+
   function openModuleModal(m){
+    if(!state.isAdmin)return note('Akses ditolak. Hanya ADMIN yang bisa mengubah materi.',true);
     const edit=!!m, id='cmsModuleModal';
-    const d=openModal(id,`<h2>${edit?'✏️ Edit Modul':'＋ Tambah Modul'}</h2><p class="cms-help">Modul hanya bisa dibuat/diubah oleh admin.</p>`,`<div class="cms-field"><label>ICON</label><input id="cmsMIcon" maxlength="4" value="${esc(m?.icon||'📚')}"></div><div class="cms-field"><label>JUDUL MODUL</label><input id="cmsMTitle" maxlength="80" value="${esc(m?.title||'')}"></div><div class="cms-field"><label>DESKRIPSI</label><input id="cmsMDesc" maxlength="180" value="${esc(m?.description||'')}"></div><div class="cms-field"><label>SLUG</label><input id="cmsMSlug" maxlength="60" value="${esc(m?.slug||'')}" ${edit?'disabled':''}></div><div class="cms-field"><label>INTRO MATERI (OPSIONAL)</label><textarea id="cmsMIntro" style="min-height:140px">${esc(m?.intro_html||'')}</textarea></div><div class="cms-dialog-actions"><button class="cms-btn" onclick="closeModal('${id}')">Batal</button><button class="cms-btn primary" id="cmsMSave">Simpan</button></div>`);
-    d.querySelector('#cmsMSave').onclick=async()=>{const title=d.querySelector('#cmsMTitle').value.trim();const slug=edit?m.slug:slugify(d.querySelector('#cmsMSlug').value||title);if(!title)return note('Judul modul wajib diisi.',true);await saveModule({slug,title,icon:d.querySelector('#cmsMIcon').value.trim()||'📚',description:d.querySelector('#cmsMDesc').value.trim(),intro_html:d.querySelector('#cmsMIntro').value},edit?m.id:null);closeModal(id)};
+    const d=openModal(id,`<h2>${edit?'✏️ Edit Modul':'＋ Tambah Modul'}</h2><p class="cms-help">Modul hanya bisa dibuat/diubah oleh admin.</p>`,
+      `<div class="cms-field"><label>ICON</label><input id="cmsMIcon" maxlength="4" value="${esc(m?.icon||'📚')}"></div>
+       <div class="cms-field"><label>JUDUL MODUL</label><input id="cmsMTitle" maxlength="80" value="${esc(m?.title||'')}"></div>
+       <div class="cms-field"><label>DESKRIPSI</label><input id="cmsMDesc" maxlength="180" value="${esc(m?.description||'')}"></div>
+       <div class="cms-field"><label>SLUG</label><input id="cmsMSlug" maxlength="60" value="${esc(m?.slug||'')}" ${edit?'disabled':''}><small class="cms-upload-status">Kalau kosong, slug otomatis dibuat dari judul.</small></div>
+       <div class="cms-field"><label>INTRO MATERI (OPSIONAL)</label><textarea id="cmsMIntro" style="min-height:140px">${esc(m?.intro_html||'')}</textarea></div>
+       <div class="cms-dialog-actions"><button type="button" class="cms-btn" id="cmsMCancel">Batal</button><button type="button" class="cms-btn primary" id="cmsMSave">Simpan</button></div>`);
+    d.querySelector('#cmsMCancel').addEventListener('click',()=>closeModal(id));
+    d.querySelector('#cmsMSave').addEventListener('click',async()=>{
+      const title=d.querySelector('#cmsMTitle').value.trim();
+      const slug=edit?m.slug:slugify(d.querySelector('#cmsMSlug').value||title);
+      if(!title)return note('Judul modul wajib diisi.',true);
+      const ok=await saveModule({slug,title,icon:d.querySelector('#cmsMIcon').value.trim()||'📚',description:d.querySelector('#cmsMDesc').value.trim(),intro_html:d.querySelector('#cmsMIntro').value},edit?m.id:null);
+      if(ok)closeModal(id);
+    });
   }
+
+  async function uploadAcademyImage(file,slug,textarea,statusEl){
+    if(!state.isAdmin)return note('Akses ditolak. Hanya ADMIN yang bisa upload gambar.',true);
+    if(!file)return;
+    if(!/^image\//i.test(file.type))return note('File harus berupa gambar.',true);
+    if(file.size>5*1024*1024)return note('Ukuran gambar maksimal 5 MB.',true);
+    if(statusEl)statusEl.textContent='Mengupload gambar...';
+    try{
+      const safeName=file.name.toLowerCase().replace(/[^a-z0-9._-]+/g,'-').slice(-80)||'image';
+      const path=`${slug}/${Date.now()}-${Math.random().toString(36).slice(2,9)}-${safeName}`;
+      const {error}=await state.client.storage.from('academy-images').upload(path,file,{contentType:file.type,upsert:false});
+      if(error)throw error;
+      const {data}=state.client.storage.from('academy-images').getPublicUrl(path);
+      const tag=`<p><img src="${data.publicUrl}" alt="${escapeHtml(file.name)}" style="max-width:100%;height:auto;border-radius:14px;"></p>`;
+      const pos=textarea.selectionStart??textarea.value.length;
+      textarea.value=textarea.value.slice(0,pos)+tag+textarea.value.slice(textarea.selectionEnd??pos);
+      textarea.focus();textarea.selectionStart=textarea.selectionEnd=pos+tag.length;
+      if(statusEl)statusEl.textContent='Gambar berhasil ditambahkan ke materi.';
+      note('Gambar berhasil diupload.');
+    }catch(e){
+      if(statusEl)statusEl.textContent='Upload gagal.';
+      note(e.message||'Gagal upload gambar. Jalankan SQL Storage CMS.',true);
+    }
+  }
+
   function openChapterModal(c,slug){
+    if(!state.isAdmin)return note('Akses ditolak. Hanya ADMIN yang bisa mengubah materi.',true);
     const edit=!!c,id='cmsChapterModal';const next=chaptersFor(slug).length+1;
-    const d=openModal(id,`<h2>${edit?'✏️ Edit Bab':'＋ Tambah Bab'}</h2><p class="cms-help">Tulis materi HTML sederhana. Contoh: &lt;h2&gt;Pembuka&lt;/h2&gt;&lt;p&gt;Isi...&lt;/p&gt;</p>`,`<div class="cms-field"><label>NOMOR BAB</label><input id="cmsCNo" type="number" min="1" value="${c?.chapter_no||next}"></div><div class="cms-field"><label>JUDUL BAB</label><input id="cmsCTitle" maxlength="120" value="${esc(c?.title||'')}"></div><div class="cms-field"><label>SUBJUDUL</label><input id="cmsCSub" maxlength="160" value="${esc(c?.subtitle||'')}"></div><div class="cms-field"><label>ISI MATERI</label><textarea id="cmsCBody">${esc(c?.content_html||'')}</textarea></div><label class="cms-check"><input id="cmsCPub" type="checkbox" ${c?.published!==false?'checked':''}> Publish ke member</label><div class="cms-dialog-actions"><button class="cms-btn" onclick="closeModal('${id}')">Batal</button><button class="cms-btn primary" id="cmsCSave">Simpan Bab</button></div>`);
-    d.querySelector('#cmsCSave').onclick=async()=>{const title=d.querySelector('#cmsCTitle').value.trim();if(!title)return note('Judul bab wajib diisi.',true);const payload={module_slug:slug,chapter_no:Math.max(1,Number(d.querySelector('#cmsCNo').value)||1),title,subtitle:d.querySelector('#cmsCSub').value.trim(),content_html:d.querySelector('#cmsCBody').value,published:d.querySelector('#cmsCPub').checked,order_index:Math.max(0,Number(d.querySelector('#cmsCNo').value)||1)};await saveChapter(payload,edit?c.id:null);closeModal(id)};
+    const d=openModal(id,`<h2>${edit?'✏️ Edit Bab':'＋ Tambah Bab'}</h2><p class="cms-help">Tulis materi HTML sederhana. Gunakan tombol upload untuk memasukkan foto langsung ke isi materi.</p>`,
+      `<div class="cms-field"><label>NOMOR BAB</label><input id="cmsCNo" type="number" min="1" value="${c?.chapter_no||next}"></div>
+       <div class="cms-field"><label>JUDUL BAB</label><input id="cmsCTitle" maxlength="120" value="${esc(c?.title||'')}"></div>
+       <div class="cms-field"><label>SUBJUDUL</label><input id="cmsCSub" maxlength="160" value="${esc(c?.subtitle||'')}"></div>
+       <div class="cms-field"><label>ISI MATERI</label>
+         <div class="cms-upload-row"><button type="button" class="cms-btn primary" id="cmsUploadImage">🖼️ Upload Foto</button><span class="cms-upload-status" id="cmsUploadStatus">JPG, PNG, WEBP • maks. 5 MB</span></div>
+         <input id="cmsImageFile" type="file" accept="image/*" style="display:none">
+         <textarea id="cmsCBody" placeholder="<h2>Pembuka</h2><p>Isi materi...</p>">${esc(c?.content_html||'')}</textarea>
+       </div>
+       <label class="cms-check"><input id="cmsCPub" type="checkbox" ${c?.published!==false?'checked':''}> Publish ke member</label>
+       <div class="cms-dialog-actions"><button type="button" class="cms-btn" id="cmsCCancel">Batal</button><button type="button" class="cms-btn primary" id="cmsCSave">Simpan Bab</button></div>`);
+    const textarea=d.querySelector('#cmsCBody'), fileInput=d.querySelector('#cmsImageFile'), uploadBtn=d.querySelector('#cmsUploadImage'), statusEl=d.querySelector('#cmsUploadStatus');
+    uploadBtn.addEventListener('click',()=>fileInput.click());
+    fileInput.addEventListener('change',async()=>{const f=fileInput.files?.[0];if(f)await uploadAcademyImage(f,slug,textarea,statusEl);fileInput.value=''});
+    d.querySelector('#cmsCCancel').addEventListener('click',()=>closeModal(id));
+    d.querySelector('#cmsCSave').addEventListener('click',async()=>{
+      const title=d.querySelector('#cmsCTitle').value.trim();
+      if(!title)return note('Judul bab wajib diisi.',true);
+      const no=Math.max(1,Number(d.querySelector('#cmsCNo').value)||1);
+      const autoSlug=edit?(c.slug||slugify(`${slug}-${no}-${title}`)):slugify(`${slug}-${no}-${title}`);
+      const payload={module_slug:slug,slug:autoSlug,chapter_no:no,title,subtitle:d.querySelector('#cmsCSub').value.trim(),content_html:textarea.value,published:d.querySelector('#cmsCPub').checked,order_index:no};
+      const ok=await saveChapter(payload,edit?c.id:null);
+      if(ok)closeModal(id);
+    });
   }
+
   function openChaptersModal(m){
-    const id='cmsChaptersModal';const d=openModal(id,`<h2>📚 ${esc(m.title)}</h2><p class="cms-help">Kelola bab. Perubahan langsung tersimpan ke database.</p>`,`<div class="cms-list" id="cmsChapterManageList"></div><div class="cms-dialog-actions"><button class="cms-btn primary" onclick="cmsAddChapter('${esc(m.slug)}');closeModal('${id}')">＋ Tambah Bab</button><button class="cms-btn" onclick="closeModal('${id}')">Tutup</button></div>`);
-    const list=d.querySelector('#cmsChapterManageList');list.innerHTML=chaptersFor(m.slug).map(c=>`<div class="cms-row"><div class="cms-row-main"><b>${String(c.chapter_no).padStart(2,'0')} — ${esc(c.title)}</b><small>${c.published?'Published':'Draft'}</small></div><div class="cms-row-actions"><button class="cms-btn" onclick="cmsEditChapter('${esc(c.id)}')">Edit</button><button class="cms-btn danger" onclick="cmsDeleteChapter('${esc(c.id)}')">Hapus</button></div></div>`).join('')||'<div class="empty-online">Belum ada bab.</div>';
+    const id='cmsChaptersModal';const d=openModal(id,`<h2>📚 ${esc(m.title)}</h2><p class="cms-help">Kelola bab. Perubahan langsung tersimpan ke database.</p>`,
+      `<div class="cms-list" id="cmsChapterManageList"></div><div class="cms-dialog-actions"><button type="button" class="cms-btn primary" id="cmsManageAdd">＋ Tambah Bab</button><button type="button" class="cms-btn" id="cmsManageClose">Tutup</button></div>`);
+    const list=d.querySelector('#cmsChapterManageList');
+    list.innerHTML=chaptersFor(m.slug).map(c=>`<div class="cms-row"><div class="cms-row-main"><b>${String(c.chapter_no).padStart(2,'0')} — ${esc(c.title)}</b><small>${c.published?'Published':'Draft'}</small></div><div class="cms-row-actions"><button type="button" class="cms-btn" onclick="cmsEditChapter('${esc(c.id)}')">Edit</button><button type="button" class="cms-btn danger" onclick="cmsDeleteChapter('${esc(c.id)}')">Hapus</button></div></div>`).join('')||'<div class="empty-online">Belum ada bab.</div>';
+    d.querySelector('#cmsManageAdd').addEventListener('click',()=>{closeModal(id);openChapterModal(null,m.slug)});
+    d.querySelector('#cmsManageClose').addEventListener('click',()=>closeModal(id));
   }
-  window.cmsEditChapter=function(id){const c=state.chapters.find(x=>x.id===id);if(c)openChapterModal(c,c.module_slug)};
-  window.cmsDeleteChapter=async function(id){if(!confirm('Hapus bab ini?'))return;try{const {error}=await window.nexoraCMS.client.from('academy_chapters').delete().eq('id',id);if(error)throw error;state.chapters=state.chapters.filter(c=>c.id!==id);refreshAll();note('Bab dihapus.')}catch(e){note(e.message||'Gagal menghapus bab.',true)}};
-  async function saveModule(payload,id){try{const q=state.client.from('academy_modules');let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();if(res.error)throw res.error;if(id){const i=state.modules.findIndex(m=>m.id===id);if(i>=0)state.modules[i]=res.data}else state.modules.push(res.data);refreshAll();note('Modul tersimpan.')}catch(e){note(e.message||'Gagal menyimpan modul.',true)}}
-  async function saveChapter(payload,id){try{const q=state.client.from('academy_chapters');let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();if(res.error)throw res.error;if(id){const i=state.chapters.findIndex(c=>c.id===id);if(i>=0)state.chapters[i]=res.data}else state.chapters.push(res.data);refreshAll();note('Bab tersimpan.')}catch(e){note(e.message||'Gagal menyimpan bab.',true)}}
+
+  window.cmsEditChapter=function(id){if(!state.isAdmin)return note('Akses ditolak.',true);const c=state.chapters.find(x=>x.id===id);if(c)openChapterModal(c,c.module_slug)};
+  window.cmsDeleteChapter=async function(id){
+    if(!state.isAdmin)return note('Akses ditolak.',true);
+    if(!confirm('Hapus bab ini? Materinya akan hilang dari database.'))return;
+    try{
+      const {error}=await state.client.from('academy_chapters').delete().eq('id',id);
+      if(error)throw error;
+      state.chapters=state.chapters.filter(c=>c.id!==id);refreshAll();note('Bab dihapus.');
+    }catch(e){note(e.message||'Gagal menghapus bab.',true)}
+  };
+  window.cmsDeleteModule=async function(slug){
+    if(!state.isAdmin)return note('Akses ditolak.',true);
+    const m=moduleBySlug(slug);if(!m)return;
+    const count=chaptersFor(slug).length;
+    if(!confirm(`Hapus modul "${m.title}" beserta ${count} bab? Tindakan ini tidak bisa dibatalkan.`))return;
+    try{
+      const {error}=await state.client.from('academy_modules').delete().eq('id',m.id);
+      if(error)throw error;
+      state.modules=state.modules.filter(x=>x.id!==m.id);
+      state.chapters=state.chapters.filter(x=>x.module_slug!==slug);
+      refreshAll();note('Modul dan babnya berhasil dihapus.');
+    }catch(e){note(e.message||'Gagal menghapus modul.',true)}
+  };
+
+  async function saveModule(payload,id){
+    if(!state.isAdmin){note('Akses ditolak.',true);return false}
+    try{
+      const q=state.client.from('academy_modules');
+      let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();
+      if(res.error)throw res.error;
+      if(id){const i=state.modules.findIndex(m=>m.id===id);if(i>=0)state.modules[i]=res.data}else state.modules.push(res.data);
+      refreshAll();note('Modul tersimpan.');return true;
+    }catch(e){note(e.message||'Gagal menyimpan modul.',true);return false}
+  }
+  async function saveChapter(payload,id){
+    if(!state.isAdmin){note('Akses ditolak.',true);return false}
+    try{
+      const q=state.client.from('academy_chapters');
+      let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();
+      if(res.error)throw res.error;
+      if(id){const i=state.chapters.findIndex(c=>c.id===id);if(i>=0)state.chapters[i]=res.data}else state.chapters.push(res.data);
+      refreshAll();note('Bab tersimpan.');return true;
+    }catch(e){note(e.message||'Gagal menyimpan bab.',true);return false}
+  }
   async function seedExisting(){
     if(!state.client||state.seeded)return;
     if(!state.isAdmin)return note('Hanya ADMIN yang boleh import materi.',true);
@@ -459,7 +583,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
       ];
       for(const m of modules){let existing=state.modules.find(x=>x.slug===m.slug);if(!existing){const r=await state.client.from('academy_modules').insert(m).select().single();if(r.error)throw r.error;existing=r.data;state.modules.push(existing)}
         let cs=existing.slug==='psychology'?psychologyChapters:(existing.slug==='risk'?riskChapters:liquidityChapters);
-        for(const c of cs){if(state.chapters.some(x=>x.slug===c.id))continue;const body=c.sections.map(s=>`<h2>${s[0]}</h2>${s[1]}`).join('');const r=await state.client.from('academy_chapters').insert({module_slug:existing.slug,slug:c.id,chapter_no:Number(c.num),title:c.title,subtitle:c.subtitle||'',content_html:body,published:true,order_index:Number(c.num)}).select().single();if(r.error)throw r.error;state.chapters.push(r.data)}
+        for(const c of cs){if(state.chapters.some(x=>x.slug===c.id))continue;const body=c.sections.map(s=>`<h2>${s[0]}</h2>${s[1]}`).join('');const r=await state.client.from('academy_chapters').insert({module_slug:existing.slug,slug:c.id||slugify(`${existing.slug}-${c.num}-${c.title}`),chapter_no:Number(c.num),title:c.title,subtitle:c.subtitle||'',content_html:body,published:true,order_index:Number(c.num)}).select().single();if(r.error)throw r.error;state.chapters.push(r.data)}
       }
       state.seeded=true;refreshAll();note('Import selesai. Mulai sekarang edit materi langsung dari sini.');
     }catch(e){note(e.message||'Import gagal. Pastikan SQL CMS sudah dijalankan.',true)}
