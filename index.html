@@ -357,6 +357,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 </script>
 <!-- Nexora Alpha Member Authentication -->
 
+<script>
 /* ===== Nexora Education CMS runtime ===== */
 (function(){
   const state={modules:[],chapters:[],loaded:false,seeded:false};
@@ -479,6 +480,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   const oldOpenLesson=window.openLesson;
   window.addEventListener('nexora-cms-ready',()=>{});
 })();
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -501,8 +503,12 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
     currentProfile={id:user.id,username:u,email:user.email,role:'member'};
     try{const {data}=await client.from('profiles').select('id,username,role').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data}}}catch(e){console.warn('profile lookup',e)}
     const admin=currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin);
-    if(admin) setupAdminPresence(user); else setupMemberPresence(user);
-    if(window.nexoraCMS?.client && typeof window.cmsLoad==='function') await window.cmsLoad(window.nexoraCMS.client);
+    // Jangan blokir login gara-gara realtime/CMS. Semua ini dijalankan di background.
+    if(admin) setupAdminPresence(user).catch(e=>console.warn('admin presence',e));
+    else setupMemberPresence(user).catch(e=>console.warn('member presence',e));
+    if(window.nexoraCMS?.client && typeof window.cmsLoad==='function') {
+      window.cmsLoad(window.nexoraCMS.client).catch(e=>console.warn('CMS load',e));
+    }
   }
   function renderOnline(){
     if(!presenceChannel)return; const state=presenceChannel.presenceState(); const rows=[]; Object.values(state).forEach(arr=>arr.forEach(x=>{if(x&&x.user_id&&!rows.some(r=>r.user_id===x.user_id))rows.push(x)}));
