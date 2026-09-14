@@ -51,6 +51,20 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
 .admin-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}.admin-card h3{margin:0 0 12px;font-family:Poppins;font-size:13px}.online-list{display:grid;gap:8px}.online-row{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-radius:13px;background:rgba(255,255,255,.035)}.online-user{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800}.online-user i{width:8px;height:8px;border-radius:50%;background:#64e7b2;box-shadow:0 0 9px #64e7b2}.online-email{font-size:10px;color:#7f8ba2}.empty-online{color:#7f8ba2;font-size:11px;padding:12px 0}.role-pill{font-size:9px;padding:4px 7px;border-radius:999px;background:rgba(255,213,110,.1);color:#ffe8a3;border:1px solid rgba(255,213,110,.15);text-transform:uppercase}.member-count{color:#64e7b2;font-size:10px;font-weight:800}
 @media(max-width:850px){.member{margin-left:auto}.member-menu{right:8px}}@media(max-width:520px){#authGate{padding:14px}.auth-card{padding:22px;border-radius:26px}.auth-brand img{width:70px;height:70px}.member{padding:7px 8px}.member-info b{max-width:85px}}
 @media(max-width:650px){.admin-grid{grid-template-columns:1fr 1fr}.admin-grid .admin-stat:last-child{grid-column:1/-1}.admin-panel{padding:14px}.admin-wrap{margin:14px auto}}
+
+/* ===== NEXORA EDUCATION CMS ===== */
+.cms-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.cms-btn{border:1px solid rgba(157,189,255,.22);background:rgba(157,189,255,.08);color:#fff;border-radius:12px;padding:10px 13px;font-weight:800;cursor:pointer}
+.cms-btn.primary{background:rgba(86,132,255,.2);border-color:rgba(120,160,255,.4)}
+.cms-btn.danger{background:rgba(255,75,100,.1);border-color:rgba(255,100,120,.25)}
+.cms-list{display:grid;gap:10px;margin-top:12px}
+.cms-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);border-radius:14px}
+.cms-row-main{min-width:0}.cms-row-main b{display:block}.cms-row-main small{display:block;color:#9eacc7;margin-top:4px}.cms-row-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.cms-status{font-size:11px;font-weight:900;letter-spacing:.08em;padding:4px 7px;border-radius:999px;background:rgba(70,210,140,.1);color:#8ff0bd}.cms-status.draft{background:rgba(255,190,70,.1);color:#ffd47a}
+.cms-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);z-index:1200;display:none;align-items:flex-end;justify-content:center;padding:14px}.cms-modal.open{display:flex}
+.cms-dialog{width:min(760px,100%);max-height:92vh;overflow:auto;background:#0a1224;border:1px solid rgba(157,189,255,.18);border-radius:20px;padding:18px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.cms-dialog h2{margin:0 0 6px}.cms-help{color:#9eacc7;font-size:13px;margin:0 0 14px}.cms-field{display:grid;gap:7px;margin:12px 0}.cms-field label{font-size:11px;letter-spacing:.08em;font-weight:900;color:#aebbd4}.cms-field input,.cms-field textarea,.cms-field select{width:100%;border:1px solid rgba(157,189,255,.18);background:#070e1c;color:#fff;border-radius:12px;padding:11px 12px;font:inherit;outline:none}.cms-field textarea{min-height:240px;resize:vertical;line-height:1.55}.cms-check{display:flex;align-items:center;gap:8px;color:#c6d0e3;font-size:13px}.cms-dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}.cms-note{min-height:18px;color:#9eacc7;font-size:12px}.cms-admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.cms-mini{font-size:11px;color:#8fa0bf}
+@media(max-width:700px){.cms-row{align-items:flex-start;flex-direction:column}.cms-row-actions{width:100%;justify-content:flex-start}.cms-btn{flex:1}.cms-dialog{border-radius:18px 18px 0 0;max-height:94vh}}
 </style></head>
 <body>
 <div class="ambient-bubbles"><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span></div><div class="touch-orb" id="touchOrb"></div>
@@ -86,6 +100,7 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
 <div class="admin-notif-list" id="adminNotifList"><div class="empty-online">Belum ada member baru.</div></div>
 </div>
 <div class="admin-card"><h3>🟢 Members Online <span class="member-count" id="onlineLabel"></span></h3><div class="online-list" id="onlineList"><div class="empty-online">Menunggu data online...</div></div></div>
+<div class="admin-card"><div class="cms-admin-head"><div><h3 style="margin-bottom:4px">📚 Manage Education</h3><div class="cms-mini">Khusus ADMIN • perubahan tersimpan di Supabase</div></div></div><div class="cms-toolbar"><button class="cms-btn primary" id="cmsAddModule" type="button">＋ Tambah Modul</button><button class="cms-btn" id="cmsSeed" type="button">↻ Import Materi Lama</button></div><div class="cms-note" id="cmsAdminNote"></div><div class="cms-list" id="cmsAdminList"><div class="empty-online">Memuat materi...</div></div></div>
   </div>
 </div>
 
@@ -100,6 +115,7 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
 <div class="page" id="riskPage"><section class="psychology-index"><div class="wrap"><button class="back" id="backAcademyRisk">← Back to Academy</button><div class="section-head"><div class="kicker">NEXORA ACADEMY • RISK MANAGEMENT</div><h1 class="title">🛡️ Risk Management</h1><p class="sub">8 bab yang bisa lu buka satu per satu. Pelajari cara mengontrol risk, exposure, drawdown, dan menjaga modal.</p></div><div class="psychology-grid" id="riskGrid"></div></div></section></div>
 <div class="page" id="psychologyPage"><section class="psychology-index"><div class="wrap"><button class="back" id="backAcademy">← Back to Academy</button><div class="section-head"><div class="kicker">NEXORA ACADEMY • TRADING PSYCHOLOGY</div><h1 class="title">🧠 Trading Psychology</h1><p class="sub">10 prinsip yang bisa lu buka satu per satu. Pilih bab untuk masuk ke materi lengkapnya.</p></div><div class="psychology-grid" id="psychologyGrid"></div></div></section></div>
 <div class="page" id="liquidityPage"><section class="psychology-index"><div class="wrap"><button class="back" id="backAcademyLiquidity">← Back to Academy</button><div class="section-head"><div class="kicker">NEXORA ACADEMY • LIQUIDITY SERIES</div><h1 class="title">🌊 Liquidity Series</h1><p class="sub">Konsep dasar sampai roadmap liquidity. 6 bab yang bisa lu buka satu per satu, plus fondasi “Apa Itu Liquidity?” sebelum mulai seri.</p></div><div class="glass lesson-main" style="margin-bottom:18px"><h2 style="margin-top:0">💧 Konsep Dasar: Apa Itu Liquidity?</h2><div id="liquidityIntro"></div></div><div class="psychology-grid" id="liquidityGrid"></div></div></section></div>
+<div class="page" id="cmsModulePage"><section class="psychology-index"><div class="wrap"><button class="back" id="backAcademyCms">← Back to Academy</button><div class="section-head"><div class="kicker" id="cmsModuleKicker">NEXORA ACADEMY</div><h1 class="title" id="cmsModuleTitle">Module</h1><p class="sub" id="cmsModuleIntro">Materi pembelajaran Nexora Academy.</p></div><div class="psychology-grid" id="cmsModuleGrid"></div></div></section></div>
 <div class="page" id="lessonPage"><section class="academy-page"><div class="wrap"><button class="back" id="backHome">← Back to Academy</button><div class="glass lesson-hero"><div class="lesson-icon" id="lessonIcon">🧠</div><div class="kicker" id="lessonKicker">NEXORA ACADEMY</div><h1 id="lessonTitle">Psychology</h1><p class="sub" id="lessonIntro" style="margin-left:0">Materi pembelajaran Nexora Academy.</p></div><div class="lesson-layout"><article class="glass lesson-main" id="lessonContent"></article><aside class="glass lesson-side"><h3>Academy Modules</h3><div id="lessonNav"></div><div class="tip">💡 <b>Catatan:</b> Fokus pada proses, bukan mengejar setiap pergerakan market. Gunakan materi ini sebagai edukasi, bukan ajakan transaksi.</div></aside></div></div></section></div>
 </main><div class="toast" id="toast"></div>
 <script>
@@ -236,11 +252,12 @@ function openPsychologyIndex(){showPage('psychologyPage');location.hash='psychol
 function backToAcademy(){showPage('home');location.hash='academy';setTimeout(()=>document.getElementById('academy').scrollIntoView({behavior:'smooth'}),40)}
 function openRiskIndex(){showPage('riskPage');location.hash='risk'}
 function openLiquidityIndex(){showPage('liquidityPage');location.hash='liquidity'}
+function normalizeCmsChapter(c){const box=document.createElement('div');box.innerHTML=c.content_html||'';const out=[];let cur=null;[...box.childNodes].forEach(n=>{if(n.nodeType===1&&/^H[12]$/i.test(n.tagName)){cur={t:n.textContent.trim(),h:''};out.push(cur)}else if(cur){cur.h+=n.nodeType===3?String(n.textContent).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])):n.outerHTML}else if((n.textContent||'').trim())out.push({t:'Materi',h:n.outerHTML||n.textContent});});return {id:c.slug,icon:window.nexoraCMS?.modules?.find(m=>m.slug===c.module_slug)?.icon||'📚',title:c.title,intro:c.subtitle||'',sections:out.length?out.map(x=>[x.t,x.h]):[['Materi',c.content_html||'']],module_slug:c.module_slug};}
 function openLesson(id){
   if(id==='psychology'){openPsychologyIndex();return}
   if(id==='risk'){openRiskIndex();return}
   if(id==='liquidity'){openLiquidityIndex();return}
-  const l=lessons[id];if(!l)return;
+  const l=(window.nexoraCMS?.loaded&&window.nexoraCMS.chapters?.some(c=>c.slug===id))?normalizeCmsChapter(window.nexoraCMS.chapters.find(c=>c.slug===id)):lessons[id];if(!l)return;
   showPage('lessonPage');
   document.getElementById('lessonIcon').textContent=l.icon;
   document.getElementById('lessonTitle').textContent=l.title;
@@ -248,14 +265,15 @@ function openLesson(id){
   const isPsych=id.startsWith('psychology-');
   const isRisk=id.startsWith('risk-');
   const isLiquidity=id.startsWith('liquidity-');
-  const chapters=isPsych?psychologyChapters:(isRisk?riskChapters:(isLiquidity?liquidityChapters:null));
-  const current=(isPsych||isRisk||isLiquidity)?Number(id.split('-')[1]):0;
+  const cmsChapter=window.nexoraCMS?.loaded?window.nexoraCMS.chapters?.find(c=>c.slug===id):null;
+  const chapters=cmsChapter?window.nexoraCMS.chapters.filter(c=>c.module_slug===cmsChapter.module_slug).sort((a,b)=>(a.order_index-b.order_index)||(a.chapter_no-b.chapter_no)):(isPsych?psychologyChapters:(isRisk?riskChapters:(isLiquidity?liquidityChapters:null)));
+  const current=cmsChapter?Math.max(0,chapters.findIndex(c=>c.slug===id)):((isPsych||isRisk||isLiquidity)?Number(id.split('-')[1])-1:0);
   const body=l.sections.map(s=>`<h2>${s[0]}</h2><div>${s[1]}</div>`).join('');
-  const nav=chapters?chapters.map(c=>`<button class="${c.id===id?'active':''}" onclick="openLesson('${c.id}')">${c.num} ${c.title}</button>`).join(''):order.map(x=>`<button class="${x[0]===id?'active':''}" onclick="openLesson('${x[0]}')">${x[1]} ${x[2]}</button>`).join('');
-  const pager=chapters?`<div class="lesson-actions">${current>1?`<button class="btn secondary" onclick="openLesson('${chapters[ current-2 ].id}')">← Bab Sebelumnya</button>`:''}${current<chapters.length?`<button class="btn primary" onclick="openLesson('${chapters[ current ].id}')">Bab Berikutnya →</button>`:''}</div>`:'';
-  const label=isPsych?'TRADING PSYCHOLOGY':isRisk?'RISK MANAGEMENT':isLiquidity?'LIQUIDITY SERIES':'NEXORA ACADEMY';
+  const nav=chapters?chapters.map(c=>{const cid=c.id||c.slug;const num=c.chapter_no??c.num;return `<button class="${cid===id?'active':''}" onclick="openLesson('${cid}')">${String(num).padStart(2,'0')} ${c.title}</button>`}).join(''):order.map(x=>`<button class="${x[0]===id?'active':''}" onclick="openLesson('${x[0]}')">${x[1]} ${x[2]}</button>`).join('');
+  const pager=chapters?`<div class="lesson-actions">${current>0?`<button class="btn secondary" onclick="openLesson('${chapters[current-1].id||chapters[current-1].slug}')">← Bab Sebelumnya</button>`:''}${current<chapters.length-1?`<button class="btn primary" onclick="openLesson('${chapters[current+1].id||chapters[current+1].slug}')">Bab Berikutnya →</button>`:''}</div>`:'';
+  const label=cmsChapter?(window.nexoraCMS.modules.find(m=>m.slug===cmsChapter.module_slug)?.title||'NEXORA ACADEMY'):(isPsych?'TRADING PSYCHOLOGY':isRisk?'RISK MANAGEMENT':isLiquidity?'LIQUIDITY SERIES':'NEXORA ACADEMY');
   const total=chapters?chapters.length:0;
-  document.getElementById('lessonContent').innerHTML=(chapters?`<div class="chapter-progress">BAB ${String(current).padStart(2,'0')} / ${total}</div>`:'')+body+`<div class="tip">🔥 <b>Action:</b> Catat satu insight dari materi <i>${l.title}</i>. Gunakan materi ini sebagai edukasi dan evaluasi proses, bukan jaminan hasil trading.</div>`+pager;
+  document.getElementById('lessonContent').innerHTML=(chapters?`<div class="chapter-progress">BAB ${String(current+1).padStart(2,'0')} / ${total}</div>`:'')+body+`<div class="tip">🔥 <b>Action:</b> Catat satu insight dari materi <i>${l.title}</i>. Gunakan materi ini sebagai edukasi dan evaluasi proses, bukan jaminan hasil trading.</div>`+pager;
   document.getElementById('lessonNav').innerHTML=nav;
   document.getElementById('lessonKicker').textContent='NEXORA ACADEMY • '+label;
   location.hash='lesson/'+id;
@@ -273,7 +291,7 @@ let orbTimer;
 document.addEventListener('pointerdown',e=>{const r=document.createElement('span');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);touchOrb.style.left=e.clientX+'px';touchOrb.style.top=e.clientY+'px';touchOrb.classList.remove('show');void touchOrb.offsetWidth;touchOrb.classList.add('show');clearTimeout(orbTimer);orbTimer=setTimeout(()=>touchOrb.classList.remove('show'),520);setTimeout(()=>r.remove(),850)});
 let scrollTick=false;window.addEventListener('scroll',()=>{if(scrollTick)return;scrollTick=true;requestAnimationFrame(()=>{document.querySelector('.ambient-bubbles').style.setProperty('--scroll',window.scrollY);scrollTick=false})},{passive:true});
 document.querySelectorAll('.card').forEach(card=>card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}));
-window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(h==='academy'){showPage('home');setTimeout(()=>document.getElementById('academy').scrollIntoView({behavior:'smooth'}),40)}else if(h==='home'||h==='')home()});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h.startsWith('module/')&&window.nexoraCMS?.loaded)openCmsModule(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(h==='academy'){showPage('home');setTimeout(()=>document.getElementById('academy').scrollIntoView({behavior:'smooth'}),40)}else if(h==='home'||h==='')home()});
 if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if(lessons[id])openLesson(id)}
 
 /* Nexora V7 — live market layer only */
@@ -338,6 +356,130 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 })();
 </script>
 <!-- Nexora Alpha Member Authentication -->
+
+/* ===== Nexora Education CMS runtime ===== */
+(function(){
+  const state={modules:[],chapters:[],loaded:false,seeded:false};
+  window.nexoraCMS=state;
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const slugify=v=>String(v||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||('module-'+Date.now());
+  function note(t,bad=false){const e=document.getElementById('cmsAdminNote');if(e){e.textContent=t||'';e.style.color=bad?'#ff9cab':'#9eacc7'}}
+  function moduleBySlug(slug){return state.modules.find(m=>m.slug===slug)}
+  function chaptersFor(slug){return state.chapters.filter(c=>c.module_slug===slug).sort((a,b)=>(a.order_index-b.order_index)||a.chapter_no-b.chapter_no)}
+  function normalizeChapter(c){return {id:c.slug,num:String(c.chapter_no).padStart(2,'0'),title:c.title,subtitle:c.subtitle||'',icon:moduleBySlug(c.module_slug)?.icon||'📚',intro:c.subtitle||'',sections:parseSections(c.content_html||''),module_slug:c.module_slug}}
+  function parseSections(html){
+    const box=document.createElement('div');box.innerHTML=html||'';const out=[];let current=null;
+    [...box.childNodes].forEach(n=>{
+      if(n.nodeType===1 && /^H[12]$/i.test(n.tagName)){current={title:n.textContent.trim(),html:''};out.push(current)}
+      else if(current){current.html+=n.nodeType===3?esc(n.textContent):n.outerHTML}
+      else if((n.textContent||'').trim()){out.push({title:'Materi',html:n.nodeType===3?esc(n.textContent):n.outerHTML});}
+    });
+    return out.length?out.map(x=>[x.title,x.html]):[['Materi',html||'']];
+  }
+  function chapterToHtml(c){return c.content_html||''}
+  function applyDbToLessons(){
+    state.modules.forEach(m=>{
+      const cs=chaptersFor(m.slug);
+      const intro=m.intro_html||'';
+      lessons[m.slug]={icon:m.icon||'📚',title:m.title,intro:m.description||'',sections:[]};
+      cs.forEach(c=>lessons[c.slug]=normalizeChapter(c));
+    });
+  }
+  function renderAcademy(){
+    const grid=document.getElementById('academyGrid');if(!grid)return;
+    grid.innerHTML='';
+    const mods=state.modules.length?state.modules:[
+      {slug:'psychology',icon:'🧠',title:'Trading Psychology',description:'10 bab: risk, loss, FOMO, disiplin & mindset'},
+      {slug:'risk',icon:'🛡️',title:'Risk Management',description:'8 bab: risk, sizing, SL, RR, daily risk, drawdown & capital'},
+      {slug:'liquidity',icon:'🌊',title:'Liquidity Series',description:'6 bab: BSL, SSL, pool, sweep, structure & roadmap'},
+      {slug:'structure',icon:'🏦',title:'Market Structure',description:'HH, HL, LH, LL'},
+      {slug:'fvg',icon:'🎯',title:'FVG & Order Block',description:'Imbalance & order block'},
+      {slug:'basics',icon:'📚',title:'Trading Basics',description:'Fondasi chart & plan'}
+    ];
+    mods.forEach(m=>{const cs=chaptersFor(m.slug);const el=document.createElement('article');el.className='glass card academy-card';el.innerHTML=`<div class="icon">${esc(m.icon||'📚')}</div><h3>${esc(m.title)}</h3><p class="muted">${esc(m.description||'')}</p><span class="arrow">→</span>`;el.onclick=()=>openCmsModule(m.slug);grid.appendChild(el)});
+    if(state.loaded){
+      const desc=document.querySelector('#academy .sub');if(desc)desc.textContent='Pilih modul untuk membuka halaman pembelajaran. Semua materi dikelola dari Admin Dashboard.';
+    }
+  }
+  window.openCmsModule=function(slug){
+    const m=moduleBySlug(slug); if(!m){ if(slug==='psychology')return openPsychologyIndex(); if(slug==='risk')return openRiskIndex(); if(slug==='liquidity')return openLiquidityIndex(); return; }
+    const cs=chaptersFor(slug); showPage('cmsModulePage'); location.hash='module/'+slug;
+    document.getElementById('cmsModuleKicker').textContent='NEXORA ACADEMY • '+String(m.title||'').toUpperCase();
+    document.getElementById('cmsModuleTitle').textContent=(m.icon||'📚')+' '+m.title;
+    document.getElementById('cmsModuleIntro').textContent=m.description||'';
+    const grid=document.getElementById('cmsModuleGrid');
+    grid.innerHTML=cs.length?cs.map(c=>`<article class="glass psychology-card" onclick="openLesson('${esc(c.slug)}')"><span class="psychology-number">${String(c.chapter_no).padStart(2,'0')}</span><h3>${esc(c.title)}</h3><div class="chapter-desc">${esc(c.subtitle||'')}</div><span class="arrow">→</span></article>`).join(''):'<div class="glass lesson-main"><h2>Belum ada bab</h2><p class="muted">Admin bisa menambahkan bab dari Manage Education.</p></div>';
+  };
+  window.renderCmsAdmin=function(){
+    const box=document.getElementById('cmsAdminList');if(!box)return;
+    if(!state.modules.length){box.innerHTML='<div class="empty-online">Belum ada modul di database. Tekan “Import Materi Lama” untuk memasukkan materi yang sudah ada.</div>';return}
+    box.innerHTML=state.modules.map(m=>{const cs=chaptersFor(m.slug);return `<div class="cms-row"><div class="cms-row-main"><b>${esc(m.icon||'📚')} ${esc(m.title)}</b><small>${cs.length} bab • ${esc(m.description||'')}</small></div><div class="cms-row-actions"><button class="cms-btn" onclick="cmsEditModule('${esc(m.slug)}')">Edit</button><button class="cms-btn primary" onclick="cmsAddChapter('${esc(m.slug)}')">＋ Bab</button><button class="cms-btn" onclick="cmsManageChapters('${esc(m.slug)}')">Kelola</button></div></div>`}).join('');
+  };
+  window.cmsEditModule=function(slug){const m=moduleBySlug(slug);if(m)openModuleModal(m)};
+  window.cmsAddModule=function(){openModuleModal(null)};
+  window.cmsAddChapter=function(slug){openChapterModal(null,slug)};
+  window.cmsManageChapters=function(slug){const m=moduleBySlug(slug);if(!m)return;openChaptersModal(m)};
+  function openModal(id,title,body){const root=document.getElementById(id);if(root)root.remove();const d=document.createElement('div');d.id=id;d.className='cms-modal open';d.innerHTML=`<div class="cms-dialog">${title}${body}</div>`;d.addEventListener('click',e=>{if(e.target===d)d.remove()});document.body.appendChild(d);return d}
+  function closeModal(id){document.getElementById(id)?.remove()}
+  function openModuleModal(m){
+    const edit=!!m, id='cmsModuleModal';
+    const d=openModal(id,`<h2>${edit?'✏️ Edit Modul':'＋ Tambah Modul'}</h2><p class="cms-help">Modul hanya bisa dibuat/diubah oleh admin.</p>`,`<div class="cms-field"><label>ICON</label><input id="cmsMIcon" maxlength="4" value="${esc(m?.icon||'📚')}"></div><div class="cms-field"><label>JUDUL MODUL</label><input id="cmsMTitle" maxlength="80" value="${esc(m?.title||'')}"></div><div class="cms-field"><label>DESKRIPSI</label><input id="cmsMDesc" maxlength="180" value="${esc(m?.description||'')}"></div><div class="cms-field"><label>SLUG</label><input id="cmsMSlug" maxlength="60" value="${esc(m?.slug||'')}" ${edit?'disabled':''}></div><div class="cms-field"><label>INTRO MATERI (OPSIONAL)</label><textarea id="cmsMIntro" style="min-height:140px">${esc(m?.intro_html||'')}</textarea></div><div class="cms-dialog-actions"><button class="cms-btn" onclick="closeModal('${id}')">Batal</button><button class="cms-btn primary" id="cmsMSave">Simpan</button></div>`);
+    d.querySelector('#cmsMSave').onclick=async()=>{const title=d.querySelector('#cmsMTitle').value.trim();const slug=edit?m.slug:slugify(d.querySelector('#cmsMSlug').value||title);if(!title)return note('Judul modul wajib diisi.',true);await saveModule({slug,title,icon:d.querySelector('#cmsMIcon').value.trim()||'📚',description:d.querySelector('#cmsMDesc').value.trim(),intro_html:d.querySelector('#cmsMIntro').value},edit?m.id:null);closeModal(id)};
+  }
+  function openChapterModal(c,slug){
+    const edit=!!c,id='cmsChapterModal';const next=chaptersFor(slug).length+1;
+    const d=openModal(id,`<h2>${edit?'✏️ Edit Bab':'＋ Tambah Bab'}</h2><p class="cms-help">Tulis materi HTML sederhana. Contoh: &lt;h2&gt;Pembuka&lt;/h2&gt;&lt;p&gt;Isi...&lt;/p&gt;</p>`,`<div class="cms-field"><label>NOMOR BAB</label><input id="cmsCNo" type="number" min="1" value="${c?.chapter_no||next}"></div><div class="cms-field"><label>JUDUL BAB</label><input id="cmsCTitle" maxlength="120" value="${esc(c?.title||'')}"></div><div class="cms-field"><label>SUBJUDUL</label><input id="cmsCSub" maxlength="160" value="${esc(c?.subtitle||'')}"></div><div class="cms-field"><label>ISI MATERI</label><textarea id="cmsCBody">${esc(c?.content_html||'')}</textarea></div><label class="cms-check"><input id="cmsCPub" type="checkbox" ${c?.published!==false?'checked':''}> Publish ke member</label><div class="cms-dialog-actions"><button class="cms-btn" onclick="closeModal('${id}')">Batal</button><button class="cms-btn primary" id="cmsCSave">Simpan Bab</button></div>`);
+    d.querySelector('#cmsCSave').onclick=async()=>{const title=d.querySelector('#cmsCTitle').value.trim();if(!title)return note('Judul bab wajib diisi.',true);const payload={module_slug:slug,chapter_no:Math.max(1,Number(d.querySelector('#cmsCNo').value)||1),title,subtitle:d.querySelector('#cmsCSub').value.trim(),content_html:d.querySelector('#cmsCBody').value,published:d.querySelector('#cmsCPub').checked,order_index:Math.max(0,Number(d.querySelector('#cmsCNo').value)||1)};await saveChapter(payload,edit?c.id:null);closeModal(id)};
+  }
+  function openChaptersModal(m){
+    const id='cmsChaptersModal';const d=openModal(id,`<h2>📚 ${esc(m.title)}</h2><p class="cms-help">Kelola bab. Perubahan langsung tersimpan ke database.</p>`,`<div class="cms-list" id="cmsChapterManageList"></div><div class="cms-dialog-actions"><button class="cms-btn primary" onclick="cmsAddChapter('${esc(m.slug)}');closeModal('${id}')">＋ Tambah Bab</button><button class="cms-btn" onclick="closeModal('${id}')">Tutup</button></div>`);
+    const list=d.querySelector('#cmsChapterManageList');list.innerHTML=chaptersFor(m.slug).map(c=>`<div class="cms-row"><div class="cms-row-main"><b>${String(c.chapter_no).padStart(2,'0')} — ${esc(c.title)}</b><small>${c.published?'Published':'Draft'}</small></div><div class="cms-row-actions"><button class="cms-btn" onclick="cmsEditChapter('${esc(c.id)}')">Edit</button><button class="cms-btn danger" onclick="cmsDeleteChapter('${esc(c.id)}')">Hapus</button></div></div>`).join('')||'<div class="empty-online">Belum ada bab.</div>';
+  }
+  window.cmsEditChapter=function(id){const c=state.chapters.find(x=>x.id===id);if(c)openChapterModal(c,c.module_slug)};
+  window.cmsDeleteChapter=async function(id){if(!confirm('Hapus bab ini?'))return;try{const {error}=await window.nexoraCMS.client.from('academy_chapters').delete().eq('id',id);if(error)throw error;state.chapters=state.chapters.filter(c=>c.id!==id);refreshAll();note('Bab dihapus.')}catch(e){note(e.message||'Gagal menghapus bab.',true)}};
+  async function saveModule(payload,id){try{const q=state.client.from('academy_modules');let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();if(res.error)throw res.error;if(id){const i=state.modules.findIndex(m=>m.id===id);if(i>=0)state.modules[i]=res.data}else state.modules.push(res.data);refreshAll();note('Modul tersimpan.')}catch(e){note(e.message||'Gagal menyimpan modul.',true)}}
+  async function saveChapter(payload,id){try{const q=state.client.from('academy_chapters');let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();if(res.error)throw res.error;if(id){const i=state.chapters.findIndex(c=>c.id===id);if(i>=0)state.chapters[i]=res.data}else state.chapters.push(res.data);refreshAll();note('Bab tersimpan.')}catch(e){note(e.message||'Gagal menyimpan bab.',true)}}
+  async function seedExisting(){
+    if(!state.client||state.seeded)return;
+    if(!currentProfile||currentProfile.role!=='admin')return note('Hanya admin yang boleh import materi.',true);
+    note('Mengimpor materi lama ke database...');
+    try{
+      const modules=[
+        {slug:'psychology',icon:'🧠',title:'Trading Psychology',description:'10 bab: risk, loss, FOMO, disiplin & mindset',intro_html:''},
+        {slug:'risk',icon:'🛡️',title:'Risk Management',description:'8 bab: risk, sizing, SL, RR, daily risk, drawdown & capital',intro_html:''},
+        {slug:'liquidity',icon:'🌊',title:'Liquidity Series',description:'6 bab: BSL, SSL, pool, sweep, structure & roadmap',intro_html:lessons.liquidity.sections?.[0]?.[1]||''},
+        {slug:'structure',icon:'🏦',title:'Market Structure',description:'Fondasi HH, HL, LH, LL dan cara membaca konteks structure.',intro_html:''},
+        {slug:'fvg',icon:'🎯',title:'FVG & Order Block',description:'Imbalance, Fair Value Gap, dan konsep order block.',intro_html:''},
+        {slug:'basics',icon:'📚',title:'Trading Basics',description:'Fondasi chart, setup, trading plan, dan proses belajar.',intro_html:''}
+      ];
+      for(const m of modules){let existing=state.modules.find(x=>x.slug===m.slug);if(!existing){const r=await state.client.from('academy_modules').insert(m).select().single();if(r.error)throw r.error;existing=r.data;state.modules.push(existing)}
+        let cs=existing.slug==='psychology'?psychologyChapters:(existing.slug==='risk'?riskChapters:liquidityChapters);
+        for(const c of cs){if(state.chapters.some(x=>x.slug===c.id))continue;const body=c.sections.map(s=>`<h2>${s[0]}</h2>${s[1]}`).join('');const r=await state.client.from('academy_chapters').insert({module_slug:existing.slug,slug:c.id,chapter_no:Number(c.num),title:c.title,subtitle:c.subtitle||'',content_html:body,published:true,order_index:Number(c.num)}).select().single();if(r.error)throw r.error;state.chapters.push(r.data)}
+      }
+      state.seeded=true;refreshAll();note('Import selesai. Mulai sekarang edit materi langsung dari sini.');
+    }catch(e){note(e.message||'Import gagal. Pastikan SQL CMS sudah dijalankan.',true)}
+  }
+  function refreshAll(){applyDbToLessons();renderAcademy();renderCmsAdmin();}
+  async function loadCms(client){
+    state.client=client;
+    if(!currentProfile||currentProfile.role!=='admin'){
+      const m=await client.from('academy_modules').select('*').order('created_at');
+      const c=await client.from('academy_chapters').select('*').eq('published',true).order('order_index');
+      if(!m.error)state.modules=m.data||[];if(!c.error)state.chapters=c.data||[];state.loaded=true;refreshAll();return;
+    }
+    const [m,c]=await Promise.all([client.from('academy_modules').select('*').order('created_at'),client.from('academy_chapters').select('*').order('module_slug').order('order_index')]);
+    if(m.error||c.error){note('CMS belum aktif. Jalankan SQL CMS sekali di Supabase.',true);return}
+    state.modules=m.data||[];state.chapters=c.data||[];state.loaded=true;refreshAll();
+  }
+  window.cmsLoad=loadCms;
+  window.cmsSeed=seedExisting;
+  document.getElementById('cmsAddModule')?.addEventListener('click',()=>{if(currentProfile?.role==='admin')openModuleModal(null)});
+  document.getElementById('cmsSeed')?.addEventListener('click',()=>seedExisting());
+  document.getElementById('backAcademyCms')?.addEventListener('click',()=>{showPage('home');location.hash='academy';setTimeout(()=>document.getElementById('academy')?.scrollIntoView({behavior:'smooth'}),30)});
+  const oldOpenLesson=window.openLesson;
+  window.addEventListener('nexora-cms-ready',()=>{});
+})();
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (async function(){
@@ -360,6 +502,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
     try{const {data}=await client.from('profiles').select('id,username,role').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data}}}catch(e){console.warn('profile lookup',e)}
     const admin=currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin);
     if(admin) setupAdminPresence(user); else setupMemberPresence(user);
+    if(window.nexoraCMS?.client && typeof window.cmsLoad==='function') await window.cmsLoad(window.nexoraCMS.client);
   }
   function renderOnline(){
     if(!presenceChannel)return; const state=presenceChannel.presenceState(); const rows=[]; Object.values(state).forEach(arr=>arr.forEach(x=>{if(x&&x.user_id&&!rows.some(r=>r.user_id===x.user_id))rows.push(x)}));
@@ -416,6 +559,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   function verified(user){return !!(user&&user.email_confirmed_at)}
   async function config(){const r=await fetch('/api/config',{cache:'no-store'});if(!r.ok)throw new Error('Config belum tersedia');const c=await r.json();if(!c.url||!c.key)throw new Error('Supabase config belum diisi di Vercel');return c}
   try{const c=await config();client=window.supabase.createClient(c.url,c.key)}catch(e){msg('Website belum terhubung ke Supabase. Tambahkan SUPABASE_URL dan SUPABASE_ANON_KEY di Vercel.', 'bad');return}
+  window.nexoraCMS.client=client;
   async function handleUser(user){
     if(!user){memberBtn.classList.remove('show');showGate();return}
     if(!verified(user)){showGate();setMode('login');email.value=user.email||'';resend.style.display='block';msg('Akun sudah dibuat. Silakan verifikasi email dulu, lalu login kembali.','bad');return}
