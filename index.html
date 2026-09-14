@@ -66,6 +66,8 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
 .cms-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);z-index:6000;display:none;align-items:flex-end;justify-content:center;padding:14px}.cms-modal.open{display:flex}
 .cms-dialog{width:min(760px,100%);max-height:92vh;overflow:auto;background:#0a1224;border:1px solid rgba(157,189,255,.18);border-radius:20px;padding:18px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
 .cms-dialog h2{margin:0 0 6px}.cms-help{color:#9eacc7;font-size:13px;margin:0 0 14px}.cms-field{display:grid;gap:7px;margin:12px 0}.cms-field label{font-size:11px;letter-spacing:.08em;font-weight:900;color:#aebbd4}.cms-field input,.cms-field textarea,.cms-field select{width:100%;border:1px solid rgba(157,189,255,.18);background:#070e1c;color:#fff;border-radius:12px;padding:11px 12px;font:inherit;outline:none}.cms-field textarea{min-height:240px;resize:vertical;line-height:1.55}.cms-check{display:flex;align-items:center;gap:8px;color:#c6d0e3;font-size:13px}.cms-dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}.cms-note{min-height:18px;color:#9eacc7;font-size:12px}.cms-admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.cms-mini{font-size:11px;color:#8fa0bf}
+
+body.nexora-compact section{padding-top:72px;padding-bottom:72px}.reduce-motion *,html.reduce-motion *{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
 @media(max-width:700px){.cms-row{align-items:flex-start;flex-direction:column}.cms-row-actions{width:100%;justify-content:flex-start}.cms-btn{flex:1}.cms-dialog{border-radius:18px 18px 0 0;max-height:94vh}}
 
 /* ===== NEXORA TRADING TERMINAL ===== */
@@ -108,6 +110,20 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
  .terminal-tf{flex:0 0 auto}
 }
 
+
+/* ===== NEXORA ALPHA V7 APP SHELL ===== */
+:root{--navh:76px}
+body{padding-bottom:calc(var(--navh) + 22px)}
+.nav{top:12px;width:min(1180px,calc(100% - 24px));padding:8px 12px;border-radius:22px;background:rgba(7,13,25,.72);box-shadow:0 18px 55px rgba(0,0,0,.34)}
+.navlinks{display:none!important}.menu{display:none!important}.brand{min-width:0}.brand span{font-size:12px}.brand img{width:34px;height:34px}
+.member{display:flex;align-items:center;gap:9px;padding:5px 8px 5px 5px;border:1px solid rgba(255,255,255,.08);border-radius:15px;background:rgba(255,255,255,.045);margin-left:auto}.member-dot{width:9px;height:9px;border-radius:50%;background:#5ee7ae;box-shadow:0 0 12px rgba(94,231,174,.55)}.member-info{display:flex;flex-direction:column;text-align:left;line-height:1.1}.member-info small{font-size:8px;color:#74819a;text-transform:uppercase;letter-spacing:.12em}.member-info b{font-size:11px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.top-avatar{width:30px;height:30px;border-radius:11px;object-fit:cover;background:#18243a;border:1px solid rgba(255,255,255,.1)}
+.admin-btn{margin-left:2px}
+.bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(720px,calc(100% - 20px));z-index:1200;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:7px;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:rgba(7,12,23,.82);backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);box-shadow:0 18px 70px rgba(0,0,0,.45)}
+.bottom-nav button{min-width:0;padding:8px 5px 7px;border-radius:17px;color:#8290a8;display:flex;flex-direction:column;align-items:center;gap:4px;transition:.2s}.bottom-nav button .bn-icon{font-size:18px;line-height:1}.bottom-nav button .bn-label{font-size:9px;font-weight:800;letter-spacing:.02em;white-space:nowrap}.bottom-nav button:hover,.bottom-nav button.active{color:#fff;background:rgba(157,189,255,.11);box-shadow:inset 0 0 0 1px rgba(157,189,255,.08)}
+.profile-modal{position:fixed;inset:0;z-index:1800;display:none;align-items:flex-end;justify-content:center;padding:18px;background:rgba(0,0,0,.58);backdrop-filter:blur(12px)}.profile-modal.open{display:flex}.profile-sheet{width:min(560px,100%);max-height:min(88vh,820px);overflow:auto;border:1px solid rgba(255,255,255,.12);border-radius:30px;background:linear-gradient(160deg,#111a2b,#080e1c);box-shadow:0 30px 100px rgba(0,0,0,.55);padding:22px}.profile-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.profile-head h2{font-family:Poppins;font-size:22px}.profile-close{width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.06);font-size:22px;color:#b7c1d4}.profile-hero{display:flex;align-items:center;gap:16px;padding:17px;border:1px solid rgba(255,255,255,.08);border-radius:22px;background:rgba(255,255,255,.035)}.profile-avatar-wrap{position:relative;flex:0 0 auto}.profile-avatar{width:82px;height:82px;border-radius:24px;object-fit:cover;background:#18243a;border:1px solid rgba(255,255,255,.12)}.avatar-edit{position:absolute;right:-5px;bottom:-5px;width:32px;height:32px;border-radius:11px;background:#e9f0ff;color:#081020;font-weight:900;box-shadow:0 8px 20px rgba(0,0,0,.35)}.profile-meta h3{font-family:Poppins;font-size:18px}.profile-meta p{color:#8d9ab1;font-size:12px;margin-top:4px}.profile-role{display:inline-flex;margin-top:8px;padding:5px 9px;border-radius:999px;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;background:rgba(100,231,178,.09);border:1px solid rgba(100,231,178,.16);color:#68e7b2}.profile-section{margin-top:18px}.profile-section-title{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#7e8ba2;margin:0 0 9px 3px}.profile-field{display:grid;gap:7px;margin-bottom:11px}.profile-field label{font-size:11px;color:#a7b2c7}.profile-field input,.profile-field select{width:100%;height:45px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.045);color:#fff;padding:0 13px;outline:none}.profile-field input:focus,.profile-field select:focus{border-color:rgba(157,189,255,.4);box-shadow:0 0 0 3px rgba(157,189,255,.06)}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 2px;border-bottom:1px solid rgba(255,255,255,.06)}.setting-row:last-child{border-bottom:0}.setting-copy b{display:block;font-size:12px}.setting-copy span{display:block;color:#7e8ba2;font-size:10px;margin-top:3px;line-height:1.45}.switch{position:relative;width:44px;height:25px;flex:0 0 auto}.switch input{opacity:0;width:0;height:0}.switch-ui{position:absolute;inset:0;border-radius:999px;background:#253047;transition:.2s}.switch-ui:before{content:'';position:absolute;width:19px;height:19px;left:3px;top:3px;border-radius:50%;background:#c8d2e5;transition:.2s}.switch input:checked+.switch-ui{background:#607fb9}.switch input:checked+.switch-ui:before{transform:translateX(19px);background:#fff}.profile-actions{display:flex;gap:9px;margin-top:18px;flex-wrap:wrap}.profile-actions .btn{flex:1;min-width:145px}.profile-note{font-size:10px;color:#77859c;line-height:1.55;margin-top:10px}.profile-status{font-size:11px;margin-top:9px;min-height:16px}.profile-status.good{color:#65e7b2}.profile-status.bad{color:#ff899d}.profile-link-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 3px;color:#dbe4f6;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}.profile-link-btn span:last-child{color:#71809a}.profile-admin-btn{display:none;width:100%;margin-top:10px}.profile-admin-btn.show{display:flex}
+.home-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:24px;width:min(960px,100%)}.home-quick button{padding:16px 12px;border-radius:19px;text-align:left;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);transition:.25s}.home-quick button:hover{transform:translateY(-4px);background:rgba(157,189,255,.08);border-color:rgba(157,189,255,.18)}.home-quick b{display:block;font-family:Poppins;font-size:13px;margin-top:8px}.home-quick span{display:block;color:#7f8ba1;font-size:10px;margin-top:3px}.home-quick i{font-style:normal;font-size:20px}
+@media(max-width:700px){:root{--navh:78px}.nav{top:9px}.brand span{display:none}.member-info{display:none}.member{padding:4px;border-radius:13px}.top-avatar{width:31px;height:31px}.admin-btn{display:none!important}.bottom-nav{bottom:max(9px,env(safe-area-inset-bottom));width:calc(100% - 14px);border-radius:22px;padding:6px}.bottom-nav button{padding:8px 3px 7px}.bottom-nav button .bn-icon{font-size:17px}.bottom-nav button .bn-label{font-size:8px}.profile-modal{padding:8px;align-items:flex-end}.profile-sheet{border-radius:28px;padding:18px;max-height:91vh}.profile-hero{padding:14px}.profile-avatar{width:72px;height:72px}.home-quick{grid-template-columns:1fr 1fr}.home-quick button{padding:13px 11px}}
+@media(min-width:701px){.profile-modal{align-items:center}.profile-sheet{max-height:82vh}}
 </style></head>
 <body>
 <div class="ambient-bubbles"><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span></div><div class="touch-orb" id="touchOrb"></div>
@@ -133,7 +149,7 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
     </div>
   </div>
 </div>
-<header class="nav" id="nav"><a class="brand" href="#home"><img src="logo.png" alt="Nexora Alpha"><span>NEXORA ALPHA</span></a><nav class="navlinks"><a href="#market">Market</a><a href="#macro">High-Impact News</a><a href="#academy">Education</a><a href="#community">Community</a></nav><button class="member" id="memberBtn" type="button"><span class="member-dot"></span><span class="member-info"><small>Member</small><b id="memberUsername">Guest</b></span></button><button class="admin-btn" id="adminBtn" type="button"><span class="admin-dot"></span>ADMIN</button><button class="menu" id="menu">☰</button><div class="member-menu" id="memberMenu"><div class="mm-title">Nexora Member</div><div class="mm-user" id="menuUsername">Member</div><div class="mm-email" id="menuEmail">email</div><button class="logout-btn" id="logoutBtn" type="button">LOGOUT</button></div></header>
+<header class="nav" id="nav"><a class="brand" href="#home" onclick="goSection('home');return false"><img src="logo.png" alt="Nexora Alpha"><span>NEXORA ALPHA</span></a><nav class="navlinks"><a href="#market">Market</a><a href="#macro">High-Impact News</a><a href="#academy">Education</a><a href="#community">Community</a></nav><button class="member" id="memberBtn" type="button" aria-label="Buka profil"><img class="top-avatar" id="topAvatar" src="logo.png" alt="Profile"><span class="member-dot"></span><span class="member-info"><small>Member</small><b id="memberUsername">Guest</b></span></button><button class="admin-btn" id="adminBtn" type="button"><span class="admin-dot"></span>ADMIN</button><button class="menu" id="menu">☰</button><div class="member-menu" id="memberMenu"><div class="mm-title">Nexora Member</div><div class="mm-user" id="menuUsername">Member</div><div class="mm-email" id="menuEmail">email</div><button class="logout-btn" id="logoutBtn" type="button">LOGOUT</button></div></header>
 <div class="admin-panel" id="adminPanel">
   <div class="admin-wrap">
     <div class="admin-head"><div><div class="admin-title">👑 Nexora Admin</div><div class="admin-sub">Member control &amp; live online monitoring</div></div><button class="admin-close" id="adminClose" type="button">×</button></div>
@@ -147,9 +163,44 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
   </div>
 </div>
 
+
+<!-- ===== APP BOTTOM NAV ===== -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Navigasi utama">
+  <button type="button" data-section="home" class="active" onclick="goSection('home')"><span class="bn-icon">⌂</span><span class="bn-label">Beranda</span></button>
+  <button type="button" data-section="market" onclick="goSection('market')"><span class="bn-icon">◈</span><span class="bn-label">Market</span></button>
+  <button type="button" data-section="macro" onclick="goSection('macro')"><span class="bn-icon">◉</span><span class="bn-label">News</span></button>
+  <button type="button" data-section="academy" onclick="goSection('academy')"><span class="bn-icon">▣</span><span class="bn-label">Academy</span></button>
+  <button type="button" data-section="community" onclick="goSection('community')"><span class="bn-icon">♧</span><span class="bn-label">Community</span></button>
+</nav>
+
+<!-- ===== MEMBER PROFILE / SETTINGS ===== -->
+<div class="profile-modal" id="profileModal" aria-hidden="true">
+  <div class="profile-sheet" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="profile-head"><div><div class="kicker">NEXORA MEMBER</div><h2 id="profileTitle">Profile & Settings</h2></div><button class="profile-close" id="profileClose" type="button">×</button></div>
+    <div class="profile-hero">
+      <div class="profile-avatar-wrap"><img class="profile-avatar" id="profileAvatar" src="logo.png" alt="Profile"><button class="avatar-edit" id="avatarEdit" type="button" aria-label="Ganti foto">✎</button><input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp" hidden></div>
+      <div class="profile-meta"><h3 id="profileDisplayName">Member</h3><p id="profileDisplayEmail">email</p><span class="profile-role" id="profileRole">MEMBER</span></div>
+    </div>
+    <div class="profile-section"><div class="profile-section-title">Profil pribadi</div>
+      <div class="profile-field"><label for="profileName">Nama / username</label><input id="profileName" maxlength="24" placeholder="Nama yang tampil di Nexora"></div>
+      <div class="profile-grid"><div class="profile-field"><label>Status</label><input id="profileStatusText" maxlength="60" placeholder="Contoh: Learning & growing"></div><div class="profile-field"><label>Default timeframe</label><select id="profileTimeframe"><option value="1">1m</option><option value="5">5m</option><option value="15">15m</option><option value="30">30m</option><option value="60">1H</option><option value="240">4H</option><option value="D">1D</option><option value="W">1W</option><option value="M">1M</option></select></div></div>
+      <div class="profile-actions"><button class="btn primary" id="saveProfileBtn" type="button">Simpan Profil</button><button class="btn secondary" id="profileLogoutBtn" type="button">Logout</button></div><div class="profile-status" id="profileStatus"></div>
+      <div class="profile-note">Foto profil disimpan ke Supabase Storage. Nama dan pengaturan tersimpan di profil member sendiri; role ADMIN tetap tidak bisa diubah dari sini.</div>
+    </div>
+    <div class="profile-section"><div class="profile-section-title">Pengaturan</div>
+      <div class="setting-row"><div class="setting-copy"><b>Notifikasi Nexora</b><span>Izinkan notifikasi lokal untuk update penting.</span></div><label class="switch"><input id="setNotifications" type="checkbox"><span class="switch-ui"></span></label></div>
+      <div class="setting-row"><div class="setting-copy"><b>Auto-refresh market</b><span>Refresh tampilan market secara berkala saat tersedia.</span></div><label class="switch"><input id="setAutoRefresh" type="checkbox" checked><span class="switch-ui"></span></label></div>
+      <div class="setting-row"><div class="setting-copy"><b>Kurangi animasi</b><span>Meminimalkan motion untuk tampilan yang lebih ringan.</span></div><label class="switch"><input id="setReduceMotion" type="checkbox"><span class="switch-ui"></span></label></div>
+      <div class="setting-row"><div class="setting-copy"><b>Mode compact</b><span>Kurangi jarak antar elemen untuk layar kecil.</span></div><label class="switch"><input id="setCompact" type="checkbox"><span class="switch-ui"></span></label></div>
+      <div class="profile-field" style="margin-top:12px"><label for="setLanguage">Bahasa interface</label><select id="setLanguage"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select></div>
+      <button class="btn secondary" id="saveSettingsBtn" type="button" style="width:100%;margin-top:2px">Simpan Pengaturan</button>
+    </div>
+    <div class="profile-section"><div class="profile-section-title">Akses cepat</div><button class="profile-link-btn" type="button" onclick="goSection('academy');closeProfile()"><span>📚 Progress & Academy</span><span>→</span></button><button class="profile-link-btn" type="button" onclick="goSection('market');closeProfile()"><span>📈 Trading Terminal</span><span>→</span></button><button class="profile-link-btn" type="button" onclick="goSection('community');closeProfile()"><span>👥 Community & WhatsApp</span><span>→</span></button><button class="btn secondary profile-admin-btn" id="profileAdminBtn" type="button">👑 Buka Admin Dashboard</button></div>
+  </div>
+</div>
 <main>
 <div class="page active" id="home">
-<section class="hero"><img class="hero-logo" src="logo.png" alt="Nexora Alpha logo"><div class="eyebrow">NEXORA ALPHA • V6 ELITE</div><h1>WELCOME TO THE NEXORA ALPHA ERA</h1><p>Trade Smart. Manage Risk. Build Legacy. Jelajahi market, bangun fondasi trading, dan pelajari cara membaca pergerakan harga dengan lebih terstruktur.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">✦ Join Nexora</a><a class="btn secondary" href="#academy">Explore Academy →</a></div></section>
+<section class="hero"><img class="hero-logo" src="logo.png" alt="Nexora Alpha logo"><div class="eyebrow">NEXORA ALPHA • V6 ELITE</div><h1>WELCOME TO THE NEXORA ALPHA ERA</h1><p>Trade Smart. Manage Risk. Build Legacy. Jelajahi market, bangun fondasi trading, dan pelajari cara membaca pergerakan harga dengan lebih terstruktur.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">✦ Join Nexora</a><a class="btn secondary" href="#academy">Explore Academy →</a></div><div class="home-quick"><button type="button" onclick="goSection('market')"><i>📈</i><b>Market</b><span>Terminal & live chart</span></button><button type="button" onclick="goSection('macro')"><i>📰</i><b>News</b><span>FOMC, CPI, PPI & NFP</span></button><button type="button" onclick="goSection('academy')"><i>🎓</i><b>Academy</b><span>Belajar trading terstruktur</span></button><button type="button" onclick="goSection('community')"><i>👥</i><b>Community</b><span>WhatsApp resmi Nexora</span></button></div></section>
 <section id="market"><div class="wrap"><div class="section-head"><div class="kicker">Market Intelligence</div><h2 class="title">Market Dashboard</h2><p class="sub">Harga market diperbarui otomatis dari live market-data feed. Data ditampilkan sebagai informasi pasar, bukan sinyal trading.</p></div><div class="grid market-live-grid"><article class="glass card market-card live-widget-card"><div class="icon">🟡</div><h3>XAUUSD</h3><p class="muted">Gold / USD • OANDA</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"OANDA:XAUUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● LIVE FEED</span></article><article class="glass card market-card live-widget-card"><div class="icon">💱</div><h3>FOREX</h3><p class="muted">EUR / USD • FX</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"FX:EURUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● LIVE FEED</span></article><article class="glass card market-card live-widget-card"><div class="icon">₿</div><h3>CRYPTO</h3><p class="muted">BTC / USD • Binance</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"BINANCE:BTCUSDT","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● LIVE FEED</span></article><article class="glass card market-card live-widget-card"><div class="icon">📈</div><h3>STOCKS</h3><p class="muted">AAPL / NASDAQ</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"NASDAQ:AAPL","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● MARKET DATA</span></article></div><div class="glass chart-panel"><div class="chart-head"><div><div class="chart-title">Nexora Market Flow</div><small class="muted">Live XAUUSD • OANDA</small></div><div class="ticker">● LIVE FEED</div></div><div class="tv-flow"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>{"symbols":[["OANDA:XAUUSD|5"]],"chartOnly":true,"width":"100%","height":"100%","locale":"en","colorTheme":"dark","autosize":true,"showVolume":false,"showMA":false,"hideDateRanges":true,"hideMarketStatus":false,"hideSymbolLogo":true,"scalePosition":"right","scaleMode":"Normal","fontSize":"10","noTimeScale":false,"valuesTracking":"1","changeMode":"price-and-percent","chartType":"candlesticks","dateRanges":["1d|5","5d|15","1m|60"]}</script></div></div></div>
 <div class="glass trading-terminal" id="tradingTerminal">
   <div class="terminal-head">
@@ -348,7 +399,17 @@ liquidityChapters.forEach(c=>{const el=document.createElement('article');el.clas
 if(document.getElementById('liquidityIntro'))document.getElementById('liquidityIntro').innerHTML=liquidityIntro[1];
 const psychologyGrid=document.getElementById('psychologyGrid');
 psychologyChapters.forEach(c=>{const el=document.createElement('article');el.className='glass psychology-card';el.innerHTML=`<span class="psychology-number">${c.num}</span><h3>${c.title}</h3><div class="chapter-desc">${c.subtitle}</div><span class="arrow">→</span>`;el.onclick=()=>openLesson(c.id);psychologyGrid.appendChild(el)});
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function setBottomActive(id){document.querySelectorAll('#bottomNav [data-section]').forEach(b=>b.classList.toggle('active',b.dataset.section===id));}
+function goSection(id){
+  setBottomActive(id);
+  if(id==='home'){showPage('home');location.hash='home';return;}
+  const targetMap={market:'market',macro:'macro',academy:'academy',community:'community'};
+  const target=document.getElementById(targetMap[id]||id);
+  if(document.getElementById('home')?.classList.contains('active') && target){target.scrollIntoView({behavior:'smooth',block:'start'});location.hash=id;return;}
+  showPage('home');location.hash=id;setTimeout(()=>document.getElementById(targetMap[id]||id)?.scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+
 function openPsychologyIndex(){showPage('psychologyPage');location.hash='psychology'}
 function backToAcademy(){showPage('home');location.hash='academy';setTimeout(()=>document.getElementById('academy').scrollIntoView({behavior:'smooth'}),40)}
 function openRiskIndex(){showPage('riskPage');location.hash='risk'}
@@ -382,7 +443,7 @@ function openLesson(id){
   document.getElementById('lessonKicker').textContent='NEXORA ACADEMY • '+label;
   location.hash='lesson/'+id;
 }
-function home(){showPage('home');location.hash='home'}
+function home(){showPage('home');setBottomActive('home');location.hash='home'}
 function backToAcademyLiquidity(){backToAcademy()}
 document.getElementById('backHome').onclick=home;document.getElementById('backAcademy').onclick=backToAcademy;document.getElementById('backAcademyRisk').onclick=backToAcademy;document.getElementById('backAcademyLiquidity').onclick=backToAcademyLiquidity;
 document.getElementById('menu').onclick=()=>document.getElementById('nav').classList.toggle('open');
@@ -395,7 +456,7 @@ let orbTimer;
 document.addEventListener('pointerdown',e=>{const r=document.createElement('span');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);touchOrb.style.left=e.clientX+'px';touchOrb.style.top=e.clientY+'px';touchOrb.classList.remove('show');void touchOrb.offsetWidth;touchOrb.classList.add('show');clearTimeout(orbTimer);orbTimer=setTimeout(()=>touchOrb.classList.remove('show'),520);setTimeout(()=>r.remove(),850)});
 let scrollTick=false;window.addEventListener('scroll',()=>{if(scrollTick)return;scrollTick=true;requestAnimationFrame(()=>{document.querySelector('.ambient-bubbles').style.setProperty('--scroll',window.scrollY);scrollTick=false})},{passive:true});
 document.querySelectorAll('.card').forEach(card=>card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}));
-window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h.startsWith('module/')&&window.nexoraCMS?.loaded)openCmsModule(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(h==='academy'){showPage('home');setTimeout(()=>document.getElementById('academy').scrollIntoView({behavior:'smooth'}),40)}else if(h==='home'||h==='')home()});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h.startsWith('module/')&&window.nexoraCMS?.loaded)openCmsModule(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(['market','macro','academy','community'].includes(h)){setBottomActive(h);showPage('home');setTimeout(()=>document.getElementById(h)?.scrollIntoView({behavior:'smooth',block:'start'}),40)}else if(h==='home'||h==='')home()});
 if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if(lessons[id])openLesson(id)}
 
 /* Nexora V7 — live market layer only */
@@ -1007,6 +1068,71 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   logout.onclick=async()=>{if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch(e){}presenceChannel=null}if(adminProfileChannel){try{await client.removeChannel(adminProfileChannel)}catch(e){}adminProfileChannel=null}adminPanel.classList.remove('open');await client.auth.signOut();memberMenu.classList.remove('open');document.getElementById('adminBtn').classList.remove('show');if(window.nexoraCMS) window.nexoraCMS.isAdmin=false;showGate();setMode('login');email.value='';pass.value='';msg('Kamu sudah logout.','good')};
   client.auth.onAuthStateChange(async(event,session)=>{if(event==='PASSWORD_RECOVERY'){showGate();loginTab.style.display='none';registerTab.style.display='none';usernameWrap.style.display='none';confirmWrap.style.display='block';confirmWrap.querySelector('label').textContent='NEW PASSWORD';confirm.placeholder='Masukkan password baru';submit.textContent='SIMPAN PASSWORD';forgot.style.display='none';form.onsubmit=null;form.addEventListener('submit',async function resetHandler(ev){if(submit.textContent!=='SIMPAN PASSWORD')return;ev.preventDefault();if(pass.value.length<6)return msg('Password minimal 6 karakter.','bad');if(pass.value!==confirm.value)return msg('Konfirmasi password tidak sama.','bad');submit.disabled=true;try{const {error}=await client.auth.updateUser({password:pass.value});if(error)throw error;msg('Password berhasil diperbarui. Silakan login kembali.','good');await client.auth.signOut();setTimeout(()=>location.reload(),900)}catch(e){msg(e.message,'bad')}finally{submit.disabled=false}}, {once:true});return} if(event==='SIGNED_IN'&&session?.user)handleUser(session.user)});
   const {data:{session}}=await client.auth.getSession(); await handleUser(session?.user||null);
+
+  /* ===== MEMBER PROFILE + SETTINGS ===== */
+  const profileModal=document.getElementById('profileModal'), profileClose=document.getElementById('profileClose'), avatarInput=document.getElementById('avatarInput');
+  const profileAvatar=document.getElementById('profileAvatar'), topAvatar=document.getElementById('topAvatar'), profileName=document.getElementById('profileName'), profileDisplayName=document.getElementById('profileDisplayName'), profileDisplayEmail=document.getElementById('profileDisplayEmail'), profileRole=document.getElementById('profileRole'), profileStatusText=document.getElementById('profileStatusText'), profileTimeframe=document.getElementById('profileTimeframe'), profileStatus=document.getElementById('profileStatus');
+  const setNotifications=document.getElementById('setNotifications'), setAutoRefresh=document.getElementById('setAutoRefresh'), setReduceMotion=document.getElementById('setReduceMotion'), setCompact=document.getElementById('setCompact'), setLanguage=document.getElementById('setLanguage');
+  let pendingAvatarFile=null;
+  function closeProfile(){profileModal.classList.remove('open');profileModal.setAttribute('aria-hidden','true')}
+  window.closeProfile=closeProfile;
+  function profileMsg(text,good=false){profileStatus.textContent=text;profileStatus.className='profile-status '+(good?'good':'bad');}
+  function applyLocalSettings(settings={}){
+    document.body.classList.toggle('nexora-compact',!!settings.compact);
+    document.documentElement.classList.toggle('reduce-motion',!!settings.reduceMotion);
+    if(settings.compact) document.body.style.setProperty('--navh','70px'); else document.body.style.removeProperty('--navh');
+    setNotifications.checked=!!settings.notifications;
+    setAutoRefresh.checked=settings.autoRefresh!==false;
+    setReduceMotion.checked=!!settings.reduceMotion;
+  }
+  function loadSettings(settings={}){
+    setNotifications.checked=!!settings.notifications;setAutoRefresh.checked=settings.autoRefresh!==false;setReduceMotion.checked=!!settings.reduceMotion;document.getElementById('setCompact').checked=!!settings.compact;setLanguage.value=settings.language||'id';profileStatusText.value=settings.status||'';profileTimeframe.value=String(settings.defaultTimeframe||'15');applyLocalSettings({...settings,compact:!!settings.compact,reduceMotion:!!settings.reduceMotion});
+  }
+  function currentSettings(){return {notifications:setNotifications.checked,autoRefresh:setAutoRefresh.checked,reduceMotion:setReduceMotion.checked,compact:document.getElementById('setCompact').checked,language:setLanguage.value,status:profileStatusText.value.trim(),defaultTimeframe:profileTimeframe.value};}
+  async function openProfile(){
+    if(!currentProfile){return}
+    profileMsg('');
+    profileName.value=currentProfile.username||'';profileDisplayName.textContent=currentProfile.username||'Member';profileDisplayEmail.textContent=currentProfile.email||'';profileRole.textContent=(currentProfile.role||'member').toUpperCase();
+    const avatar=currentProfile.avatar_url||'logo.png';profileAvatar.src=avatar;topAvatar.src=avatar;
+    loadSettings(currentProfile.settings||{});
+    const pab=document.getElementById('profileAdminBtn');pab.classList.toggle('show',currentProfile.role==='admin');
+    profileModal.classList.add('open');profileModal.setAttribute('aria-hidden','false');
+  }
+  memberBtn.onclick=()=>{memberMenu.classList.remove('open');openProfile()};
+  profileClose.onclick=closeProfile;profileModal.addEventListener('click',e=>{if(e.target===profileModal)closeProfile()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProfile()});
+  document.getElementById('avatarEdit').onclick=()=>avatarInput.click();
+  avatarInput.onchange=e=>{pendingAvatarFile=e.target.files?.[0]||null;if(pendingAvatarFile){profileAvatar.src=URL.createObjectURL(pendingAvatarFile);profileMsg('Foto siap diupload. Tekan Simpan Profil.',true)}};
+  async function uploadAvatar(file){
+    if(!file||!currentProfile) return currentProfile?.avatar_url||'logo.png';
+    if(file.size>4*1024*1024) throw new Error('Ukuran foto maksimal 4 MB.');
+    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+    const path=currentProfile.id+'/'+Date.now()+'.'+ext;
+    const {error}=await client.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type||'image/jpeg',cacheControl:'3600'});
+    if(error) throw new Error('Upload foto gagal. Pastikan bucket Storage “avatars” sudah dibuat lewat SQL setup Nexora.');
+    const {data}=client.storage.from('avatars').getPublicUrl(path);return data.publicUrl;
+  }
+  document.getElementById('saveProfileBtn').onclick=async()=>{
+    if(!currentProfile)return;const name=profileName.value.trim();if(!/^[A-Za-z0-9_ .-]{3,24}$/.test(name))return profileMsg('Nama 3–24 karakter. Gunakan huruf, angka, spasi, _ , . atau -.');
+    const btn=document.getElementById('saveProfileBtn');btn.disabled=true;profileMsg('Menyimpan...');
+    try{
+      let avatar=currentProfile.avatar_url||null;if(pendingAvatarFile)avatar=await uploadAvatar(pendingAvatarFile);
+      const nextSettings={...(currentProfile.settings||{}),...currentSettings()};
+      const {data,error}=await client.from('profiles').update({username:name,avatar_url:avatar,settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
+      if(error)throw error;currentProfile={...currentProfile,...data,email:currentProfile.email};
+      profileDisplayName.textContent=name;profileName.value=name;profileAvatar.src=avatar||'logo.png';topAvatar.src=avatar||'logo.png';memberUsername.textContent=name;menuUsername.textContent=name;pendingAvatarFile=null;avatarInput.value='';applyLocalSettings(nextSettings);profileMsg('Profil berhasil diperbarui.',true);
+    }catch(e){profileMsg(e.message||'Gagal menyimpan profil.')}finally{btn.disabled=false}
+  };
+  document.getElementById('saveSettingsBtn').onclick=async()=>{
+    if(!currentProfile)return;const btn=document.getElementById('saveSettingsBtn');btn.disabled=true;profileMsg('Menyimpan pengaturan...');
+    try{const nextSettings={...(currentProfile.settings||{}),...currentSettings()};const {data,error}=await client.from('profiles').update({settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();if(error)throw error;currentProfile={...currentProfile,...data,email:currentProfile.email};applyLocalSettings(nextSettings);profileMsg('Pengaturan berhasil disimpan.',true);
+      if(nextSettings.notifications&&'Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{});
+    }catch(e){profileMsg(e.message||'Gagal menyimpan pengaturan.')}finally{btn.disabled=false}
+  };
+  document.getElementById('profileAdminBtn').onclick=()=>{closeProfile();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');renderOnline();}};
+  document.getElementById('profileLogoutBtn').onclick=()=>logout.click();
+  const _oldProfile=profile;
+  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
   if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
 })();
 </script>
