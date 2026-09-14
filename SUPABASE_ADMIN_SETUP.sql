@@ -111,3 +111,19 @@ with check (
 -- After running this SQL, verify your profile:
 -- select id, email, raw_user_meta_data->>'username' as username from auth.users;
 -- select id, username, role from public.profiles;
+
+-- ===== ADMIN NEW-MEMBER NOTIFICATIONS =====
+-- Enable Postgres INSERT events for public.profiles so the admin dashboard
+-- receives a realtime notification whenever a new member registers.
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'profiles'
+  ) then
+    alter publication supabase_realtime add table public.profiles;
+  end if;
+end $$;
