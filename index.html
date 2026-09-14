@@ -274,8 +274,10 @@ function openLesson(id){
   const chapters=cmsChapter?window.nexoraCMS.chapters.filter(c=>c.module_slug===cmsChapter.module_slug).sort((a,b)=>(a.order_index-b.order_index)||(a.chapter_no-b.chapter_no)):(isPsych?psychologyChapters:(isRisk?riskChapters:(isLiquidity?liquidityChapters:null)));
   const current=cmsChapter?Math.max(0,chapters.findIndex(c=>c.slug===id)):((isPsych||isRisk||isLiquidity)?Number(id.split('-')[1])-1:0);
   const body=l.sections.map(s=>`<h2>${s[0]}</h2><div>${s[1]}</div>`).join('');
-  const nav=chapters?chapters.map(c=>{const cid=c.id||c.slug;const num=c.chapter_no??c.num;return `<button class="${cid===id?'active':''}" onclick="openLesson('${cid}')">${String(num).padStart(2,'0')} ${c.title}</button>`}).join(''):order.map(x=>`<button class="${x[0]===id?'active':''}" onclick="openLesson('${x[0]}')">${x[1]} ${x[2]}</button>`).join('');
-  const pager=chapters?`<div class="lesson-actions">${current>0?`<button class="btn secondary" onclick="openLesson('${chapters[current-1].id||chapters[current-1].slug}')">← Bab Sebelumnya</button>`:''}${current<chapters.length-1?`<button class="btn primary" onclick="openLesson('${chapters[current+1].id||chapters[current+1].slug}')">Bab Berikutnya →</button>`:''}</div>`:'';
+  // Navigation uses data attributes + delegated click handlers instead of inline onclick.
+  // This is more reliable on mobile browsers and when the lesson content is re-rendered.
+  const nav=chapters?chapters.map(c=>{const cid=c.id||c.slug;const num=c.chapter_no??c.num;return `<button type="button" class="${cid===id?'active':''}" data-open-lesson="${esc(cid)}">${String(num).padStart(2,'0')} ${esc(c.title)}</button>`}).join(''):order.map(x=>`<button type="button" data-open-lesson="${esc(x[0])}">${esc(x[1])} ${esc(x[2])}</button>`).join('');
+  const pager=chapters?`<div class="lesson-actions">${current>0?`<button type="button" class="btn secondary" data-open-lesson="${esc(chapters[current-1].id||chapters[current-1].slug)}">← Bab Sebelumnya</button>`:''}${current<chapters.length-1?`<button type="button" class="btn primary" data-open-lesson="${esc(chapters[current+1].id||chapters[current+1].slug)}">Bab Berikutnya →</button>`:''}</div>`:'';
   const label=cmsChapter?(window.nexoraCMS.modules.find(m=>m.slug===cmsChapter.module_slug)?.title||'NEXORA ACADEMY'):(isPsych?'TRADING PSYCHOLOGY':isRisk?'RISK MANAGEMENT':isLiquidity?'LIQUIDITY SERIES':'NEXORA ACADEMY');
   const total=chapters?chapters.length:0;
   document.getElementById('lessonContent').innerHTML=(chapters?`<div class="chapter-progress">BAB ${String(current+1).padStart(2,'0')} / ${total}</div>`:'')+body+`<div class="tip">🔥 <b>Action:</b> Catat satu insight dari materi <i>${l.title}</i>. Gunakan materi ini sebagai edukasi dan evaluasi proses, bukan jaminan hasil trading.</div>`+pager;
@@ -283,6 +285,17 @@ function openLesson(id){
   document.getElementById('lessonKicker').textContent='NEXORA ACADEMY • '+label;
   location.hash='lesson/'+id;
 }
+// Keep the lesson opener explicitly available to dynamically-rendered controls.
+window.openLesson=openLesson;
+const lessonClickHandler=(e)=>{
+  const btn=e.target.closest?.('[data-open-lesson]');
+  if(!btn)return;
+  e.preventDefault();
+  const target=btn.getAttribute('data-open-lesson');
+  if(target)window.openLesson(target);
+};
+document.getElementById('lessonContent')?.addEventListener('click',lessonClickHandler);
+document.getElementById('lessonNav')?.addEventListener('click',lessonClickHandler);
 function home(){showPage('home');location.hash='home'}
 function backToAcademyLiquidity(){backToAcademy()}
 document.getElementById('backHome').onclick=home;document.getElementById('backAcademy').onclick=backToAcademy;document.getElementById('backAcademyRisk').onclick=backToAcademy;document.getElementById('backAcademyLiquidity').onclick=backToAcademyLiquidity;
@@ -460,8 +473,17 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
     document.getElementById('cmsModuleTitle').textContent=(m.icon||'📚')+' '+m.title;
     document.getElementById('cmsModuleIntro').textContent=m.description||'';
     const grid=document.getElementById('cmsModuleGrid');
-    grid.innerHTML=cs.length?cs.map(c=>`<article class="glass psychology-card" onclick="openLesson('${esc(c.slug)}')"><span class="psychology-number">${String(c.chapter_no).padStart(2,'0')}</span><h3>${esc(c.title)}</h3><div class="chapter-desc">${esc(c.subtitle||'')}</div><span class="arrow">→</span></article>`).join(''):'<div class="glass lesson-main"><h2>Belum ada bab</h2><p class="muted">Admin bisa menambahkan bab dari Manage Education.</p></div>';
+    grid.innerHTML=cs.length?cs.map(c=>`<article class="glass psychology-card" role="button" tabindex="0" data-open-lesson="${esc(c.slug)}"><span class="psychology-number">${String(c.chapter_no).padStart(2,'0')}</span><h3>${esc(c.title)}</h3><div class="chapter-desc">${esc(c.subtitle||'')}</div><span class="arrow">→</span></article>`).join(''):'<div class="glass lesson-main"><h2>Belum ada bab</h2><p class="muted">Admin bisa menambahkan bab dari Manage Education.</p></div>';
   };
+  document.getElementById('cmsModuleGrid')?.addEventListener('click',e=>{
+    const el=e.target.closest?.('[data-open-lesson]');
+    if(el)window.openLesson(el.getAttribute('data-open-lesson'));
+  });
+  document.getElementById('cmsModuleGrid')?.addEventListener('keydown',e=>{
+    if(e.key!=='Enter' && e.key!==' ')return;
+    const el=e.target.closest?.('[data-open-lesson]');
+    if(el){e.preventDefault();window.openLesson(el.getAttribute('data-open-lesson'));}
+  });
   window.renderCmsAdmin=function(){
     const box=document.getElementById('cmsAdminList');if(!box)return;
     if(!state.modules.length){box.innerHTML='<div class="empty-online">Belum ada modul di database. Tekan “Import Materi Lama” untuk memasukkan materi yang sudah ada.</div>';return}
