@@ -360,7 +360,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 <script>
 /* ===== Nexora Education CMS runtime ===== */
 (function(){
-  const state={modules:[],chapters:[],loaded:false,seeded:false};
+  const state={modules:[],chapters:[],loaded:false,seeded:false,isAdmin:false};
   window.nexoraCMS=state;
   const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   const slugify=v=>String(v||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||('module-'+Date.now());
@@ -418,7 +418,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   };
   window.cmsEditModule=function(slug){const m=moduleBySlug(slug);if(m)openModuleModal(m)};
   window.cmsAddModule=function(){
-    const isAdmin=document.getElementById('adminBtn')?.classList.contains('show') && currentProfile?.role==='admin';
+    const isAdmin=state.isAdmin===true;
     if(!isAdmin){note('Akses ditolak. Hanya ADMIN yang bisa mengubah materi.',true);return}
     openModuleModal(null);
   };
@@ -446,7 +446,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   async function saveChapter(payload,id){try{const q=state.client.from('academy_chapters');let res=id?await q.update(payload).eq('id',id).select().single():await q.insert(payload).select().single();if(res.error)throw res.error;if(id){const i=state.chapters.findIndex(c=>c.id===id);if(i>=0)state.chapters[i]=res.data}else state.chapters.push(res.data);refreshAll();note('Bab tersimpan.')}catch(e){note(e.message||'Gagal menyimpan bab.',true)}}
   async function seedExisting(){
     if(!state.client||state.seeded)return;
-    if(!currentProfile||currentProfile.role!=='admin')return note('Hanya admin yang boleh import materi.',true);
+    if(!state.isAdmin)return note('Hanya ADMIN yang boleh import materi.',true);
     note('Mengimpor materi lama ke database...');
     try{
       const modules=[
@@ -467,7 +467,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   function refreshAll(){applyDbToLessons();renderAcademy();renderCmsAdmin();}
   async function loadCms(client){
     state.client=client;
-    if(!currentProfile||currentProfile.role!=='admin'){
+    if(!state.isAdmin){
       const m=await client.from('academy_modules').select('*').order('created_at');
       const c=await client.from('academy_chapters').select('*').eq('published',true).order('order_index');
       if(!m.error)state.modules=m.data||[];if(!c.error)state.chapters=c.data||[];state.loaded=true;refreshAll();return;
@@ -478,7 +478,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   }
   window.cmsLoad=loadCms;
   window.cmsSeed=async function(){
-    const isAdmin=document.getElementById('adminBtn')?.classList.contains('show') && currentProfile?.role==='admin';
+    const isAdmin=state.isAdmin===true;
     if(!isAdmin){note('Akses ditolak. Hanya ADMIN yang bisa import materi.',true);return}
     const btn=document.getElementById('cmsSeed');
     if(btn){btn.disabled=true;btn.textContent='⏳ Mengimpor...'}
@@ -512,7 +512,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
     document.getElementById('memberUsername').textContent=u;document.getElementById('menuUsername').textContent=u;document.getElementById('menuEmail').textContent=user.email;memberBtn.classList.add('show');
     currentProfile={id:user.id,username:u,email:user.email,role:'member'};
     try{const {data}=await client.from('profiles').select('id,username,role').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data}}}catch(e){console.warn('profile lookup',e)}
-    const admin=currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin);
+    const admin=currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin); if(window.nexoraCMS) window.nexoraCMS.isAdmin=admin;
     // Jangan blokir login gara-gara realtime/CMS. Semua ini dijalankan di background.
     if(admin) setupAdminPresence(user).catch(e=>console.warn('admin presence',e));
     else setupMemberPresence(user).catch(e=>console.warn('member presence',e));
@@ -604,7 +604,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   adminClose.onclick=()=>adminPanel.classList.remove('open');
 
   document.addEventListener('click',e=>{if(!memberBtn.contains(e.target)&&!memberMenu.contains(e.target))memberMenu.classList.remove('open')});
-  logout.onclick=async()=>{if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch(e){}presenceChannel=null}if(adminProfileChannel){try{await client.removeChannel(adminProfileChannel)}catch(e){}adminProfileChannel=null}adminPanel.classList.remove('open');await client.auth.signOut();memberMenu.classList.remove('open');document.getElementById('adminBtn').classList.remove('show');showGate();setMode('login');email.value='';pass.value='';msg('Kamu sudah logout.','good')};
+  logout.onclick=async()=>{if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch(e){}presenceChannel=null}if(adminProfileChannel){try{await client.removeChannel(adminProfileChannel)}catch(e){}adminProfileChannel=null}adminPanel.classList.remove('open');await client.auth.signOut();memberMenu.classList.remove('open');document.getElementById('adminBtn').classList.remove('show');if(window.nexoraCMS) window.nexoraCMS.isAdmin=false;showGate();setMode('login');email.value='';pass.value='';msg('Kamu sudah logout.','good')};
   client.auth.onAuthStateChange(async(event,session)=>{if(event==='PASSWORD_RECOVERY'){showGate();loginTab.style.display='none';registerTab.style.display='none';usernameWrap.style.display='none';confirmWrap.style.display='block';confirmWrap.querySelector('label').textContent='NEW PASSWORD';confirm.placeholder='Masukkan password baru';submit.textContent='SIMPAN PASSWORD';forgot.style.display='none';form.onsubmit=null;form.addEventListener('submit',async function resetHandler(ev){if(submit.textContent!=='SIMPAN PASSWORD')return;ev.preventDefault();if(pass.value.length<6)return msg('Password minimal 6 karakter.','bad');if(pass.value!==confirm.value)return msg('Konfirmasi password tidak sama.','bad');submit.disabled=true;try{const {error}=await client.auth.updateUser({password:pass.value});if(error)throw error;msg('Password berhasil diperbarui. Silakan login kembali.','good');await client.auth.signOut();setTimeout(()=>location.reload(),900)}catch(e){msg(e.message,'bad')}finally{submit.disabled=false}}, {once:true});return} if(event==='SIGNED_IN'&&session?.user)handleUser(session.user)});
   const {data:{session}}=await client.auth.getSession(); await handleUser(session?.user||null);
   if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
