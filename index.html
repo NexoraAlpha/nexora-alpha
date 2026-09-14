@@ -61,7 +61,7 @@ body.auth-locked{overflow:hidden}body.auth-locked>#nav,body.auth-locked>main{vis
 .cms-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);border-radius:14px}
 .cms-row-main{min-width:0}.cms-row-main b{display:block}.cms-row-main small{display:block;color:#9eacc7;margin-top:4px}.cms-row-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
 .cms-status{font-size:11px;font-weight:900;letter-spacing:.08em;padding:4px 7px;border-radius:999px;background:rgba(70,210,140,.1);color:#8ff0bd}.cms-status.draft{background:rgba(255,190,70,.1);color:#ffd47a}
-.cms-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);z-index:1200;display:none;align-items:flex-end;justify-content:center;padding:14px}.cms-modal.open{display:flex}
+.cms-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);z-index:6000;display:none;align-items:flex-end;justify-content:center;padding:14px}.cms-modal.open{display:flex}
 .cms-dialog{width:min(760px,100%);max-height:92vh;overflow:auto;background:#0a1224;border:1px solid rgba(157,189,255,.18);border-radius:20px;padding:18px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
 .cms-dialog h2{margin:0 0 6px}.cms-help{color:#9eacc7;font-size:13px;margin:0 0 14px}.cms-field{display:grid;gap:7px;margin:12px 0}.cms-field label{font-size:11px;letter-spacing:.08em;font-weight:900;color:#aebbd4}.cms-field input,.cms-field textarea,.cms-field select{width:100%;border:1px solid rgba(157,189,255,.18);background:#070e1c;color:#fff;border-radius:12px;padding:11px 12px;font:inherit;outline:none}.cms-field textarea{min-height:240px;resize:vertical;line-height:1.55}.cms-check{display:flex;align-items:center;gap:8px;color:#c6d0e3;font-size:13px}.cms-dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}.cms-note{min-height:18px;color:#9eacc7;font-size:12px}.cms-admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.cms-mini{font-size:11px;color:#8fa0bf}
 @media(max-width:700px){.cms-row{align-items:flex-start;flex-direction:column}.cms-row-actions{width:100%;justify-content:flex-start}.cms-btn{flex:1}.cms-dialog{border-radius:18px 18px 0 0;max-height:94vh}}
@@ -417,7 +417,11 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
     box.innerHTML=state.modules.map(m=>{const cs=chaptersFor(m.slug);return `<div class="cms-row"><div class="cms-row-main"><b>${esc(m.icon||'📚')} ${esc(m.title)}</b><small>${cs.length} bab • ${esc(m.description||'')}</small></div><div class="cms-row-actions"><button class="cms-btn" onclick="cmsEditModule('${esc(m.slug)}')">Edit</button><button class="cms-btn primary" onclick="cmsAddChapter('${esc(m.slug)}')">＋ Bab</button><button class="cms-btn" onclick="cmsManageChapters('${esc(m.slug)}')">Kelola</button></div></div>`}).join('');
   };
   window.cmsEditModule=function(slug){const m=moduleBySlug(slug);if(m)openModuleModal(m)};
-  window.cmsAddModule=function(){openModuleModal(null)};
+  window.cmsAddModule=function(){
+    const isAdmin=document.getElementById('adminBtn')?.classList.contains('show') && currentProfile?.role==='admin';
+    if(!isAdmin){note('Akses ditolak. Hanya ADMIN yang bisa mengubah materi.',true);return}
+    openModuleModal(null);
+  };
   window.cmsAddChapter=function(slug){openChapterModal(null,slug)};
   window.cmsManageChapters=function(slug){const m=moduleBySlug(slug);if(!m)return;openChaptersModal(m)};
   function openModal(id,title,body){const root=document.getElementById(id);if(root)root.remove();const d=document.createElement('div');d.id=id;d.className='cms-modal open';d.innerHTML=`<div class="cms-dialog">${title}${body}</div>`;d.addEventListener('click',e=>{if(e.target===d)d.remove()});document.body.appendChild(d);return d}
@@ -473,9 +477,15 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
     state.modules=m.data||[];state.chapters=c.data||[];state.loaded=true;refreshAll();
   }
   window.cmsLoad=loadCms;
-  window.cmsSeed=seedExisting;
-  document.getElementById('cmsAddModule')?.addEventListener('click',()=>{if(currentProfile?.role==='admin')openModuleModal(null)});
-  document.getElementById('cmsSeed')?.addEventListener('click',()=>seedExisting());
+  window.cmsSeed=async function(){
+    const isAdmin=document.getElementById('adminBtn')?.classList.contains('show') && currentProfile?.role==='admin';
+    if(!isAdmin){note('Akses ditolak. Hanya ADMIN yang bisa import materi.',true);return}
+    const btn=document.getElementById('cmsSeed');
+    if(btn){btn.disabled=true;btn.textContent='⏳ Mengimpor...'}
+    try{await seedExisting()}finally{if(btn){btn.disabled=false;btn.textContent='↻ Import Materi Lama'}}
+  };
+  document.getElementById('cmsAddModule')?.addEventListener('click',()=>window.cmsAddModule());
+  document.getElementById('cmsSeed')?.addEventListener('click',()=>window.cmsSeed());
   document.getElementById('backAcademyCms')?.addEventListener('click',()=>{showPage('home');location.hash='academy';setTimeout(()=>document.getElementById('academy')?.scrollIntoView({behavior:'smooth'}),30)});
   const oldOpenLesson=window.openLesson;
   window.addEventListener('nexora-cms-ready',()=>{});
