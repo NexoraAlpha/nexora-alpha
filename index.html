@@ -149,7 +149,18 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 .notify-btn{margin-left:auto}
 .settings-btn{margin-left:2px}
 @media(max-width:700px){.member{margin-left:2px}.notify-btn{margin-left:auto}.settings-btn{margin-left:2px}}
-</style></head>
+</style><style id="nexora-profile-right-fix">
+/* Only change requested: keep the member/profile control at the far-right action cluster. */
+.nav .member{margin-left:auto!important;flex:none!important}
+.nav .notify-btn{margin-left:2px!important;flex:none!important}
+.nav .settings-btn{margin-left:2px!important;flex:none!important}
+@media(max-width:700px){
+  .nav .member{margin-left:auto!important;margin-right:0!important}
+  .nav .notify-btn{margin-left:2px!important}
+  .nav .settings-btn{margin-left:2px!important}
+}
+</style>
+</head>
 <body>
 <div class="ambient-bubbles"><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span></div><div class="touch-orb" id="touchOrb"></div>
 <div class="gridbg"></div><div class="glow"></div><div class="chartbg" id="chartbg"></div>
