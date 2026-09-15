@@ -121,6 +121,46 @@ body.nexora-compact section{padding-top:72px;padding-bottom:72px}.reduce-motion 
 #nexoraTradingChart iframe{border:0}
 .terminal-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;color:#68758c;font-size:10px;line-height:1.5}
 @media(max-width:650px){
+
+/* ===== NEXORA MARKET PAGE REDESIGN — MARKET ONLY ===== */
+.market-page-shell{padding-top:145px;padding-bottom:90px}
+.market-page-shell .section-head{margin-bottom:24px}
+.market-page-shell .section-head .sub{max-width:760px}
+.market-search-bar{display:flex;align-items:center;gap:10px;margin:0 auto 18px;padding:9px;border:1px solid rgba(157,189,255,.16);border-radius:22px;background:rgba(7,14,28,.72);box-shadow:0 18px 55px rgba(0,0,0,.22);backdrop-filter:blur(20px) saturate(145%);-webkit-backdrop-filter:blur(20px) saturate(145%)}
+.market-search-bar input{flex:1;min-width:0;height:46px;border:1px solid rgba(157,189,255,.12);border-radius:15px;background:rgba(255,255,255,.045);color:#f6f8ff;padding:0 14px;outline:none;font:inherit}
+.market-search-bar input::placeholder{color:#74839d}
+.market-search-bar input:focus{border-color:rgba(157,189,255,.34);box-shadow:0 0 0 3px rgba(157,189,255,.07)}
+.market-search-bar button{height:46px;padding:0 18px;border-radius:15px;background:linear-gradient(135deg,#dfeaff,#9dbdff);color:#071020;font-weight:900;letter-spacing:.04em;font-size:11px}
+.market-search-note{margin:-7px 2px 18px;color:#6f819d;font-size:10px;text-align:left}
+.market-watch-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.market-watch-card{min-width:0;min-height:188px;padding:16px;border-radius:23px;position:relative;overflow:hidden;cursor:pointer;transition:.25s;border-color:rgba(157,189,255,.13)}
+.market-watch-card:hover{transform:translateY(-5px);border-color:rgba(157,189,255,.35);box-shadow:0 20px 55px rgba(0,0,0,.34)}
+.market-watch-card:active{transform:translateY(-1px) scale(.995)}
+.market-watch-card.featured{grid-column:span 2}
+.market-watch-top{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:2}
+.market-watch-symbol{display:flex;align-items:center;gap:9px;min-width:0}
+.market-watch-symbol .m-dot{width:9px;height:9px;border-radius:50%;background:#7cc7ff;box-shadow:0 0 14px rgba(124,199,255,.72);flex:none}
+.market-watch-symbol b{font-family:Poppins;font-size:15px;white-space:nowrap}
+.market-watch-symbol span{color:#788aa6;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.market-watch-live{font-size:8px;font-weight:900;letter-spacing:.08em;color:#66e7b1;padding:5px 8px;border-radius:999px;background:rgba(100,231,178,.07);border:1px solid rgba(100,231,178,.14);white-space:nowrap}
+.market-watch-chart{height:105px;margin-top:10px;border-radius:16px;overflow:hidden;background:rgba(3,6,17,.25);pointer-events:none}
+.market-watch-chart .tradingview-widget-container,.market-watch-chart .tradingview-widget-container__widget{width:100%;height:100%}
+.market-watch-chart iframe{border:0}
+.market-watch-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px;color:#7c8da7;font-size:9px}
+.market-watch-footer strong{color:#cbd9f4;font-size:10px}
+.market-jump{color:#9dbdff;font-weight:800}
+.market-spotlight{margin-top:14px;padding:16px 18px;border-radius:22px;border:1px solid rgba(157,189,255,.13);background:linear-gradient(135deg,rgba(16,32,59,.74),rgba(5,10,20,.68));display:flex;align-items:center;justify-content:space-between;gap:14px}
+.market-spotlight-copy{min-width:0}.market-spotlight-copy b{font-family:Poppins;font-size:13px}.market-spotlight-copy p{margin-top:3px;color:#7e8faa;font-size:10px;line-height:1.5}
+.market-spotlight-live{display:inline-flex;align-items:center;gap:7px;color:#6de9b4;font-size:9px;font-weight:900;white-space:nowrap}.market-spotlight-live i{width:7px;height:7px;border-radius:50%;background:#6de9b4;box-shadow:0 0 12px rgba(109,233,180,.75)}
+.market-terminal-wrap{margin-top:18px}
+.market-terminal-wrap .trading-terminal{margin-top:0}
+.market-terminal-wrap .terminal-head{background:linear-gradient(135deg,rgba(15,31,58,.55),rgba(7,13,25,.2));border-radius:20px;padding:4px 0 14px}
+.market-terminal-wrap .terminal-kicker{color:#91b4ff}
+.market-terminal-wrap .terminal-live{color:#6de9b4}
+.market-terminal-badge{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:6px 9px;border-radius:999px;background:rgba(157,189,255,.07);border:1px solid rgba(157,189,255,.12);color:#9dbdff;font-size:9px;font-weight:800}
+.market-terminal-badge i{width:6px;height:6px;border-radius:50%;background:#6de9b4;box-shadow:0 0 10px rgba(109,233,180,.8)}
+@media(max-width:900px){.market-watch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.market-watch-card.featured{grid-column:span 2}}
+@media(max-width:560px){.market-page-shell{padding-top:122px;padding-left:14px;padding-right:14px}.market-search-bar{padding:8px;border-radius:19px}.market-search-bar input{height:43px;font-size:13px}.market-search-bar button{height:43px;padding:0 13px}.market-watch-grid{gap:9px}.market-watch-card,.market-watch-card.featured{grid-column:span 1;min-height:177px;padding:13px;border-radius:19px}.market-watch-symbol b{font-size:13px}.market-watch-symbol span{font-size:8px}.market-watch-live{font-size:7px;padding:4px 6px}.market-watch-chart{height:91px}.market-watch-footer{font-size:8px}.market-watch-footer strong{font-size:9px}.market-spotlight{padding:13px 14px;border-radius:19px}.market-spotlight-copy b{font-size:11px}.market-spotlight-copy p{font-size:9px}.market-terminal-wrap{margin-top:12px}.market-terminal-wrap .trading-terminal{border-radius:22px;padding:15px}.market-terminal-wrap .terminal-head{padding-bottom:10px}.market-terminal-wrap .terminal-title{font-size:20px}.market-terminal-wrap .terminal-desc{font-size:10px}}
  .trading-terminal{padding:13px;border-radius:22px}
  .terminal-head{align-items:flex-start;flex-direction:column}
  .terminal-live{align-self:flex-start}
@@ -329,64 +369,109 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 <div class="page active" id="home">
 <section class="hero"><img class="hero-logo" src="hero-logo.png" alt="Nexora Alpha logo"><div class="eyebrow">NEXORA ALPHA • V6 ELITE</div><h1>WELCOME TO THE NEXORA ALPHA ERA</h1><p>Trade Smart. Manage Risk. Build Legacy. Jelajahi market, bangun fondasi trading, dan pelajari cara membaca pergerakan harga dengan lebih terstruktur.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">✦ Join Nexora</a><a class="btn secondary" href="#academy">Explore Academy →</a></div><div class="home-quick"><button type="button" onclick="goSection('market')"><i>📈</i><b>Market</b><span>Terminal & live chart</span></button><button type="button" onclick="goSection('macro')"><i>📰</i><b>News</b><span>FOMC, CPI, PPI & NFP</span></button><button type="button" onclick="goSection('academy')"><i>🎓</i><b>Academy</b><span>Belajar trading terstruktur</span></button><button type="button" onclick="goSection('community')"><i>👥</i><b>Community</b><span>WhatsApp resmi Nexora</span></button></div></section>
 </div>
-<div class="page" id="marketPage"><section id="market"><div class="wrap"><div class="section-head"><div class="kicker">Market Intelligence</div><h2 class="title">Market Dashboard</h2><p class="sub">Harga market diperbarui otomatis dari live market-data feed. Data ditampilkan sebagai informasi pasar, bukan sinyal trading.</p></div><div class="grid market-live-grid"><article class="glass card market-card live-widget-card"><div class="icon">🟡</div><h3>XAUUSD</h3><p class="muted">Gold / USD • OANDA</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"OANDA:XAUUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● LIVE FEED</span></article><article class="glass card market-card live-widget-card"><div class="icon">💱</div><h3>FOREX</h3><p class="muted">EUR / USD • FX</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"FX:EURUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● LIVE FEED</span></article><article class="glass card market-card live-widget-card"><div class="icon">₿</div><h3>CRYPTO</h3><p class="muted">BTC / USD • Binance</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"BINANCE:BTCUSDT","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● LIVE FEED</span></article><article class="glass card market-card live-widget-card"><div class="icon">📈</div><h3>STOCKS</h3><p class="muted">AAPL / NASDAQ</p><div class="tvbox"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"NASDAQ:AAPL","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div><span class="status">● MARKET DATA</span></article></div><div class="glass chart-panel"><div class="chart-head"><div><div class="chart-title">Nexora Market Flow</div><small class="muted">Live XAUUSD • OANDA</small></div><div class="ticker">● LIVE FEED</div></div><div class="tv-flow"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>{"symbols":[["OANDA:XAUUSD|5"]],"chartOnly":true,"width":"100%","height":"100%","locale":"en","colorTheme":"dark","autosize":true,"showVolume":false,"showMA":false,"hideDateRanges":true,"hideMarketStatus":false,"hideSymbolLogo":true,"scalePosition":"right","scaleMode":"Normal","fontSize":"10","noTimeScale":false,"valuesTracking":"1","changeMode":"price-and-percent","chartType":"candlesticks","dateRanges":["1d|5","5d|15","1m|60"]}</script></div></div></div>
-<div class="glass trading-terminal" id="tradingTerminal">
-  <div class="terminal-head">
-    <div>
-      <div class="terminal-kicker">Nexora Alpha • Trading Terminal</div>
-      <div class="terminal-title">Advanced Market Chart</div>
-      <p class="terminal-desc">Cari simbol, ganti timeframe, zoom/pan, tambah indicator, dan pakai drawing tools langsung di chart. Search simbol juga tersedia dari toolbar chart seperti workflow TradingView.</p>
+<div class="page" id="marketPage"><section id="market" class="market-page-shell"><div class="wrap">
+  <div class="section-head">
+    <div class="kicker">Nexora Market Intelligence</div>
+    <h2 class="title">Market Dashboard</h2>
+    <p class="sub">Pantau pergerakan market secara live dari TradingView. Pilih market di bawah untuk langsung membuka chart advanced di dalam Nexora Alpha.</p>
+  </div>
+
+  <form class="market-search-bar" id="marketPageSearch" autocomplete="off">
+    <input id="marketPageSearchInput" list="nexoraSymbolList" placeholder="Search pair / symbol… contoh: XAUUSD, EURUSD, BTCUSDT, AAPL" aria-label="Search market symbol">
+    <button type="submit">SEARCH</button>
+  </form>
+  <div class="market-search-note">Gunakan format <b>EXCHANGE:SYMBOL</b> bila simbol tertentu tidak ditemukan. Data chart mengikuti feed TradingView yang tersedia untuk instrumen tersebut.</div>
+
+  <div class="market-watch-grid">
+    <article class="glass market-watch-card featured" data-market-symbol="OANDA:XAUUSD" tabindex="0" role="button" aria-label="Buka chart XAUUSD">
+      <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>XAUUSD</b><span>Gold / USD • OANDA</span></div></div><span class="market-watch-live">● LIVE</span></div>
+      <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"OANDA:XAUUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
+      <div class="market-watch-footer"><strong>Gold / USD</strong><span class="market-jump">Open Advanced Chart →</span></div>
+    </article>
+
+    <article class="glass market-watch-card" data-market-symbol="FX:EURUSD" tabindex="0" role="button" aria-label="Buka chart EURUSD">
+      <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>EURUSD</b><span>Euro / USD • FX</span></div></div><span class="market-watch-live">● LIVE</span></div>
+      <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"FX:EURUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
+      <div class="market-watch-footer"><strong>Forex</strong><span class="market-jump">Open Chart →</span></div>
+    </article>
+
+    <article class="glass market-watch-card" data-market-symbol="BINANCE:BTCUSDT" tabindex="0" role="button" aria-label="Buka chart BTCUSDT">
+      <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>BTCUSD</b><span>Bitcoin / USD • Binance</span></div></div><span class="market-watch-live">● LIVE</span></div>
+      <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"BINANCE:BTCUSDT","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
+      <div class="market-watch-footer"><strong>Crypto</strong><span class="market-jump">Open Chart →</span></div>
+    </article>
+
+    <article class="glass market-watch-card" data-market-symbol="NASDAQ:AAPL" tabindex="0" role="button" aria-label="Buka chart AAPL">
+      <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>AAPL</b><span>Apple • NASDAQ</span></div></div><span class="market-watch-live">● LIVE</span></div>
+      <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"NASDAQ:AAPL","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
+      <div class="market-watch-footer"><strong>Stocks</strong><span class="market-jump">Open Chart →</span></div>
+    </article>
+
+    <article class="glass market-watch-card" data-market-symbol="TVC:DXY" tabindex="0" role="button" aria-label="Buka chart DXY">
+      <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>DXY</b><span>US Dollar Index • TVC</span></div></div><span class="market-watch-live">● LIVE</span></div>
+      <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"TVC:DXY","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
+      <div class="market-watch-footer"><strong>Dollar Index</strong><span class="market-jump">Open Chart →</span></div>
+    </article>
+  </div>
+
+  <div class="market-spotlight"><div class="market-spotlight-copy"><b>Nexora Live Market</b><p>Semua kartu di atas terhubung ke Advanced Trading Chart Nexora. Klik market untuk mengganti simbol chart tanpa keluar dari website.</p></div><span class="market-spotlight-live"><i></i>TRADINGVIEW LIVE</span></div>
+
+  <div class="market-terminal-wrap" id="marketTerminalTarget">
+    <div class="glass trading-terminal" id="tradingTerminal">
+      <div class="terminal-head">
+        <div>
+          <div class="terminal-kicker">Nexora Alpha • Trading Terminal</div>
+          <div class="terminal-title">Advanced Market Chart</div>
+          <p class="terminal-desc">Chart TradingView dengan tampilan Nexora Alpha. Search simbol, ganti timeframe, zoom/pan, tambah indicator, dan gunakan drawing tools langsung di dalam website.</p>
+          <span class="market-terminal-badge"><i></i> LIVE MARKET DATA • NEXORA ALPHA</span>
+        </div>
+        <div class="terminal-live">● LIVE CHART</div>
+      </div>
+
+      <div class="terminal-toolbar">
+        <form class="terminal-search" id="terminalSearchForm" autocomplete="off">
+          <input id="terminalSearchInput" list="nexoraSymbolList" placeholder="Search symbol… contoh: XAUUSD, EURUSD, BTCUSDT, AAPL, NASDAQ:NDX" aria-label="Search market symbol">
+          <datalist id="nexoraSymbolList">
+            <option value="OANDA:XAUUSD"></option><option value="FX:EURUSD"></option><option value="FX:GBPUSD"></option>
+            <option value="FX:USDJPY"></option><option value="BINANCE:BTCUSDT"></option><option value="BINANCE:ETHUSDT"></option>
+            <option value="NASDAQ:AAPL"></option><option value="NASDAQ:NVDA"></option><option value="NASDAQ:TSLA"></option>
+            <option value="NASDAQ:MSFT"></option><option value="SP:SPX"></option><option value="NASDAQ:NDX"></option>
+            <option value="TVC:DXY"></option><option value="TVC:USOIL"></option>
+          </datalist>
+          <button type="submit">SEARCH</button>
+        </form>
+        <button class="terminal-action" id="terminalFullscreen" type="button" title="Fullscreen">⛶</button>
+      </div>
+
+      <div class="terminal-quick" id="terminalQuick">
+        <button class="terminal-chip active" type="button" data-symbol="OANDA:XAUUSD">🟡 GOLD</button>
+        <button class="terminal-chip" type="button" data-symbol="FX:EURUSD">EURUSD</button>
+        <button class="terminal-chip" type="button" data-symbol="BINANCE:BTCUSDT">₿ BTCUSDT</button>
+        <button class="terminal-chip" type="button" data-symbol="NASDAQ:AAPL">AAPL</button>
+        <button class="terminal-chip" type="button" data-symbol="TVC:DXY">DXY</button>
+        <button class="terminal-chip" type="button" data-symbol="NASDAQ:NVDA">NVDA</button>
+        <button class="terminal-chip" type="button" data-symbol="SP:SPX">S&amp;P 500</button>
+        <button class="terminal-chip" type="button" data-symbol="TVC:USOIL">OIL</button>
+      </div>
+
+      <div class="terminal-timeframes" id="terminalTimeframes">
+        <span class="terminal-timeframes-label">TIMEFRAME</span>
+        <button class="terminal-tf" type="button" data-interval="1">1m</button>
+        <button class="terminal-tf" type="button" data-interval="5">5m</button>
+        <button class="terminal-tf active" type="button" data-interval="15">15m</button>
+        <button class="terminal-tf" type="button" data-interval="30">30m</button>
+        <button class="terminal-tf" type="button" data-interval="60">1H</button>
+        <button class="terminal-tf" type="button" data-interval="240">4H</button>
+        <button class="terminal-tf" type="button" data-interval="D">1D</button>
+        <button class="terminal-tf" type="button" data-interval="W">1W</button>
+        <button class="terminal-tf" type="button" data-interval="M">1M</button>
+      </div>
+
+      <div class="terminal-chart-wrap" id="terminalChartWrap"><div id="nexoraTradingChart"></div></div>
+      <div class="terminal-foot"><span>Chart &amp; market data powered by TradingView embed.</span><span>Informasi pasar, bukan sinyal atau jaminan hasil.</span></div>
     </div>
-    <div class="terminal-live">● LIVE CHART</div>
   </div>
-
-  <div class="terminal-toolbar">
-    <form class="terminal-search" id="terminalSearchForm" autocomplete="off">
-      <input id="terminalSearchInput" list="nexoraSymbolList" placeholder="Search symbol… contoh: XAUUSD, EURUSD, BTCUSDT, AAPL, NASDAQ:NDX" aria-label="Search market symbol">
-      <datalist id="nexoraSymbolList">
-        <option value="OANDA:XAUUSD"></option><option value="FX:EURUSD"></option><option value="FX:GBPUSD"></option>
-        <option value="FX:USDJPY"></option><option value="BINANCE:BTCUSDT"></option><option value="BINANCE:ETHUSDT"></option>
-        <option value="NASDAQ:AAPL"></option><option value="NASDAQ:NVDA"></option><option value="NASDAQ:TSLA"></option>
-        <option value="NASDAQ:MSFT"></option><option value="SP:SPX"></option><option value="NASDAQ:NDX"></option>
-        <option value="TVC:DXY"></option><option value="TVC:USOIL"></option>
-      </datalist>
-      <button type="submit">SEARCH</button>
-    </form>
-    <button class="terminal-action" id="terminalFullscreen" type="button" title="Fullscreen">⛶</button>
-  </div>
-
-  <div class="terminal-quick" id="terminalQuick">
-    <button class="terminal-chip active" type="button" data-symbol="OANDA:XAUUSD">🟡 GOLD</button>
-    <button class="terminal-chip" type="button" data-symbol="FX:EURUSD">EURUSD</button>
-    <button class="terminal-chip" type="button" data-symbol="BINANCE:BTCUSDT">₿ BTCUSDT</button>
-    <button class="terminal-chip" type="button" data-symbol="NASDAQ:AAPL">AAPL</button>
-    <button class="terminal-chip" type="button" data-symbol="NASDAQ:NVDA">NVDA</button>
-    <button class="terminal-chip" type="button" data-symbol="SP:SPX">S&amp;P 500</button>
-    <button class="terminal-chip" type="button" data-symbol="TVC:DXY">DXY</button>
-    <button class="terminal-chip" type="button" data-symbol="TVC:USOIL">OIL</button>
-  </div>
-
-  <div class="terminal-timeframes" id="terminalTimeframes">
-    <span class="terminal-timeframes-label">TIMEFRAME</span>
-    <button class="terminal-tf" type="button" data-interval="1">1m</button>
-    <button class="terminal-tf" type="button" data-interval="5">5m</button>
-    <button class="terminal-tf active" type="button" data-interval="15">15m</button>
-    <button class="terminal-tf" type="button" data-interval="30">30m</button>
-    <button class="terminal-tf" type="button" data-interval="60">1H</button>
-    <button class="terminal-tf" type="button" data-interval="240">4H</button>
-    <button class="terminal-tf" type="button" data-interval="D">1D</button>
-    <button class="terminal-tf" type="button" data-interval="W">1W</button>
-    <button class="terminal-tf" type="button" data-interval="M">1M</button>
-  </div>
-
-  <div class="terminal-chart-wrap" id="terminalChartWrap">
-    <div id="nexoraTradingChart"></div>
-  </div>
-  <div class="terminal-foot">
-    <span>Chart &amp; market data interface powered by TradingView embed.</span>
-    <span>Gunakan tools untuk analisis; bukan sinyal atau jaminan hasil.</span>
-  </div>
-</div></div></section></div>
+</div></section></div>
 <div class="page" id="newsPage"><section id="macro"><div class="wrap"><div class="section-head macro-head" id="macroHead" style="margin-top:58px"><div class="kicker">Nexora Macro Radar</div><h2 class="title">High-Impact Economic News</h2><p class="sub">Pantau event makro yang paling relevan buat trader: <b>FOMC • CPI • PPI • NFP</b>. Kalender di bawah mengambil jadwal dan update event ekonomi secara live dari TradingView.</p></div><div class="macro-focus"><article class="glass macro-card"><span class="macro-tag">FED / RATES</span><b>FOMC</b><p>Keputusan suku bunga & komunikasi Federal Reserve. Fokus utama untuk USD, gold, indeks, dan crypto.</p></article><article class="glass macro-card"><span class="macro-tag">INFLATION</span><b>CPI</b><p>Inflasi konsumen AS. Surprise terhadap forecast sering memicu volatilitas besar di USD & XAUUSD.</p></article><article class="glass macro-card"><span class="macro-tag">INFLATION</span><b>PPI</b><p>Inflasi producer AS. Berguna sebagai konteks tekanan harga sebelum membaca CPI berikutnya.</p></article><article class="glass macro-card"><span class="macro-tag">LABOR</span><b>NFP</b><p>Data payroll AS. Salah satu event tenaga kerja paling diperhatikan pasar setiap bulan.</p></article></div><div class="glass macro-calendar"><div class="macro-calendar-head"><div><div class="macro-calendar-title">Nexora Economic Calendar</div><small class="muted">US • High & medium impact • Upcoming events</small></div><div class="macro-calendar-live">● LIVE CALENDAR</div></div><div class="macro-widget"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>{"colorTheme":"dark","isTransparent":true,"locale":"en","countryFilter":"us","importanceFilter":"0,1","width":"100%","height":"100%"}</script></div></div></div></div></section></div>
 <div class="page" id="academyPage"><section id="academy"><div class="wrap"><div class="section-head"><div class="kicker">Nexora Education</div><h2 class="title">Education Academy</h2><p class="sub">Pilih modul untuk membuka halaman pembelajaran. Trading Psychology memiliki 10 bab dan Risk Management memiliki 8 bab yang bisa dibuka satu per satu.</p></div><div class="grid academy-grid" id="academyGrid"></div></div></section></div>
 <div class="page" id="communityPage"><section id="community" class="community"><div class="wrap"><div class="glass community-box"><div class="kicker">Community</div><h2>JOIN THE NEXORA ALPHA ERA</h2><p class="sub">Gabung ke ekosistem Nexora Alpha dan tetap terhubung dengan komunitas.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">WhatsApp Nexora</a><a class="btn secondary" href="https://whatsapp.com/channel/0029Vb9b06X8V0tubqn6kA00" target="_blank">WhatsApp Channel</a></div></div><div class="glass community-legal"><h3>Informasi &amp; Disclaimer</h3><p>Nexora Alpha menyediakan materi edukasi, informasi pasar, analisis, dan fitur pembelajaran terkait trading dan financial market. Seluruh informasi di platform ini ditujukan untuk tujuan edukasi dan informasi saja, bukan merupakan ajakan, rekomendasi, atau jaminan untuk melakukan transaksi tertentu.</p><p><strong>Peringatan Risiko:</strong> Trading Forex, CFD, cryptocurrency, saham, komoditas, dan instrumen keuangan lainnya memiliki risiko kerugian yang tinggi. Nilai aset dapat naik maupun turun dan Anda dapat kehilangan sebagian atau seluruh modal yang digunakan. Pastikan Anda memahami risiko yang terlibat sebelum melakukan transaksi.</p><p>Setiap keputusan trading merupakan tanggung jawab pengguna masing-masing. Nexora Alpha tidak menjamin keuntungan atau hasil tertentu dari penggunaan materi, analisis, indikator, maupun informasi yang tersedia di platform.</p><p><strong>Penting:</strong> Riwayat performa atau hasil sebelumnya tidak menjamin hasil di masa mendatang. Lakukan riset sendiri, gunakan manajemen risiko yang sesuai, dan jangan menggunakan dana yang tidak mampu Anda tanggung jika mengalami kerugian.</p><div class="legal-links"><a href="#community">Disclaimer</a><a href="#community">Kebijakan Privasi</a><a href="#community">Syarat &amp; Ketentuan</a><a href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">Kontak Nexora</a></div><p class="legal-copy">© 2026 Nexora Alpha — All Rights Reserved.</p></div></div></section>
@@ -649,6 +734,31 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 </script>
 
 <script>
+/* ===== NEXORA MARKET CARD NAVIGATION — MARKET ONLY ===== */
+(function(){
+  const cards=document.querySelectorAll('#marketPage .market-watch-card[data-market-symbol]');
+  const terminal=document.getElementById('marketTerminalTarget');
+  const input=document.getElementById('terminalSearchInput');
+  function openMarket(symbol){
+    const chip=document.querySelector('#terminalQuick .terminal-chip[data-symbol="'+symbol+'"]');
+    if(chip){ chip.click(); }
+    else if(input){ input.value=symbol; document.getElementById('terminalSearchForm')?.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true})); }
+    terminal?.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  cards.forEach(card=>{
+    card.addEventListener('click',()=>openMarket(card.dataset.marketSymbol));
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMarket(card.dataset.marketSymbol)}});
+  });
+  document.getElementById('marketPageSearch')?.addEventListener('submit',e=>{
+    e.preventDefault();
+    const value=document.getElementById('marketPageSearchInput')?.value?.trim();
+    if(!value) return;
+    if(input) input.value=value;
+    document.getElementById('terminalSearchForm')?.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+    terminal?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+})();
+
 /* ===== NEXORA TRADING TERMINAL ===== */
 (function(){
   const host=document.getElementById('nexoraTradingChart');
