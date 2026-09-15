@@ -1,20 +1,24 @@
-const {supabaseUserFromRequest,supabaseRest}=require('./_supabase');
-module.exports=async function(req,res){
-  if(req.method!=='POST') return res.status(405).json({error:'Method not allowed'});
+const {json,cors,env,supabaseAuthUser,db,bearer}=require('./_supabase');
+
+module.exports=async function handler(req,res){
+  cors(res);
+  if(req.method==='OPTIONS')return res.status(204).end();
+  if(req.method!=='POST')return json(res,405,{error:'Method not allowed'});
   try{
-    const user=await supabaseUserFromRequest(req);
-    if(!user?.id) return res.status(401).json({error:'Unauthorized'});
-    const s=req.body?.subscription || req.body;
-    if(!s?.endpoint || !s?.keys?.p256dh || !s?.keys?.auth) return res.status(400).json({error:'Subscription Web Push tidak lengkap.'});
-    if(!/^https:\/\//i.test(String(s.endpoint))) return res.status(400).json({error:'Endpoint push tidak valid.'});
-    await supabaseRest('push_subscriptions?on_conflict=endpoint',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=minimal'},
-      body:JSON.stringify({
-        user_id:user.id, endpoint:String(s.endpoint), p256dh:String(s.keys.p256dh), auth:String(s.keys.auth),
-        expiration_time:s.expirationTime ?? null, user_agent:req.headers['user-agent']||null, updated_at:new Date().toISOString()
-      })
-    });
-    return res.status(200).json({ok:true});
-  }catch(e){ console.error('push subscribe',e); return res.status(e.status||500).json({error:e.message||'Gagal menyimpan subscription.'}); }
+    const token=bearer(req);if(!token) return json(res,401,{error:'Authorization diperlukan.'});
+    const user=await supabaseAuthUser(token);
+    const sub=req.body?.subscription;
+    if(!sub?.endpoint||!sub?.keys?.p256dh||!sub?.keys?.auth){return json(res,400,{error:'Push subscription tidak lengkap.'});}
+    const row={
+      user_id:user.id,
+      endpoint:String(sub.endpoint),
+      p256dh:String(sub.keys.p256dh),
+      auth:String(sub.keys.auth),
+      expiration_time:sub.expirationTime==null?null:Number(sub.expirationTime)||null,
+      user_agent:req.headers['user-agent']||null,
+      updated_at:new Date().toISOString()
+    };
+    await db('push_subscriptions?on_conflict=endpoint',{method:'POST',body:row,prefer:'resolution=merge-duplicates,return=minimal'});
+    return json(res,200,{ok:true});
+  }catch(e){return json(res,e.status||500,{error:e.message||'Gagal menyimpan push subscription.'});}
 };

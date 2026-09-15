@@ -1,13 +1,15 @@
-const {supabaseUserFromRequest,supabaseRest}=require('./_supabase');
-module.exports=async function(req,res){
-  if(req.method!=='POST') return res.status(405).json({error:'Method not allowed'});
+const {json,cors,supabaseAuthUser,db,bearer}=require('./_supabase');
+
+module.exports=async function handler(req,res){
+  cors(res);
+  if(req.method==='OPTIONS')return res.status(204).end();
+  if(req.method!=='POST')return json(res,405,{error:'Method not allowed'});
   try{
-    const user=await supabaseUserFromRequest(req);
-    if(!user?.id) return res.status(401).json({error:'Unauthorized'});
+    const token=bearer(req);if(!token)return json(res,401,{error:'Authorization diperlukan.'});
+    const user=await supabaseAuthUser(token);
     const endpoint=String(req.body?.endpoint||'');
-    if(!endpoint) return res.status(400).json({error:'Endpoint wajib diisi.'});
-    const encoded=encodeURIComponent(endpoint);
-    await supabaseRest(`push_subscriptions?user_id=eq.${encodeURIComponent(user.id)}&endpoint=eq.${encoded}`,{method:'DELETE',headers:{'Prefer':'return=minimal'}});
-    return res.status(200).json({ok:true});
-  }catch(e){ console.error('push unsubscribe',e); return res.status(e.status||500).json({error:e.message||'Gagal mematikan push.'}); }
+    if(!endpoint)return json(res,400,{error:'Endpoint subscription tidak ditemukan.'});
+    await db(`push_subscriptions?user_id=eq.${encodeURIComponent(user.id)}&endpoint=eq.${encodeURIComponent(endpoint)}`,{method:'DELETE',prefer:'return=minimal'});
+    return json(res,200,{ok:true});
+  }catch(e){return json(res,e.status||500,{error:e.message||'Gagal menghapus push subscription.'});}
 };
