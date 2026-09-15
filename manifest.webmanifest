@@ -1,0 +1,21 @@
+{
+  "name": "Nexora Alpha",
+  "short_name": "Nexora Alpha",
+  "description": "Nexora Alpha — Market, Education, Community & Member Dashboard",
+  "lang": "id-ID",
+  "dir": "ltr",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#030611",
+  "theme_color": "#050914",
+  "icons": [
+    {
+      "src": "nexora-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

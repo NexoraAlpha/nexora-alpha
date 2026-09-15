@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050914">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nexora Alpha">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="nexora-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="nexora-icon.svg">
+<meta name="theme-color" content="#050914">
 <title>Nexora Alpha V6 Elite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -1167,5 +1175,13 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
   if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
 })();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(err => console.warn('PWA service worker:', err));
+  });
+}
 </script>
 </body></html>
