@@ -249,6 +249,9 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 @media(prefers-reduced-motion:reduce){.login-success-overlay.open,.login-success-overlay.closing,.login-success-aura,.login-fragment,.login-success-symbol,.login-success-symbol:after,.login-success-wordmark,.login-success-wordmark span,.login-success-status,.login-success-line,.login-welcome{animation-duration:.01ms!important;animation-iteration-count:1!important}.login-success-overlay.open{opacity:1}.login-fragment,.login-success-symbol,.login-success-wordmark,.login-success-wordmark span,.login-success-status,.login-welcome{opacity:1;transform:none}}
 /* ===== END LOGIN SUCCESS ANIMATION ===== */
 
+
+/* ===== NEXORA WEB PUSH NOTIFICATION FEATURE ONLY ===== */
+.push-settings-box{margin:10px 0 2px;padding:14px;border:1px solid rgba(157,189,255,.12);border-radius:16px;background:linear-gradient(145deg,rgba(157,189,255,.07),rgba(255,255,255,.025));display:grid;gap:10px}.push-settings-box>div:first-child{display:flex;flex-direction:column;gap:4px}.push-settings-box b{font-size:11px}.push-settings-box span{font-size:9px;color:#7f8da7;line-height:1.5}.push-settings-actions{display:flex;gap:8px;flex-wrap:wrap}.push-settings-actions .cms-btn{flex:1;min-width:120px}@media(max-width:700px){.push-settings-box{padding:12px}.push-settings-actions{display:grid;grid-template-columns:1fr 1fr}.push-settings-actions .cms-btn{min-width:0}}
 </style></head>
 <body>
 <div class="ambient-bubbles"><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span></div><div class="touch-orb" id="touchOrb"></div>
@@ -433,6 +436,7 @@ body{padding-bottom:calc(var(--navh) + 22px)}
     <div class="settings-head"><div><div class="kicker">NEXORA SETTINGS</div><h2 id="settingsTitle">Pengaturan</h2><p>Atur pengalaman Nexora kamu.</p></div><button class="settings-close" id="settingsClose" type="button" aria-label="Tutup pengaturan">×</button></div>
     <div class="settings-list">
       <div class="setting-row"><div class="setting-copy"><b>Notifikasi Nexora</b><span>Izinkan notifikasi lokal untuk update penting.</span></div><label class="switch"><input id="settingsOnlyNotifications" type="checkbox"><span class="switch-ui"></span></label></div>
+      <div class="push-settings-box"><div><b>Web Push Nexora</b><span id="pushStatus">Memeriksa dukungan perangkat...</span></div><div class="push-settings-actions"><button class="cms-btn primary" id="pushEnableBtn" type="button">AKTIFKAN PUSH</button><button class="cms-btn" id="pushTestSoundBtn" type="button">TES SUARA</button></div></div>
       <div class="setting-row"><div class="setting-copy"><b>Auto-refresh market</b><span>Refresh tampilan market secara berkala saat tersedia.</span></div><label class="switch"><input id="settingsOnlyAutoRefresh" type="checkbox"><span class="switch-ui"></span></label></div>
       <div class="setting-row"><div class="setting-copy"><b>Kurangi animasi</b><span>Meminimalkan motion untuk tampilan yang lebih ringan.</span></div><label class="switch"><input id="settingsOnlyReduceMotion" type="checkbox"><span class="switch-ui"></span></label></div>
       <div class="setting-row"><div class="setting-copy"><b>Mode compact</b><span>Kurangi jarak antar elemen untuk layar kecil.</span></div><label class="switch"><input id="settingsOnlyCompact" type="checkbox"><span class="switch-ui"></span></label></div>
@@ -1360,7 +1364,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   function resetNotifyAdminForm(){notificationEditingId=null;document.getElementById('notifyAdminTitle').value='';document.getElementById('notifyAdminType').value='info';document.getElementById('notifyAdminBody').value='';document.getElementById('notifyAdminPublished').checked=true;document.getElementById('notifyAdminSave').textContent='＋ Publikasikan';document.getElementById('notifyAdminCancel').style.display='none';notifyAdminMsg('')}
   function editNotification(id){const n=notificationRows.find(x=>x.id===id);if(!n)return;notificationEditingId=id;document.getElementById('notifyAdminTitle').value=n.title||'';document.getElementById('notifyAdminType').value=n.type||'info';document.getElementById('notifyAdminBody').value=n.body||'';document.getElementById('notifyAdminPublished').checked=n.published!==false;document.getElementById('notifyAdminSave').textContent='Simpan Perubahan';document.getElementById('notifyAdminCancel').style.display='block';document.getElementById('notifyAdminTitle').focus()}
   function renderNotifyAdmin(){const el=document.getElementById('notifyAdminList');if(!el)return;const rows=notificationRows;if(!rows.length){el.innerHTML='<div class="empty-online">Belum ada notifikasi.</div>';return}el.innerHTML=rows.map(n=>`<div class="notify-admin-item"><div class="notify-admin-copy"><b>${notifyEsc(n.title)}</b><span>${notifyTypeLabel(n.type)} • ${n.published!==false?'Published':'Draft'} • ${notifyDate(n.created_at)}</span></div><div class="notify-admin-actions"><button type="button" data-edit-notify="${notifyEsc(n.id)}">Edit</button><button type="button" class="danger" data-delete-notify="${notifyEsc(n.id)}">Hapus</button></div></div>`).join('');el.querySelectorAll('[data-edit-notify]').forEach(b=>b.onclick=()=>editNotification(b.dataset.editNotify));el.querySelectorAll('[data-delete-notify]').forEach(b=>b.onclick=()=>deleteNotification(b.dataset.deleteNotify))}
-  async function saveNotificationAdmin(){if(currentProfile?.role!=='admin')return;const title=document.getElementById('notifyAdminTitle').value.trim(),body=document.getElementById('notifyAdminBody').value.trim(),type=document.getElementById('notifyAdminType').value,published=document.getElementById('notifyAdminPublished').checked; if(!title||!body)return notifyAdminMsg('Judul dan isi wajib diisi.');const btn=document.getElementById('notifyAdminSave');btn.disabled=true;notifyAdminMsg('Menyimpan...');try{const payload={title,body,type,published,updated_at:new Date().toISOString()};let res;if(notificationEditingId)res=await client.from('notifications').update(payload).eq('id',notificationEditingId).select().single();else res=await client.from('notifications').insert(payload).select().single();if(res.error)throw res.error;notifyAdminMsg(notificationEditingId?'Notifikasi diperbarui.':'Notifikasi berhasil dipublikasikan.',true);resetNotifyAdminForm();await loadNotifications()}catch(e){notifyAdminMsg(e.message||'Gagal menyimpan notifikasi.')}finally{btn.disabled=false}}
+  async function saveNotificationAdmin(){if(currentProfile?.role!=='admin')return;const title=document.getElementById('notifyAdminTitle').value.trim(),body=document.getElementById('notifyAdminBody').value.trim(),type=document.getElementById('notifyAdminType').value,published=document.getElementById('notifyAdminPublished').checked; if(!title||!body)return notifyAdminMsg('Judul dan isi wajib diisi.');const btn=document.getElementById('notifyAdminSave');btn.disabled=true;notifyAdminMsg('Menyimpan...');try{const payload={title,body,type,published,updated_at:new Date().toISOString()};let res;if(notificationEditingId)res=await client.from('notifications').update(payload).eq('id',notificationEditingId).select().single();else res=await client.from('notifications').insert(payload).select().single();if(res.error)throw res.error;if(!notificationEditingId&&published&&res.data)sendPushForNewNotification(res.data);notifyAdminMsg(notificationEditingId?'Notifikasi diperbarui.':'Notifikasi berhasil dipublikasikan.',true);resetNotifyAdminForm();await loadNotifications()}catch(e){notifyAdminMsg(e.message||'Gagal menyimpan notifikasi.')}finally{btn.disabled=false}}
   async function deleteNotification(id){
     if(currentProfile?.role!=='admin'||!id)return;
     if(!window.confirm('Hapus notifikasi ini?'))return;
@@ -1468,6 +1472,61 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   async function config(){const r=await fetch('/api/config',{cache:'no-store'});if(!r.ok)throw new Error('Config belum tersedia');const c=await r.json();if(!c.url||!c.key)throw new Error('Supabase config belum diisi di Vercel');return c}
   try{const c=await config();client=window.supabase.createClient(c.url,c.key)}catch(e){msg('Website belum terhubung ke Supabase. Tambahkan SUPABASE_URL dan SUPABASE_ANON_KEY di Vercel.', 'bad');return}
   window.nexoraCMS.client=client;
+
+  /* ===== NEXORA WEB PUSH NOTIFICATION FEATURE ONLY ===== */
+  const pushStatus=document.getElementById('pushStatus'), pushEnableBtn=document.getElementById('pushEnableBtn'), pushTestSoundBtn=document.getElementById('pushTestSoundBtn');
+  let pushRegistrationPromise=null, pushAudio=null;
+  function pushSetStatus(text,good=false){if(pushStatus){pushStatus.textContent=text;pushStatus.style.color=good?'#65e7b2':'#7f8ba2'}}
+  function base64ToUint8Array(base64){const pad='='.repeat((4-base64.length%4)%4);const raw=atob((base64+pad).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(raw,c=>c.charCodeAt(0))}
+  async function getPushRegistration(){
+    if(!('serviceWorker' in navigator))throw new Error('Perangkat/browser ini tidak mendukung Service Worker.');
+    if(!pushRegistrationPromise)pushRegistrationPromise=navigator.serviceWorker.ready;
+    return pushRegistrationPromise;
+  }
+  async function getPushSubscription(){const reg=await getPushRegistration();return reg.pushManager.getSubscription()}
+  async function playNexoraSound(){
+    try{if(!pushAudio)pushAudio=new Audio('./nexora-notification.wav');pushAudio.currentTime=0;pushAudio.volume=.8;await pushAudio.play()}catch(e){console.warn('Nexora custom sound blocked:',e)}
+  }
+  async function syncPushUI(){
+    if(!('Notification' in window)||!('PushManager' in window)){pushSetStatus('Push notification tidak didukung di browser ini.');if(pushEnableBtn)pushEnableBtn.disabled=true;return}
+    try{const sub=await getPushSubscription();if(sub){pushSetStatus(Notification.permission==='granted'?'Push aktif — Nexora siap memberi kabar.':'Subscription tersimpan, izin notifikasi perlu diaktifkan.',true);if(pushEnableBtn){pushEnableBtn.textContent='PUSH AKTIF';pushEnableBtn.disabled=false}}else{pushSetStatus(Notification.permission==='denied'?'Notifikasi diblokir browser. Buka izin situs untuk mengaktifkannya.':'Belum aktif. Aktifkan sekali agar push bisa masuk saat PWA/background.');if(pushEnableBtn){pushEnableBtn.textContent='AKTIFKAN PUSH';pushEnableBtn.disabled=false}}}catch(e){pushSetStatus(e.message||'Gagal membaca status push.');if(pushEnableBtn)pushEnableBtn.disabled=false}
+  }
+  async function enableNexoraPush(){
+    if(!currentProfile)return;
+    try{
+      if(!('Notification' in window)||!('PushManager' in window))throw new Error('Browser ini belum mendukung Web Push.');
+      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
+      if(permission!=='granted')throw new Error('Izin notifikasi belum diberikan.');
+      const cfgRes=await fetch('/api/push/config',{cache:'no-store'});if(!cfgRes.ok)throw new Error('Web Push belum dikonfigurasi di server.');
+      const cfg=await cfgRes.json();if(!cfg.enabled||!cfg.publicKey)throw new Error(cfg.error||'VAPID public key belum tersedia.');
+      const reg=await getPushRegistration();
+      let sub=await reg.pushManager.getSubscription();
+      if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:base64ToUint8Array(cfg.publicKey)});
+      const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(!token)throw new Error('Sesi login tidak ditemukan.');
+      const save=await fetch('/api/push/subscribe',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({subscription:sub.toJSON()})});
+      if(!save.ok){const j=await save.json().catch(()=>({}));throw new Error(j.error||'Gagal menyimpan push subscription.')}
+      const settings={...(currentProfile.settings||{}),notifications:true};currentProfile.settings=settings;if(typeof settingsOnlyNotifications!=='undefined'&&settingsOnlyNotifications)settingsOnlyNotifications.checked=true;
+      await playNexoraSound();pushSetStatus('Push aktif — notifikasi bisa masuk saat Nexora/PWA berada di background.',true);if(pushEnableBtn)pushEnableBtn.textContent='PUSH AKTIF';
+    }catch(e){console.warn('enable push',e);pushSetStatus(e.message||'Gagal mengaktifkan push.');throw e}
+  }
+  async function disableNexoraPush(){
+    try{const sub=await getPushSubscription();if(!sub){pushSetStatus('Push sudah nonaktif.');return}const endpoint=sub.endpoint;await sub.unsubscribe();const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(token)await fetch('/api/push/unsubscribe',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({endpoint})});pushSetStatus('Push dinonaktifkan.');if(pushEnableBtn)pushEnableBtn.textContent='AKTIFKAN PUSH'}catch(e){console.warn('disable push',e);pushSetStatus('Gagal mematikan push.')}
+  }
+  window.nexoraEnablePush=enableNexoraPush;
+  window.nexoraTestNotificationSound=playNexoraSound;
+  pushEnableBtn?.addEventListener('click',()=>enableNexoraPush().catch(()=>{}));
+  pushTestSoundBtn?.addEventListener('click',()=>playNexoraSound());
+  navigator.serviceWorker?.addEventListener('message',event=>{
+    const m=event.data||{};
+    if(m.type==='NEXORA_PUSH'){playNexoraSound();if(typeof msg==='function')msg('🔔 '+(m.title||'Informasi baru')+' — '+(m.body||''),'good');loadNotifications().catch(()=>{})}
+  });
+  getPushRegistration().then(()=>syncPushUI()).catch(()=>{});
+
+  async function sendPushForNewNotification(row){
+    if(!row?.id||row.published===false)return;
+    try{const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(!token)return;const type=String(row.type||'info');const url=type==='materi'?'./#academy':type==='event'?'./#home':type==='update'?'./#market':type==='important'?'./#macro':'./#home';await fetch('/api/push/send',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({notificationId:row.id,title:row.title,body:row.body,url})})}catch(e){console.warn('push send trigger',e)}
+  }
+
   async function handleUser(user){
     if(!user){memberBtn.classList.remove('show');showGate();return}
     if(!verified(user)){showGate();setMode('login');email.value=user.email||'';resend.style.display='block';msg('Akun sudah dibuat. Silakan verifikasi email dulu, lalu login kembali.','bad');return}
@@ -1584,6 +1643,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   settingsClose.onclick=closeSettings;
   settingsModal.addEventListener('click',e=>{if(e.target===settingsModal)closeSettings()});
   [settingsOnlyNotifications,settingsOnlyAutoRefresh,settingsOnlyReduceMotion,settingsOnlyCompact].forEach(el=>el.addEventListener('change',persistSeparateSettings));
+  settingsOnlyNotifications?.addEventListener('change',e=>{if(e.target.checked)enableNexoraPush().catch(()=>{e.target.checked=false});else disableNexoraPush()});
   settingsAdminBtn.onclick=()=>{closeSettings();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();}};
 
   /* ===== MEMBER PROFILE + SETTINGS ===== */

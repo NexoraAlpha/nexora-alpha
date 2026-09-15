@@ -1,4 +1,4 @@
-const CACHE = 'nexora-alpha-pwa-v3';
+const CACHE = 'nexora-alpha-pwa-v4-push';
 const SHELL = [
   './',
   './index.html',
@@ -16,7 +16,6 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE)
       .then(cache => cache.addAll(SHELL))
-      .catch(() => caches.open(CACHE))
       .then(() => self.skipWaiting())
   );
 });
@@ -31,15 +30,16 @@ self.addEventListener('activate', event => {
   );
 });
 
+/* ===== NEXORA WEB PUSH NOTIFICATION FEATURE ONLY ===== */
 self.addEventListener('push', event => {
   let payload = {};
-  try { payload = event.data ? event.data.json() : {}; } catch (_) {
-    try { payload = { body: event.data ? event.data.text() : '' }; } catch (_) {}
-  }
+  try { payload = event.data ? event.data.json() : {}; }
+  catch (_) { try { payload = {body: event.data ? event.data.text() : ''}; } catch (_) {} }
   const title = payload.title || 'Nexora Alpha';
   const body = payload.body || 'Ada informasi baru di Nexora Alpha.';
   const data = payload.data || {};
-  const url = data.url || './#home';
+  const target = data.url || './#home';
+  const url = new URL(target, self.location.origin).href;
   const tag = data.tag || ('nexora-' + Date.now());
 
   event.waitUntil((async () => {
@@ -62,7 +62,7 @@ self.addEventListener('push', event => {
 
 self.addEventListener('notificationclick', event => {
   event.notification.close();
-  const target = event.notification.data?.url || './#home';
+  const target = event.notification.data?.url || new URL('./#home', self.location.origin).href;
   event.waitUntil((async () => {
     const windows = await self.clients.matchAll({type:'window', includeUncontrolled:true});
     for (const client of windows) {
@@ -78,12 +78,13 @@ self.addEventListener('notificationclick', event => {
 self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
+
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
   if (req.mode === 'navigate') {
     event.respondWith(
-      fetch(req, { cache: 'no-store' })
+      fetch(req, {cache: 'no-store'})
         .then(res => {
           const copy = res.clone();
           caches.open(CACHE).then(cache => cache.put('./index.html', copy));
