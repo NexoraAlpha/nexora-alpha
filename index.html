@@ -218,7 +218,7 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 .login-success-wordmark span{display:inline-block;opacity:0;transform:translateY(10px) scale(.94);animation:loginLetterIn .42s ease forwards}
 .login-success-wordmark span:nth-child(1){animation-delay:1.34s}.login-success-wordmark span:nth-child(2){animation-delay:1.39s}.login-success-wordmark span:nth-child(3){animation-delay:1.44s}.login-success-wordmark span:nth-child(4){animation-delay:1.49s}.login-success-wordmark span:nth-child(5){animation-delay:1.54s}.login-success-wordmark span:nth-child(6){animation-delay:1.59s}.login-success-wordmark span:nth-child(7){animation-delay:1.64s}.login-success-wordmark span:nth-child(8){animation-delay:1.69s}.login-success-wordmark span:nth-child(9){animation-delay:1.74s}.login-success-wordmark span:nth-child(10){animation-delay:1.79s}.login-success-wordmark span:nth-child(11){animation-delay:1.84s}.login-success-wordmark span:nth-child(12){animation-delay:1.89s}
 .login-success-status{margin-top:17px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#7e9bc8;opacity:0;transform:translateY(8px);animation:loginStatusIn .55s ease 1.82s forwards}
-.login-success-line{position:absolute;left:50%;bottom:0;width:0;height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,#9dbdff,transparent);box-shadow:0 0 14px rgba(157,189,255,.7);animation:loginLineIn .7s ease 1.7s forwards}
+.login-success-line{position:absolute;left:50%;bottom:0;width:0;height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,#9dbdff,transparent);box-shadow:0 0 14px rgba(157,189,255,.7);animation:loginLineIn .7s ease 1.7s forwards}.login-welcome{position:absolute;left:50%;top:50%;width:min(760px,90vw);transform:translate(-50%,-50%) translateX(80px);display:flex;align-items:center;gap:22px;text-align:left;opacity:0;pointer-events:none;z-index:3;animation:loginWelcomeIn .65s cubic-bezier(.2,.8,.2,1) 2.35s forwards}.login-welcome-logo{width:78px;height:78px;flex:0 0 78px;background:url('login-animation-symbol.png') center/contain no-repeat;filter:drop-shadow(0 0 22px rgba(151,191,255,.42))}.login-welcome-copy{padding-left:20px;border-left:1px solid rgba(157,189,255,.25)}.login-welcome-title{font-family:Poppins,Arial,sans-serif;font-size:clamp(23px,5vw,38px);line-height:1.05;color:#eef5ff;text-shadow:0 0 20px rgba(140,182,255,.2)}.login-welcome-sub{margin-top:9px;color:#8fa7cf;font-size:11px;letter-spacing:.08em}.login-welcome-glow{position:absolute;left:5%;right:5%;bottom:-22px;height:1px;background:linear-gradient(90deg,transparent,#9dbdff,transparent);box-shadow:0 0 18px rgba(157,189,255,.75);opacity:.8}@keyframes loginWelcomeIn{0%{opacity:0;transform:translate(-50%,-50%) translateX(80px)}60%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) translateX(0)}}.login-success-overlay.closing .login-welcome{animation:loginWelcomeOut .55s ease forwards}@keyframes loginWelcomeOut{to{opacity:0;transform:translate(-50%,-50%) translateX(-35px)}}@media(max-width:560px){.login-welcome{width:84vw;gap:13px}.login-welcome-logo{width:54px;height:54px;flex-basis:54px}.login-welcome-copy{padding-left:13px}.login-welcome-title{font-size:22px}.login-welcome-sub{font-size:8px}}
 @keyframes loginOverlayIn{to{opacity:1}}
 @keyframes loginAura{0%{opacity:0;transform:scale(.55)}45%{opacity:1;transform:scale(1.08)}100%{opacity:.72;transform:scale(1)}}
 @keyframes loginF1{0%{opacity:0;transform:translate(-105px,-92px) rotate(-16deg) scale(.86)}55%{opacity:1}100%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}
@@ -236,7 +236,7 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 .login-success-overlay.closing{animation:loginOverlayOut .55s ease forwards}
 @keyframes loginOverlayOut{to{opacity:0}}
 @media(max-width:560px){.login-success-stage{height:76vh}.login-success-symbol{width:250px;height:250px}.login-success-wordmark{font-size:21px;letter-spacing:.27em;padding-left:.27em}.login-success-status{font-size:7px;letter-spacing:.2em;margin-top:13px}}
-@media(prefers-reduced-motion:reduce){.login-success-overlay.open,.login-success-overlay.closing,.login-success-aura,.login-fragment,.login-success-symbol,.login-success-wordmark,.login-success-wordmark span,.login-success-status,.login-success-line{animation-duration:.01ms!important;animation-iteration-count:1!important}.login-success-overlay.open{opacity:1}.login-fragment,.login-success-symbol,.login-success-wordmark,.login-success-wordmark span,.login-success-status{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.login-success-overlay.open,.login-success-overlay.closing,.login-success-aura,.login-fragment,.login-success-symbol,.login-success-wordmark,.login-success-wordmark span,.login-success-status,.login-success-line,.login-welcome{animation-duration:.01ms!important;animation-iteration-count:1!important}.login-success-overlay.open{opacity:1}.login-fragment,.login-success-symbol,.login-success-wordmark,.login-success-wordmark span,.login-success-status,.login-welcome{opacity:1;transform:none}}
 /* ===== END LOGIN SUCCESS ANIMATION ===== */
 
 </style></head>
@@ -277,8 +277,17 @@ body{padding-bottom:calc(var(--navh) + 22px)}
     </div>
     <div class="login-success-status">MEMBER ACCESS GRANTED</div>
     <div class="login-success-line"></div>
+    <div class="login-welcome" aria-label="Selamat Datang di Nexora Alpha">
+      <div class="login-welcome-logo"></div>
+      <div class="login-welcome-copy">
+        <div class="login-welcome-title">Selamat Datang di Nexora Alpha</div>
+        <div class="login-welcome-sub">Terus melangkah, raih lebih banyak.</div>
+      </div>
+      <div class="login-welcome-glow"></div>
+    </div>
   </div>
 </div>
+<audio id="nexoraLoginShatterSfx" preload="auto" src="nexora-crystal-shatter.wav"></audio>
 
 <header class="nav" id="nav"><a class="brand" href="#home" onclick="goSection('home');return false"><img src="logo.png" alt="Nexora Alpha"><span>NEXORA ALPHA</span></a><nav class="navlinks"><a href="#market">Market</a><a href="#macro">High-Impact News</a><a href="#academy">Education</a><a href="#community">Community</a></nav><button class="notify-btn" id="notifyBtn" type="button" aria-label="Buka notifikasi" title="Notifikasi">🔔<span class="notify-badge" id="notifyBadge">0</span></button><button class="settings-btn" id="settingsBtn" type="button" aria-label="Buka pengaturan" title="Pengaturan">⚙️</button><button class="member" id="memberBtn" type="button" aria-label="Buka profil"><img class="top-avatar" id="topAvatar" src="logo.png" alt="Profile"><span class="member-dot"></span><span class="member-info"><small>Member</small><b id="memberUsername">Guest</b></span></button><button class="admin-btn" id="adminBtn" type="button"><span class="admin-dot"></span>ADMIN</button><button class="menu" id="menu">☰</button><div class="member-menu" id="memberMenu"><div class="mm-title">Nexora Member</div><div class="mm-user" id="menuUsername">Member</div><div class="mm-email" id="menuEmail">email</div><button class="logout-btn" id="logoutBtn" type="button">LOGOUT</button></div></header>
 <div class="admin-panel" id="adminPanel">
@@ -1505,19 +1514,25 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 
   /* ===== LOGIN SUCCESS ANIMATION — LOGIN ONLY ===== */
   const loginSuccessOverlay=document.getElementById('loginSuccessOverlay');
-  let loginAnimationTimer=null;
+  const nexoraLoginShatterSfx=document.getElementById('nexoraLoginShatterSfx');
+  let loginAnimationTimer=null, loginSoundTimer=null;
   function playLoginSuccessAnimation(){
     if(!loginSuccessOverlay)return;
     if(loginAnimationTimer)clearTimeout(loginAnimationTimer);
+    if(loginSoundTimer)clearTimeout(loginSoundTimer);
     loginSuccessOverlay.classList.remove('closing');
     loginSuccessOverlay.classList.remove('open');
     void loginSuccessOverlay.offsetWidth;
     loginSuccessOverlay.classList.add('open');
     loginSuccessOverlay.setAttribute('aria-hidden','false');
+    loginSoundTimer=setTimeout(()=>{
+      if(!nexoraLoginShatterSfx)return;
+      try{nexoraLoginShatterSfx.currentTime=0;nexoraLoginShatterSfx.volume=.78;const pr=nexoraLoginShatterSfx.play();if(pr&&pr.catch)pr.catch(()=>{});}catch(e){}
+    },780);
     loginAnimationTimer=setTimeout(()=>{
       loginSuccessOverlay.classList.add('closing');
       setTimeout(()=>{loginSuccessOverlay.classList.remove('open','closing');loginSuccessOverlay.setAttribute('aria-hidden','true')},560);
-    },2800);
+    },4300);
   }
   /* ===== END LOGIN SUCCESS ANIMATION ===== */
 
