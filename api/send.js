@@ -16,7 +16,8 @@ module.exports=async function(req,res){
     const title=String(req.body?.title||'Nexora Alpha').slice(0,120);
     const body=String(req.body?.body||'Ada informasi baru di Nexora Alpha.').slice(0,1000);
     const notificationId=req.body?.notificationId||null;
-    const payload=JSON.stringify({title,body,data:{url:req.body?.url||'./#home',tag:notificationId?'notification-'+notificationId:('notification-'+Date.now()),notificationId,icon:'./nexora-icon-192.png'}});
+    const url=String(req.body?.url||'./#home');
+    const payload=JSON.stringify({title,body,data:{url,tag:notificationId?'notification-'+notificationId:('notification-'+Date.now()),notificationId,icon:'./nexora-icon-192.png'}});
     const rows=await supabaseRest('push_subscriptions?select=id,endpoint,p256dh,auth');
     let sent=0, failed=0, removed=0;
     await Promise.all((rows||[]).map(async row=>{
