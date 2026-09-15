@@ -389,6 +389,12 @@ body{padding-bottom:calc(var(--navh) + 22px)}
       <div class="market-watch-footer"><strong>Gold / USD</strong><span class="market-jump">Open Advanced Chart →</span></div>
     </article>
 
+    <article class="glass market-watch-card" data-market-symbol="FX_IDC:USDIDR" tabindex="0" role="button" aria-label="Buka chart USDIDR">
+      <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>USDIDR</b><span>U.S. Dollar / Rupiah • FX_IDC</span></div></div><span class="market-watch-live">● LIVE</span></div>
+      <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"FX_IDC:USDIDR","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
+      <div class="market-watch-footer"><strong>USD / IDR</strong><span class="market-jump">Open Chart →</span></div>
+    </article>
+
     <article class="glass market-watch-card" data-market-symbol="FX:EURUSD" tabindex="0" role="button" aria-label="Buka chart EURUSD">
       <div class="market-watch-top"><div class="market-watch-symbol"><i class="m-dot"></i><div><b>EURUSD</b><span>Euro / USD • FX</span></div></div><span class="market-watch-live">● LIVE</span></div>
       <div class="market-watch-chart"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>{"symbol":"FX:EURUSD","width":"100%","height":"100%","locale":"en","dateRange":"1D","colorTheme":"dark","trendLineColor":"rgba(157,189,255,1)","underLineColor":"rgba(157,189,255,.35)","underLineBottomColor":"rgba(3,6,17,0)","isTransparent":true,"autosize":true,"largeChartUrl":"","chartOnly":false,"noTimeScale":true}</script></div></div>
@@ -432,7 +438,7 @@ body{padding-bottom:calc(var(--navh) + 22px)}
         <form class="terminal-search" id="terminalSearchForm" autocomplete="off">
           <input id="terminalSearchInput" list="nexoraSymbolList" placeholder="Search symbol… contoh: XAUUSD, EURUSD, BTCUSDT, AAPL, NASDAQ:NDX" aria-label="Search market symbol">
           <datalist id="nexoraSymbolList">
-            <option value="OANDA:XAUUSD"></option><option value="FX:EURUSD"></option><option value="FX:GBPUSD"></option>
+            <option value="OANDA:XAUUSD"></option><option value="FX_IDC:USDIDR"></option><option value="FX:EURUSD"></option><option value="FX:GBPUSD"></option>
             <option value="FX:USDJPY"></option><option value="BINANCE:BTCUSDT"></option><option value="BINANCE:ETHUSDT"></option>
             <option value="NASDAQ:AAPL"></option><option value="NASDAQ:NVDA"></option><option value="NASDAQ:TSLA"></option>
             <option value="NASDAQ:MSFT"></option><option value="SP:SPX"></option><option value="NASDAQ:NDX"></option>
@@ -445,6 +451,7 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 
       <div class="terminal-quick" id="terminalQuick">
         <button class="terminal-chip active" type="button" data-symbol="OANDA:XAUUSD">🟡 GOLD</button>
+        <button class="terminal-chip" type="button" data-symbol="FX_IDC:USDIDR">USDIDR</button>
         <button class="terminal-chip" type="button" data-symbol="FX:EURUSD">EURUSD</button>
         <button class="terminal-chip" type="button" data-symbol="BINANCE:BTCUSDT">₿ BTCUSDT</button>
         <button class="terminal-chip" type="button" data-symbol="NASDAQ:AAPL">AAPL</button>
@@ -771,6 +778,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   const aliases={
     'gold':'OANDA:XAUUSD','xauusd':'OANDA:XAUUSD','xau/usd':'OANDA:XAUUSD',
     'silver':'OANDA:XAGUSD','xagusd':'OANDA:XAGUSD','xag/usd':'OANDA:XAGUSD',
+    'usdidr':'FX_IDC:USDIDR','usd/idr':'FX_IDC:USDIDR','dollar rupiah':'FX_IDC:USDIDR','usd rupiah':'FX_IDC:USDIDR',
     'eurusd':'FX:EURUSD','eur/usd':'FX:EURUSD','gbpusd':'FX:GBPUSD','gbp/usd':'FX:GBPUSD',
     'usdjpy':'FX:USDJPY','usd/jpy':'FX:USDJPY','audusd':'FX:AUDUSD','aud/usd':'FX:AUDUSD',
     'nzdusd':'FX:NZDUSD','nzd/usd':'FX:NZDUSD','usdcad':'FX:USDCAD','usd/cad':'FX:USDCAD',
