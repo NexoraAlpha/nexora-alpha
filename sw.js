@@ -1,4 +1,4 @@
-const CACHE = 'nexora-alpha-pwa-v4-push';
+const CACHE = 'nexora-alpha-pwa-v5-fresh';
 const SHELL = [
   './',
   './index.html',
@@ -95,16 +95,35 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Code assets (JS/CSS/manifest): network-first so users never run a stale
+  // build. Fall back to cache only when offline.
+  if (
+    url.pathname.endsWith('.js') ||
+    url.pathname.endsWith('.css') ||
+    url.pathname.endsWith('.webmanifest')
+  ) {
+    event.respondWith(
+      fetch(req, {cache: 'no-store'})
+        .then(res => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then(cache => cache.put(req, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Static media (images/audio): cache-first for speed.
   event.respondWith(
     caches.match(req).then(cached => {
       if (cached) return cached;
       return fetch(req).then(res => {
         if (res.ok && (
           url.pathname.endsWith('.png') ||
-          url.pathname.endsWith('.wav') ||
-          url.pathname.endsWith('.webmanifest') ||
-          url.pathname.endsWith('.css') ||
-          url.pathname.endsWith('.js')
+          url.pathname.endsWith('.wav')
         )) {
           const copy = res.clone();
           caches.open(CACHE).then(cache => cache.put(req, copy));

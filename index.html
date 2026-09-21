@@ -1708,8 +1708,18 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 
 <script>
 if ('serviceWorker' in navigator) {
+  // When a new service worker activates and takes control, reload once so the
+  // page and the running code always come from the same (latest) build.
+  let nexoraReloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (nexoraReloading) return;
+    nexoraReloading = true;
+    window.location.reload();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(err => console.warn('PWA service worker:', err));
+    navigator.serviceWorker.register('./sw.js', {scope:'./'})
+      .then(reg => { try { reg.update(); } catch (_) {} })
+      .catch(err => console.warn('PWA service worker:', err));
   });
 }
 </script>
