@@ -1290,12 +1290,17 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   function showGate(){gate.style.display='flex';document.body.classList.add('auth-locked')}
   function hideGate(){gate.style.display='none';document.body.classList.remove('auth-locked')}
   let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
+window.currentProfile=null;
   let notificationRows=[], notificationReads=new Set(), notificationEditingId=null;
   async function profile(user){
     const u=(user&&user.user_metadata&&user.user_metadata.username)||user.email.split('@')[0]||'Member';
     document.getElementById('memberUsername').textContent=u;document.getElementById('menuUsername').textContent=u;document.getElementById('menuEmail').textContent=user.email;memberBtn.classList.add('show');
     currentProfile={id:user.id,username:u,email:user.email,role:'member',avatar_url:null,settings:{}};
-    try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};}}catch(e){console.warn('profile lookup',e)}
+window.currentProfile=currentProfile;
+    try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){
+  currentProfile={...currentProfile,...data};
+  window.currentProfile=currentProfile;
+}}catch(e){console.warn('profile lookup',e)}
     const av=currentProfile.avatar_url||'logo.png';
     document.getElementById('topAvatar').src=av;
     document.getElementById('profileAvatar').src=av;
@@ -1697,7 +1702,9 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
       let avatar=currentProfile.avatar_url||null;if(pendingAvatarFile)avatar=await uploadAvatar(pendingAvatarFile);
       const nextSettings=currentProfileSettings();
       const {data,error}=await client.from('profiles').update({username:name,avatar_url:avatar,settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
-      if(error)throw error;currentProfile={...currentProfile,...data,email:currentProfile.email};
+      if(error)throw error;
+currentProfile={...currentProfile,...data,email:currentProfile.email};
+window.currentProfile=currentProfile;
       profileDisplayName.textContent=name;profileName.value=name;profileAvatar.src=avatar||'logo.png';topAvatar.src=avatar||'logo.png';memberUsername.textContent=name;menuUsername.textContent=name;pendingAvatarFile=null;avatarInput.value='';applyLocalSettings(nextSettings);
       try{await trackPresence()}catch(e){console.warn('presence profile refresh',e)}
       profileMsg('Profil berhasil diperbarui.',true);
@@ -1739,5 +1746,13 @@ if ('serviceWorker' in navigator) {
     }).catch(err => console.warn('PWA service worker:', err));
   });
 }
+</script>
+<script>
+/*
+ * Nexora currentProfile compatibility fix.
+ * Mencegah error ReferenceError jika ada script lama
+ * yang membaca currentProfile dari global scope.
+ */
+window.currentProfile = window.currentProfile || null;
 </script>
 </body></html>
