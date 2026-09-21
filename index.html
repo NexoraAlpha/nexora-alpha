@@ -1289,22 +1289,20 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   loginTab.onclick=()=>setMode('login'); registerTab.onclick=()=>setMode('register');
   function showGate(){gate.style.display='flex';document.body.classList.add('auth-locked')}
   function hideGate(){gate.style.display='none';document.body.classList.remove('auth-locked')}
-  let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
-window.currentProfile=null;
+  let presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
+  window.currentProfile=null;
   let notificationRows=[], notificationReads=new Set(), notificationEditingId=null;
   async function profile(user){
     const u=(user&&user.user_metadata&&user.user_metadata.username)||user.email.split('@')[0]||'Member';
     document.getElementById('memberUsername').textContent=u;document.getElementById('menuUsername').textContent=u;document.getElementById('menuEmail').textContent=user.email;memberBtn.classList.add('show');
-    currentProfile={id:user.id,username:u,email:user.email,role:'member',avatar_url:null,settings:{}};
-window.currentProfile=currentProfile;
+    window.currentProfile={id:user.id,username:u,email:user.email,role:'member',avatar_url:null,settings:{}};
     try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){
-  currentProfile={...currentProfile,...data};
-  window.currentProfile=currentProfile;
-}}catch(e){console.warn('profile lookup',e)}
-    const av=currentProfile.avatar_url||'logo.png';
+  window.currentProfile={...window.currentProfile,...data};
+  }}catch(e){console.warn('profile lookup',e)}
+    const av=window.currentProfile.avatar_url||'logo.png';
     document.getElementById('topAvatar').src=av;
     document.getElementById('profileAvatar').src=av;
-    const admin=currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin); document.getElementById('notifyBtn').classList.add('show'); settingsBtn.classList.add('show'); settingsAdminBtn.hidden=!admin; if(window.nexoraCMS) window.nexoraCMS.isAdmin=admin;
+    const admin=window.currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin); document.getElementById('notifyBtn').classList.add('show'); settingsBtn.classList.add('show'); settingsAdminBtn.hidden=!admin; if(window.nexoraCMS) window.nexoraCMS.isAdmin=admin;
     // Jangan blokir login gara-gara realtime/CMS. Semua ini dijalankan di background.
     if(admin) setupAdminPresence(user).catch(e=>console.warn('admin presence',e));
     else setupMemberPresence(user).catch(e=>console.warn('member presence',e));
@@ -1343,40 +1341,40 @@ window.currentProfile=currentProfile;
   function notifyDate(v){try{return new Date(v).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}catch(e){return ''}}
   function setNotifyBadge(n){const b=document.getElementById('notifyBadge');b.textContent=n>99?'99+':String(n);b.classList.toggle('show',n>0)}
   async function loadNotifications(){
-    if(!client||!currentProfile)return;
+    if(!client||!window.currentProfile)return;
     try{
-      const q= currentProfile.role==='admin'
+      const q= window.currentProfile.role==='admin'
         ? client.from('notifications').select('*').order('created_at',{ascending:false}).limit(100)
         : client.from('notifications').select('id,title,body,type,created_at,updated_at').eq('published',true).order('created_at',{ascending:false}).limit(100);
-      const [nr,rr]=await Promise.all([q,client.from('notification_reads').select('notification_id').eq('user_id',currentProfile.id)]);
+      const [nr,rr]=await Promise.all([q,client.from('notification_reads').select('notification_id').eq('user_id',window.currentProfile.id)]);
       if(nr.error)throw nr.error;
       notificationRows=nr.data||[];notificationReads=new Set((rr.data||[]).map(x=>x.notification_id));
       setNotifyBadge(notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).length);
-      renderNotifications(); if(currentProfile.role==='admin')renderNotifyAdmin();
+      renderNotifications(); if(window.currentProfile.role==='admin')renderNotifyAdmin();
     }catch(e){console.warn('notifications load',e);setNotifyBadge(0);}
   }
   function renderNotifications(){
     const el=document.getElementById('notifyList'); if(!el)return;
-    const rows=notificationRows.filter(n=>currentProfile?.role==='admin'||n.published!==false);
+    const rows=notificationRows.filter(n=>window.currentProfile?.role==='admin'||n.published!==false);
     if(!rows.length){el.innerHTML='<div class="notify-empty">Belum ada informasi baru.</div>';return}
     el.innerHTML=rows.map(n=>{const unread=!notificationReads.has(n.id);return `<article class="notify-item ${unread?'unread':''}" data-notify-id="${notifyEsc(n.id)}"><span class="notify-type">${notifyTypeLabel(n.type)}</span><div class="notify-item-top"><div class="notify-item-title">${notifyEsc(n.title)}</div><span class="notify-item-meta">${notifyDate(n.created_at)}</span></div><div class="notify-item-body">${notifyEsc(n.body)}</div></article>`}).join('');
     el.querySelectorAll('.notify-item').forEach(item=>item.addEventListener('click',()=>markNotificationRead(item.dataset.notifyId)));
   }
   async function markNotificationRead(id){
-    if(!currentProfile||!id||notificationReads.has(id))return;
-    try{const {error}=await client.from('notification_reads').upsert({notification_id:id,user_id:currentProfile.id},{onConflict:'notification_id,user_id'});if(error)throw error;notificationReads.add(id);setNotifyBadge(notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).length);renderNotifications()}catch(e){console.warn('notification read',e)}
+    if(!window.currentProfile||!id||notificationReads.has(id))return;
+    try{const {error}=await client.from('notification_reads').upsert({notification_id:id,user_id:window.currentProfile.id},{onConflict:'notification_id,user_id'});if(error)throw error;notificationReads.add(id);setNotifyBadge(notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).length);renderNotifications()}catch(e){console.warn('notification read',e)}
   }
   async function markAllNotificationsRead(){
-    if(!currentProfile)return;const ids=notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).map(n=>n.id);if(!ids.length)return;
-    try{const {error}=await client.from('notification_reads').upsert(ids.map(id=>({notification_id:id,user_id:currentProfile.id})),{onConflict:'notification_id,user_id'});if(error)throw error;ids.forEach(id=>notificationReads.add(id));setNotifyBadge(0);renderNotifications()}catch(e){console.warn('notification mark all',e)}
+    if(!window.currentProfile)return;const ids=notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).map(n=>n.id);if(!ids.length)return;
+    try{const {error}=await client.from('notification_reads').upsert(ids.map(id=>({notification_id:id,user_id:window.currentProfile.id})),{onConflict:'notification_id,user_id'});if(error)throw error;ids.forEach(id=>notificationReads.add(id));setNotifyBadge(0);renderNotifications()}catch(e){console.warn('notification mark all',e)}
   }
   function notifyAdminMsg(t,good=false){const el=document.getElementById('notifyAdminNote');if(el){el.textContent=t;el.style.color=good?'#65e7b2':'#ff9aae'}}
   function resetNotifyAdminForm(){notificationEditingId=null;document.getElementById('notifyAdminTitle').value='';document.getElementById('notifyAdminType').value='info';document.getElementById('notifyAdminBody').value='';document.getElementById('notifyAdminPublished').checked=true;document.getElementById('notifyAdminSave').textContent='＋ Publikasikan';document.getElementById('notifyAdminCancel').style.display='none';notifyAdminMsg('')}
   function editNotification(id){const n=notificationRows.find(x=>x.id===id);if(!n)return;notificationEditingId=id;document.getElementById('notifyAdminTitle').value=n.title||'';document.getElementById('notifyAdminType').value=n.type||'info';document.getElementById('notifyAdminBody').value=n.body||'';document.getElementById('notifyAdminPublished').checked=n.published!==false;document.getElementById('notifyAdminSave').textContent='Simpan Perubahan';document.getElementById('notifyAdminCancel').style.display='block';document.getElementById('notifyAdminTitle').focus()}
   function renderNotifyAdmin(){const el=document.getElementById('notifyAdminList');if(!el)return;const rows=notificationRows;if(!rows.length){el.innerHTML='<div class="empty-online">Belum ada notifikasi.</div>';return}el.innerHTML=rows.map(n=>`<div class="notify-admin-item"><div class="notify-admin-copy"><b>${notifyEsc(n.title)}</b><span>${notifyTypeLabel(n.type)} • ${n.published!==false?'Published':'Draft'} • ${notifyDate(n.created_at)}</span></div><div class="notify-admin-actions"><button type="button" data-edit-notify="${notifyEsc(n.id)}">Edit</button><button type="button" class="danger" data-delete-notify="${notifyEsc(n.id)}">Hapus</button></div></div>`).join('');el.querySelectorAll('[data-edit-notify]').forEach(b=>b.onclick=()=>editNotification(b.dataset.editNotify));el.querySelectorAll('[data-delete-notify]').forEach(b=>b.onclick=()=>deleteNotification(b.dataset.deleteNotify))}
-  async function saveNotificationAdmin(){if(currentProfile?.role!=='admin')return;const title=document.getElementById('notifyAdminTitle').value.trim(),body=document.getElementById('notifyAdminBody').value.trim(),type=document.getElementById('notifyAdminType').value,published=document.getElementById('notifyAdminPublished').checked; if(!title||!body)return notifyAdminMsg('Judul dan isi wajib diisi.');const btn=document.getElementById('notifyAdminSave');btn.disabled=true;notifyAdminMsg('Menyimpan...');try{const payload={title,body,type,published,updated_at:new Date().toISOString()};let res;if(notificationEditingId)res=await client.from('notifications').update(payload).eq('id',notificationEditingId).select().single();else res=await client.from('notifications').insert(payload).select().single();if(res.error)throw res.error;if(!notificationEditingId&&published&&res.data)sendPushForNewNotification(res.data);notifyAdminMsg(notificationEditingId?'Notifikasi diperbarui.':'Notifikasi berhasil dipublikasikan.',true);resetNotifyAdminForm();await loadNotifications()}catch(e){notifyAdminMsg(e.message||'Gagal menyimpan notifikasi.')}finally{btn.disabled=false}}
+  async function saveNotificationAdmin(){if(window.currentProfile?.role!=='admin')return;const title=document.getElementById('notifyAdminTitle').value.trim(),body=document.getElementById('notifyAdminBody').value.trim(),type=document.getElementById('notifyAdminType').value,published=document.getElementById('notifyAdminPublished').checked; if(!title||!body)return notifyAdminMsg('Judul dan isi wajib diisi.');const btn=document.getElementById('notifyAdminSave');btn.disabled=true;notifyAdminMsg('Menyimpan...');try{const payload={title,body,type,published,updated_at:new Date().toISOString()};let res;if(notificationEditingId)res=await client.from('notifications').update(payload).eq('id',notificationEditingId).select().single();else res=await client.from('notifications').insert(payload).select().single();if(res.error)throw res.error;if(!notificationEditingId&&published&&res.data)sendPushForNewNotification(res.data);notifyAdminMsg(notificationEditingId?'Notifikasi diperbarui.':'Notifikasi berhasil dipublikasikan.',true);resetNotifyAdminForm();await loadNotifications()}catch(e){notifyAdminMsg(e.message||'Gagal menyimpan notifikasi.')}finally{btn.disabled=false}}
   async function deleteNotification(id){
-    if(currentProfile?.role!=='admin'||!id)return;
+    if(window.currentProfile?.role!=='admin'||!id)return;
     if(!window.confirm('Hapus notifikasi ini?'))return;
     const btn=[...document.querySelectorAll('[data-delete-notify]')].find(x=>String(x.dataset.deleteNotify)===String(id));
     if(btn)btn.disabled=true;
@@ -1408,24 +1406,24 @@ window.currentProfile=currentProfile;
   initNotificationUI();
   function eventStatusLabel(status){return status==='live'?'● EVENT AKTIF':status==='paused'?'● EVENT DIJEDA':status==='frozen'?'● HASIL DIKUNCI':status==='ended'?'● EVENT SELESAI':'● EVENT AKAN DATANG'}
   function startEventTimer(){if(eventTimer)clearInterval(eventTimer);const tick=()=>{if(!nexoraEvent)return;const end=new Date(nexoraEvent.end_at).getTime();const start=new Date(nexoraEvent.start_at).getTime();const now=Date.now();let diff=Math.max(0,end-now);if(now<start){diff=Math.max(0,start-now);document.getElementById('eventCountdownLabel').textContent='Event dimulai dalam'}else document.getElementById('eventCountdownLabel').textContent='Event berakhir dalam';const total=Math.floor(diff/1000),days=Math.floor(total/86400),hours=Math.floor(total%86400/3600),mins=Math.floor(total%3600/60),secs=total%60;document.getElementById('eventDays').textContent=String(days).padStart(2,'0');document.getElementById('eventHours').textContent=String(hours).padStart(2,'0');document.getElementById('eventMinutes').textContent=String(mins).padStart(2,'0');document.getElementById('eventSeconds').textContent=String(secs).padStart(2,'0');document.getElementById('eventEndText').textContent='Selesai: '+new Date(nexoraEvent.end_at).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'});};tick();eventTimer=setInterval(tick,1000)}
-  window.nexoraEventMarkRead=async function(chapterId){if(!currentProfile||!client||!chapterId)return;try{const cmsChapter=window.nexoraCMS?.loaded?window.nexoraCMS.chapters?.find(c=>c.id===chapterId||c.slug===chapterId):null;const realChapterId=cmsChapter?.id||chapterId;if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(realChapterId)))return;await client.rpc('nexora_mark_chapter_read',{p_chapter_id:realChapterId});await eventHeartbeat();}catch(e){}};
-  async function eventHeartbeat(){if(!currentProfile||!client||eventHeartbeatBusy||document.visibilityState!=='visible')return;eventHeartbeatBusy=true;try{const {data,error}=await client.rpc('nexora_event_heartbeat');if(error)throw error;if(data?.event_id){nexoraEvent=nexoraEvent||{id:data.event_id};}}catch(e){/* event SQL may not have been installed yet */}finally{eventHeartbeatBusy=false}}
-  async function loadEventData(){if(!client||!currentProfile)return;try{const {data:event,error}=await client.from('events').select('id,title,subtitle,start_at,end_at,status,prize_1,prize_2,prize_3').in('status',['live','paused','frozen','draft']).order('start_at',{ascending:false}).limit(1).maybeSingle();if(error)throw error;if(!event){document.getElementById('eventBubble').classList.remove('show');return}nexoraEvent=event;document.getElementById('eventBubble').classList.add('show');document.getElementById('eventBubbleSub').textContent=event.status==='live'?'Leaderboard sedang berlangsung':'Event '+event.status;document.getElementById('eventTitle').textContent=event.title||'NEXORA ALPHA CHALLENGE';document.getElementById('eventSubtitle').textContent=event.subtitle||'Jadilah member paling aktif dan raih hadiah.';document.getElementById('eventStatusPill').textContent=eventStatusLabel(event.status);document.getElementById('prize1').textContent='$'+Number(event.prize_1||75).toFixed(0);document.getElementById('prize2').textContent='$'+Number(event.prize_2||45).toFixed(0);document.getElementById('prize3').textContent='$'+Number(event.prize_3||20).toFixed(0);startEventTimer();const {data:parts,error:pe}=await client.rpc('nexora_event_leaderboard',{p_event_id:event.id});if(pe)throw pe;const rows=(parts||[]).map(p=>({...p,profile:{username:p.username||'Member',avatar_url:p.avatar_url||'logo.png',last_seen:p.last_seen}}));renderEventLeaderboard(rows);const mine=rows.find(x=>x.user_id===currentProfile.id);document.getElementById('eventMyRank').textContent=mine?'#'+mine.rank:'—';document.getElementById('eventMyTime').textContent=mine?fmtLong(mine.active_seconds):'0 Detik';document.getElementById('eventMyMaterial').textContent=(mine?Number(mine.material_percent||0):0).toFixed(0)+'%';document.getElementById('eventMyParticipants').textContent=rows.length;const ac=document.getElementById('eventAdminCard');ac.style.display=currentProfile.role==='admin'?'block':'none';if(currentProfile.role==='admin')loadEventAdmin(event)}catch(e){console.warn('event load',e)}}
+  window.nexoraEventMarkRead=async function(chapterId){if(!window.currentProfile||!client||!chapterId)return;try{const cmsChapter=window.nexoraCMS?.loaded?window.nexoraCMS.chapters?.find(c=>c.id===chapterId||c.slug===chapterId):null;const realChapterId=cmsChapter?.id||chapterId;if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(realChapterId)))return;await client.rpc('nexora_mark_chapter_read',{p_chapter_id:realChapterId});await eventHeartbeat();}catch(e){}};
+  async function eventHeartbeat(){if(!window.currentProfile||!client||eventHeartbeatBusy||document.visibilityState!=='visible')return;eventHeartbeatBusy=true;try{const {data,error}=await client.rpc('nexora_event_heartbeat');if(error)throw error;if(data?.event_id){nexoraEvent=nexoraEvent||{id:data.event_id};}}catch(e){/* event SQL may not have been installed yet */}finally{eventHeartbeatBusy=false}}
+  async function loadEventData(){if(!client||!window.currentProfile)return;try{const {data:event,error}=await client.from('events').select('id,title,subtitle,start_at,end_at,status,prize_1,prize_2,prize_3').in('status',['live','paused','frozen','draft']).order('start_at',{ascending:false}).limit(1).maybeSingle();if(error)throw error;if(!event){document.getElementById('eventBubble').classList.remove('show');return}nexoraEvent=event;document.getElementById('eventBubble').classList.add('show');document.getElementById('eventBubbleSub').textContent=event.status==='live'?'Leaderboard sedang berlangsung':'Event '+event.status;document.getElementById('eventTitle').textContent=event.title||'NEXORA ALPHA CHALLENGE';document.getElementById('eventSubtitle').textContent=event.subtitle||'Jadilah member paling aktif dan raih hadiah.';document.getElementById('eventStatusPill').textContent=eventStatusLabel(event.status);document.getElementById('prize1').textContent='$'+Number(event.prize_1||75).toFixed(0);document.getElementById('prize2').textContent='$'+Number(event.prize_2||45).toFixed(0);document.getElementById('prize3').textContent='$'+Number(event.prize_3||20).toFixed(0);startEventTimer();const {data:parts,error:pe}=await client.rpc('nexora_event_leaderboard',{p_event_id:event.id});if(pe)throw pe;const rows=(parts||[]).map(p=>({...p,profile:{username:p.username||'Member',avatar_url:p.avatar_url||'logo.png',last_seen:p.last_seen}}));renderEventLeaderboard(rows);const mine=rows.find(x=>x.user_id===window.currentProfile.id);document.getElementById('eventMyRank').textContent=mine?'#'+mine.rank:'—';document.getElementById('eventMyTime').textContent=mine?fmtLong(mine.active_seconds):'0 Detik';document.getElementById('eventMyMaterial').textContent=(mine?Number(mine.material_percent||0):0).toFixed(0)+'%';document.getElementById('eventMyParticipants').textContent=rows.length;const ac=document.getElementById('eventAdminCard');ac.style.display=window.currentProfile.role==='admin'?'block':'none';if(window.currentProfile.role==='admin')loadEventAdmin(event)}catch(e){console.warn('event load',e)}}
   function renderEventLeaderboard(rows){const top=document.getElementById('eventTop3'), table=document.getElementById('eventLeaderboardRows');if(!rows.length){top.innerHTML='<div class="event-empty" style="grid-column:1/-1">Belum ada peserta aktif. Login dan mulai eksplor Nexora.</div>';table.innerHTML='';return}const prize=[nexoraEvent?.prize_2||45,nexoraEvent?.prize_1||75,nexoraEvent?.prize_3||20];const order=[1,0,2];top.innerHTML=order.map((idx)=>{const r=rows[idx];if(!r)return '<div class="event-rank-card"></div>';const rank=idx+1,p=r.profile||{};const online=p.last_seen&&Date.now()-new Date(p.last_seen).getTime()<45000;return `<div class="event-rank-card rank${rank}"><div class="rank-crown">${rank===1?'👑':rank===2?'🥈':'🥉'}</div><img class="event-avatar" src="${escapeHtml(p.avatar_url||'logo.png')}" onerror="this.src='logo.png'" alt=""><div class="event-rank-name">${escapeHtml(p.username||'Member')}</div><div class="event-rank-time">${fmtLong(r.active_seconds)}</div><div class="event-rank-material">Materi dibaca <b>${Number(r.material_percent||0).toFixed(0)}%</b></div><div class="event-progress"><i style="width:${Math.min(100,Math.max(0,Number(r.material_percent)||0))}%"></i></div><span class="event-prize-mini">$${Number(rank===1?(nexoraEvent?.prize_1||75):rank===2?(nexoraEvent?.prize_2||45):(nexoraEvent?.prize_3||20)).toFixed(0)}</span><div style="margin-top:5px;font-size:8px;color:${online?'#65e7b2':'#7b879a'}">● ${online?'Aktif':'Offline'}</div></div>`}).join('');table.innerHTML=rows.map((r,i)=>{const p=r.profile||{},online=p.last_seen&&Date.now()-new Date(p.last_seen).getTime()<45000;return `<div class="event-row"><span style="font-family:Poppins;font-weight:900">${i+1}</span><div class="event-member"><img src="${escapeHtml(p.avatar_url||'logo.png')}" onerror="this.src='logo.png'" alt=""><span>${escapeHtml(p.username||'Member')}</span></div><span>${fmtLong(r.active_seconds)}</span><span><b>${Number(r.material_percent||0).toFixed(0)}%</b><div class="event-progress"><i style="width:${Math.min(100,Math.max(0,Number(r.material_percent)||0))}%"></i></div></span><span class="event-status-dot ${online?'':'off'}">● ${online?'Online':'Offline'}</span></div>`}).join('')}
   function loadEventAdmin(event){document.getElementById('eventAdminTitle').value=event.title||'';document.getElementById('eventAdminStatus').value=event.status||'draft';document.getElementById('eventAdminStart').value=toLocalInput(event.start_at);document.getElementById('eventAdminEnd').value=toLocalInput(event.end_at);document.getElementById('eventAdminPrize1').value='$'+Number(event.prize_1||75).toFixed(0);document.getElementById('eventAdminPrizes23').value='$'+Number(event.prize_2||45)+' / $'+Number(event.prize_3||20)}
   function eventAdminMsg(t,good=false){const e=document.getElementById('eventAdminNote');e.textContent=t;e.style.color=good?'#65e7b2':'#7f90aa'}
-  async function saveEventAdmin(){if(currentProfile?.role!=='admin'||!nexoraEvent)return;const btn=document.getElementById('eventAdminSave');btn.disabled=true;eventAdminMsg('Menyimpan...');try{const pair=document.getElementById('eventAdminPrizes23').value.split('/');const p1=parsePrize(document.getElementById('eventAdminPrize1').value,75),p2=parsePrize(pair[0],45),p3=parsePrize(pair[1],20);const payload={title:document.getElementById('eventAdminTitle').value.trim()||'Nexora Alpha Challenge',status:document.getElementById('eventAdminStatus').value,start_at:new Date(document.getElementById('eventAdminStart').value).toISOString(),end_at:new Date(document.getElementById('eventAdminEnd').value).toISOString(),prize_1:p1,prize_2:p2,prize_3:p3};const {data,error}=await client.from('events').update(payload).eq('id',nexoraEvent.id).select().single();if(error)throw error;nexoraEvent=data;eventAdminMsg('Event berhasil disimpan.',true);await loadEventData()}catch(e){eventAdminMsg(e.message||'Gagal menyimpan event.')}finally{btn.disabled=false}}
+  async function saveEventAdmin(){if(window.currentProfile?.role!=='admin'||!nexoraEvent)return;const btn=document.getElementById('eventAdminSave');btn.disabled=true;eventAdminMsg('Menyimpan...');try{const pair=document.getElementById('eventAdminPrizes23').value.split('/');const p1=parsePrize(document.getElementById('eventAdminPrize1').value,75),p2=parsePrize(pair[0],45),p3=parsePrize(pair[1],20);const payload={title:document.getElementById('eventAdminTitle').value.trim()||'Nexora Alpha Challenge',status:document.getElementById('eventAdminStatus').value,start_at:new Date(document.getElementById('eventAdminStart').value).toISOString(),end_at:new Date(document.getElementById('eventAdminEnd').value).toISOString(),prize_1:p1,prize_2:p2,prize_3:p3};const {data,error}=await client.from('events').update(payload).eq('id',nexoraEvent.id).select().single();if(error)throw error;nexoraEvent=data;eventAdminMsg('Event berhasil disimpan.',true);await loadEventData()}catch(e){eventAdminMsg(e.message||'Gagal menyimpan event.')}finally{btn.disabled=false}}
   document.getElementById('eventBubble').onclick=()=>{document.getElementById('eventModal').classList.add('open');document.getElementById('eventModal').setAttribute('aria-hidden','false');loadEventData()};document.getElementById('eventClose').onclick=()=>{document.getElementById('eventModal').classList.remove('open');document.getElementById('eventModal').setAttribute('aria-hidden','true')};document.getElementById('eventModal').addEventListener('click',e=>{if(e.target.id==='eventModal')document.getElementById('eventClose').click()});document.getElementById('eventAdminSave').onclick=saveEventAdmin;document.getElementById('eventAdminRefresh').onclick=loadEventData;
   async function trackPresence(){
-    if(!currentProfile)return;
+    if(!window.currentProfile)return;
     const now=new Date().toISOString();
     if(document.visibilityState==='visible') eventHeartbeat().catch(()=>{});
     try{
-      const {error}=await client.from('profiles').update({last_seen:now}).eq('id',currentProfile.id);
+      const {error}=await client.from('profiles').update({last_seen:now}).eq('id',window.currentProfile.id);
       if(error)throw error;
     }catch(e){console.warn('online heartbeat',e)}
     if(presenceChannel){
-      try{await presenceChannel.track({user_id:currentProfile.id,username:currentProfile.username||'Member',email:currentProfile.email||'',role:currentProfile.role||'member',avatar_url:currentProfile.avatar_url||'logo.png',online_at:now})}catch(e){}
+      try{await presenceChannel.track({user_id:window.currentProfile.id,username:window.currentProfile.username||'Member',email:window.currentProfile.email||'',role:window.currentProfile.role||'member',avatar_url:window.currentProfile.avatar_url||'logo.png',online_at:now})}catch(e){}
     }
   }
   function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -1502,7 +1500,7 @@ window.currentProfile=currentProfile;
     try{const sub=await getPushSubscription();if(sub){pushSetStatus(Notification.permission==='granted'?'Push aktif — Nexora siap memberi kabar.':'Subscription tersimpan, izin notifikasi perlu diaktifkan.',true);if(pushEnableBtn){pushEnableBtn.textContent='PUSH AKTIF';pushEnableBtn.disabled=false}}else{pushSetStatus(Notification.permission==='denied'?'Notifikasi diblokir browser. Buka izin situs untuk mengaktifkannya.':'Belum aktif. Aktifkan sekali agar push bisa masuk saat PWA/background.');if(pushEnableBtn){pushEnableBtn.textContent='AKTIFKAN PUSH';pushEnableBtn.disabled=false}}}catch(e){pushSetStatus(e.message||'Gagal membaca status push.');if(pushEnableBtn)pushEnableBtn.disabled=false}
   }
   async function enableNexoraPush(){
-    if(!currentProfile)return;
+    if(!window.currentProfile)return;
     try{
       if(!('Notification' in window)||!('PushManager' in window))throw new Error('Browser ini belum mendukung Web Push.');
       const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
@@ -1515,7 +1513,7 @@ window.currentProfile=currentProfile;
       const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(!token)throw new Error('Sesi login tidak ditemukan.');
       const save=await fetch('/api/push/subscribe',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({subscription:sub.toJSON()})});
       if(!save.ok){const j=await save.json().catch(()=>({}));throw new Error(j.error||'Gagal menyimpan push subscription.')}
-      const settings={...(currentProfile.settings||{}),notifications:true};currentProfile.settings=settings;if(typeof settingsOnlyNotifications!=='undefined'&&settingsOnlyNotifications)settingsOnlyNotifications.checked=true;
+      const settings={...(window.currentProfile.settings||{}),notifications:true};window.currentProfile.settings=settings;if(typeof settingsOnlyNotifications!=='undefined'&&settingsOnlyNotifications)settingsOnlyNotifications.checked=true;
       await playNexoraSound();pushSetStatus('Push aktif — notifikasi bisa masuk saat Nexora/PWA berada di background.',true);if(pushEnableBtn)pushEnableBtn.textContent='PUSH AKTIF';
     }catch(e){console.warn('enable push',e);pushSetStatus(e.message||'Gagal mengaktifkan push.');throw e}
   }
@@ -1579,13 +1577,13 @@ window.currentProfile=currentProfile;
   document.querySelectorAll('[data-admin-view]').forEach(btn=>btn.addEventListener('click',()=>showAdminView(btn.dataset.adminView)));
   document.querySelectorAll('[data-admin-home]').forEach(btn=>btn.addEventListener('click',()=>showAdminView('home')));
   async function refreshAdminStats(){
-    if(currentProfile?.role!=='admin'||!client)return;
+    if(window.currentProfile?.role!=='admin'||!client)return;
     renderAdminNotifications();
     try{const {count,error}=await client.from('profiles').select('id',{count:'exact',head:true});if(!error){const el=document.getElementById('adminTotal');if(el)el.textContent=count??'—';}}catch(e){}
     renderOnline();
   }
   const adminBtn=document.getElementById('adminBtn'), adminPanel=document.getElementById('adminPanel'), adminClose=document.getElementById('adminClose');
-  adminBtn.onclick=()=>{if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();if('Notification' in window&&Notification.permission==='default'){Notification.requestPermission().catch(()=>{})}}};
+  adminBtn.onclick=()=>{if(window.currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();if('Notification' in window&&Notification.permission==='default'){Notification.requestPermission().catch(()=>{})}}};
   adminClose.onclick=()=>adminPanel.classList.remove('open');
 
   document.addEventListener('click',e=>{if(!memberBtn.contains(e.target)&&!memberMenu.contains(e.target))memberMenu.classList.remove('open')});
@@ -1622,20 +1620,20 @@ window.currentProfile=currentProfile;
   const settingsOnlyNotifications=document.getElementById('settingsOnlyNotifications'), settingsOnlyAutoRefresh=document.getElementById('settingsOnlyAutoRefresh'), settingsOnlyReduceMotion=document.getElementById('settingsOnlyReduceMotion'), settingsOnlyCompact=document.getElementById('settingsOnlyCompact');
   function closeSettings(){settingsModal.classList.remove('open');settingsModal.setAttribute('aria-hidden','true')}
   function syncSeparateSettings(){
-    const s=currentProfile?.settings||{};
+    const s=window.currentProfile?.settings||{};
     settingsOnlyNotifications.checked=!!s.notifications;
     settingsOnlyAutoRefresh.checked=s.autoRefresh!==false;
     settingsOnlyReduceMotion.checked=!!s.reduceMotion;
     settingsOnlyCompact.checked=!!s.compact;
   }
   async function persistSeparateSettings(){
-    if(!currentProfile)return;
-    const nextSettings={...(currentProfile.settings||{}),notifications:settingsOnlyNotifications.checked,autoRefresh:settingsOnlyAutoRefresh.checked,reduceMotion:settingsOnlyReduceMotion.checked,compact:settingsOnlyCompact.checked};
+    if(!window.currentProfile)return;
+    const nextSettings={...(window.currentProfile.settings||{}),notifications:settingsOnlyNotifications.checked,autoRefresh:settingsOnlyAutoRefresh.checked,reduceMotion:settingsOnlyReduceMotion.checked,compact:settingsOnlyCompact.checked};
     applyLocalSettings(nextSettings);
     try{
-      const {data,error}=await client.from('profiles').update({settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
+      const {data,error}=await client.from('profiles').update({settings:nextSettings}).eq('id',window.currentProfile.id).select('id,username,role,avatar_url,settings').single();
       if(error)throw error;
-      currentProfile={...currentProfile,...data,email:currentProfile.email};
+      window.currentProfile={...window.currentProfile,...data,email:window.currentProfile.email};
       loadSettings(nextSettings);
     }catch(e){
       console.warn('separate settings save',e);
@@ -1644,9 +1642,9 @@ window.currentProfile=currentProfile;
     if(nextSettings.notifications&&'Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{});
   }
   async function openSettings(){
-    if(!currentProfile)return;
+    if(!window.currentProfile)return;
     syncSeparateSettings();
-    settingsAdminBtn.hidden=currentProfile.role!=='admin';
+    settingsAdminBtn.hidden=window.currentProfile.role!=='admin';
     settingsModal.classList.add('open');settingsModal.setAttribute('aria-hidden','false');
   }
   settingsBtn.onclick=()=>{memberMenu.classList.remove('open');openSettings()};
@@ -1654,7 +1652,7 @@ window.currentProfile=currentProfile;
   settingsModal.addEventListener('click',e=>{if(e.target===settingsModal)closeSettings()});
   [settingsOnlyNotifications,settingsOnlyAutoRefresh,settingsOnlyReduceMotion,settingsOnlyCompact].forEach(el=>el.addEventListener('change',persistSeparateSettings));
   settingsOnlyNotifications?.addEventListener('change',e=>{if(e.target.checked)enableNexoraPush().catch(()=>{e.target.checked=false});else disableNexoraPush()});
-  settingsAdminBtn.onclick=()=>{closeSettings();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();}};
+  settingsAdminBtn.onclick=()=>{closeSettings();if(window.currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();}};
 
   /* ===== MEMBER PROFILE + SETTINGS ===== */
   const profileModal=document.getElementById('profileModal'), profileClose=document.getElementById('profileClose'), avatarInput=document.getElementById('avatarInput');
@@ -1698,24 +1696,23 @@ window.currentProfile=currentProfile;
     const {data}=client.storage.from('avatars').getPublicUrl(path);return data.publicUrl;
   }
   document.getElementById('saveProfileBtn').onclick=async()=>{
-    if(!currentProfile)return;const name=profileName.value.trim();if(!/^[A-Za-z0-9_ .-]{3,24}$/.test(name))return profileMsg('Nama 3–24 karakter. Gunakan huruf, angka, spasi, _ , . atau -.');
+    if(!window.currentProfile)return;const name=profileName.value.trim();if(!/^[A-Za-z0-9_ .-]{3,24}$/.test(name))return profileMsg('Nama 3–24 karakter. Gunakan huruf, angka, spasi, _ , . atau -.');
     const btn=document.getElementById('saveProfileBtn');btn.disabled=true;profileMsg('Menyimpan...');
     try{
-      let avatar=currentProfile.avatar_url||null;if(pendingAvatarFile)avatar=await uploadAvatar(pendingAvatarFile);
+      let avatar=window.currentProfile.avatar_url||null;if(pendingAvatarFile)avatar=await uploadAvatar(pendingAvatarFile);
       const nextSettings=currentProfileSettings();
-      const {data,error}=await client.from('profiles').update({username:name,avatar_url:avatar,settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
+      const {data,error}=await client.from('profiles').update({username:name,avatar_url:avatar,settings:nextSettings}).eq('id',window.currentProfile.id).select('id,username,role,avatar_url,settings').single();
       if(error)throw error;
-currentProfile={...currentProfile,...data,email:currentProfile.email};
-window.currentProfile=currentProfile;
+window.currentProfile={...window.currentProfile,...data,email:window.currentProfile.email};
       profileDisplayName.textContent=name;profileName.value=name;profileAvatar.src=avatar||'logo.png';topAvatar.src=avatar||'logo.png';memberUsername.textContent=name;menuUsername.textContent=name;pendingAvatarFile=null;avatarInput.value='';applyLocalSettings(nextSettings);
       try{await trackPresence()}catch(e){console.warn('presence profile refresh',e)}
       profileMsg('Profil berhasil diperbarui.',true);
     }catch(e){profileMsg(e.message||'Gagal menyimpan profil.')}finally{btn.disabled=false}
   };
-  document.getElementById('profileAdminBtn').onclick=()=>{closeProfile();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');renderOnline();}};
+  document.getElementById('profileAdminBtn').onclick=()=>{closeProfile();if(window.currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');renderOnline();}};
   document.getElementById('profileLogoutBtn').onclick=()=>logout.click();
   const _oldProfile=profile;
-  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;window.currentProfile=currentProfile;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
+  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){window.currentProfile={...window.currentProfile,...data};window.currentProfile.email=user.email;window.currentProfile=window.currentProfile;const av=window.currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=window.currentProfile.username;menuUsername.textContent=window.currentProfile.username;loadSettings(window.currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
   if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
 })();
 </script>
@@ -1751,9 +1748,9 @@ if ('serviceWorker' in navigator) {
 </script>
 <script>
 /*
- * Nexora currentProfile compatibility fix.
- * Mencegah error ReferenceError jika ada script lama
- * yang membaca currentProfile dari global scope.
+ * Nexora window.currentProfile compatibility fix.
+ * Keep profile state on the global object so auth/profile handlers
+ * from different scopes cannot throw ReferenceError.
  */
 window.currentProfile = window.currentProfile || null;
 </script>
