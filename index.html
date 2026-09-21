@@ -1708,8 +1708,30 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 
 <script>
 if ('serviceWorker' in navigator) {
+  // Reload once when a new service worker takes control so the device stops
+  // running old cached code (fixes users stuck on a stale index.html build).
+  let nexoraSwReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (nexoraSwReloaded) return;
+    nexoraSwReloaded = true;
+    location.reload();
+  });
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(err => console.warn('PWA service worker:', err));
+    navigator.serviceWorker.register('./sw.js', {scope:'./'}).then(reg => {
+      // Actively check for an updated worker on every load.
+      reg.update().catch(() => {});
+      reg.addEventListener('updatefound', () => {
+        const sw = reg.installing;
+        if (!sw) return;
+        sw.addEventListener('statechange', () => {
+          // A new worker finished installing while an old one still controls
+          // the page: activate it immediately so controllerchange fires.
+          if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+            sw.postMessage({type:'NEXORA_SKIP_WAITING'});
+          }
+        });
+      });
+    }).catch(err => console.warn('PWA service worker:', err));
   });
 }
 </script>
