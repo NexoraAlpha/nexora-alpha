@@ -1,0 +1,6 @@
+{
+  "crons": [
+    {"path":"/api/news/ingest","schedule":"*/10 * * * *"},
+    {"path":"/api/news/alerts","schedule":"*/10 * * * *"}
+  ]
+}
