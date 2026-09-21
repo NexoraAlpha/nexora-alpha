@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<script>
+// Nexora PWA recovery: clear legacy service workers/caches once when the v7 client is deployed.
+(async()=>{try{if("serviceWorker" in navigator){const regs=await navigator.serviceWorker.getRegistrations();for(const r of regs){await r.update().catch(()=>{});}}}catch(e){console.warn("PWA recovery",e)}})();
+</script>
+
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050914">
 <meta name="mobile-web-app-capable" content="yes">

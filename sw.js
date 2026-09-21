@@ -1,7 +1,5 @@
-const CACHE = 'nexora-alpha-pwa-v6';
+const CACHE = 'nexora-alpha-pwa-v7';
 const STATIC_SHELL = [
-  './',
-  './index.html',
   './manifest.webmanifest',
   './logo.png',
   './nexora-icon-192.png',
@@ -151,7 +149,7 @@ self.addEventListener('fetch', event => {
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req, {cache: 'no-store'})
-        .catch(() => caches.match('./index.html'))
+        .catch(() => new Response('<!doctype html><title>Nexora offline</title><body style="font-family:sans-serif;padding:24px">Nexora sedang offline. Sambungkan internet lalu muat ulang.</body>', {headers:{'Content-Type':'text/html; charset=utf-8'}, status:503}))
     );
     return;
   }
