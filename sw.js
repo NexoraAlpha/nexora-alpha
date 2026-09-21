@@ -1,4 +1,4 @@
-const CACHE = 'nexora-alpha-pwa-v4-push';
+const CACHE = 'nexora-alpha-pwa-v5-push';
 const SHELL = [
   './',
   './index.html',
@@ -18,6 +18,12 @@ self.addEventListener('install', event => {
       .then(cache => cache.addAll(SHELL))
       .then(() => self.skipWaiting())
   );
+});
+
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'NEXORA_SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener('activate', event => {
@@ -95,6 +101,24 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Code assets (JS/CSS) are served network-first so updated logic always
+  // reaches the user instead of being pinned to a stale cached copy.
+  if (url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
+    event.respondWith(
+      fetch(req, {cache: 'no-store'})
+        .then(res => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then(cache => cache.put(req, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Static media (images/audio/manifest) stay cache-first for speed.
   event.respondWith(
     caches.match(req).then(cached => {
       if (cached) return cached;
@@ -102,9 +126,7 @@ self.addEventListener('fetch', event => {
         if (res.ok && (
           url.pathname.endsWith('.png') ||
           url.pathname.endsWith('.wav') ||
-          url.pathname.endsWith('.webmanifest') ||
-          url.pathname.endsWith('.css') ||
-          url.pathname.endsWith('.js')
+          url.pathname.endsWith('.webmanifest')
         )) {
           const copy = res.clone();
           caches.open(CACHE).then(cache => cache.put(req, copy));
