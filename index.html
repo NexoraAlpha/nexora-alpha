@@ -1290,6 +1290,7 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   function showGate(){gate.style.display='flex';document.body.classList.add('auth-locked')}
   function hideGate(){gate.style.display='none';document.body.classList.remove('auth-locked')}
   let presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
+  var currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
   window.currentProfile=null;
   let notificationRows=[], notificationReads=new Set(), notificationEditingId=null;
   async function profile(user){
