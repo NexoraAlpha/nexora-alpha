@@ -1,4 +1,4 @@
-const CACHE = 'nexora-alpha-pwa-v6-chat';
+const CACHE = 'nexora-alpha-pwa-v7-final';
 const SHELL = [
   './',
   './index.html',

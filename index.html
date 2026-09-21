@@ -883,7 +883,7 @@ document.querySelectorAll('.card').forEach(card=>card.addEventListener('pointerm
     finally{newsLoading=false;}
   }
   async function syncNewsProvider(){
-    if(!currentProfile||currentProfile.role!=='admin')return;
+    if(!window.currentProfile||window.currentProfile.role!=='admin')return;
     if(newsSyncBtn){newsSyncBtn.disabled=true;newsSyncBtn.textContent='SYNCING…';}
     try{
       const s=await client.auth.getSession(),token=s.data?.session?.access_token;if(!token)throw new Error('Sesi admin tidak ditemukan.');
@@ -897,7 +897,7 @@ document.querySelectorAll('.card').forEach(card=>card.addEventListener('pointerm
   newsSyncBtn?.addEventListener('click',syncNewsProvider);
   window.nexoraLoadNews=()=>loadNewsFeed();
   window.nexoraSyncNews=syncNewsProvider;
-  function updateNewsAdminButton(){if(newsSyncBtn)newsSyncBtn.hidden=!(currentProfile&&currentProfile.role==='admin');}
+  function updateNewsAdminButton(){if(newsSyncBtn)newsSyncBtn.hidden=!(window.currentProfile&&window.currentProfile.role==='admin');}
 
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h.startsWith('module/')&&window.nexoraCMS?.loaded)openCmsModule(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(['market','macro','academy','community','chat'].includes(h)){goSection(h)}else if(h==='home'||h==='')home()});
 if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if(lessons[id])openLesson(id)}
@@ -1437,13 +1437,13 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   function showGate(){gate.style.display='flex';document.body.classList.add('auth-locked')}
   function hideGate(){gate.style.display='none';document.body.classList.remove('auth-locked')}
   window.currentProfile = window.currentProfile || null;
-let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
+var currentProfile=window.currentProfile||null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
   let notificationRows=[], notificationReads=new Set(), notificationEditingId=null;
   async function profile(user){
     const u=(user&&user.user_metadata&&user.user_metadata.username)||user.email.split('@')[0]||'Member';
     document.getElementById('memberUsername').textContent=u;document.getElementById('menuUsername').textContent=u;document.getElementById('menuEmail').textContent=user.email;memberBtn.classList.add('show');
-    currentProfile={id:user.id,username:u,email:user.email,role:'member',avatar_url:null,settings:{}};
-    try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};}}catch(e){console.warn('profile lookup',e)}
+    currentProfile={id:user.id,username:u,email:user.email,role:'member',avatar_url:null,settings:{}}; window.currentProfile=currentProfile;
+    try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};window.currentProfile=currentProfile;}}catch(e){console.warn('profile lookup',e)}
     const av=currentProfile.avatar_url||'logo.png';
     document.getElementById('topAvatar').src=av;
     document.getElementById('profileAvatar').src=av;
@@ -1779,7 +1779,7 @@ let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnli
     try{
       const {data,error}=await client.from('profiles').update({settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
       if(error)throw error;
-      currentProfile={...currentProfile,...data,email:currentProfile.email};
+      currentProfile={...currentProfile,...data,email:currentProfile.email};window.currentProfile=currentProfile;
       loadSettings(nextSettings);
     }catch(e){
       console.warn('separate settings save',e);
@@ -1846,7 +1846,7 @@ let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnli
       let avatar=currentProfile.avatar_url||null;if(pendingAvatarFile)avatar=await uploadAvatar(pendingAvatarFile);
       const nextSettings=currentProfileSettings();
       const {data,error}=await client.from('profiles').update({username:name,avatar_url:avatar,settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
-      if(error)throw error;currentProfile={...currentProfile,...data,email:currentProfile.email};
+      if(error)throw error;currentProfile={...currentProfile,...data,email:currentProfile.email};window.currentProfile=currentProfile;
       profileDisplayName.textContent=name;profileName.value=name;profileAvatar.src=avatar||'logo.png';topAvatar.src=avatar||'logo.png';memberUsername.textContent=name;menuUsername.textContent=name;pendingAvatarFile=null;avatarInput.value='';applyLocalSettings(nextSettings);
       try{await trackPresence()}catch(e){console.warn('presence profile refresh',e)}
       profileMsg('Profil berhasil diperbarui.',true);
@@ -1855,7 +1855,7 @@ let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnli
   document.getElementById('profileAdminBtn').onclick=()=>{closeProfile();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');renderOnline();}};
   document.getElementById('profileLogoutBtn').onclick=()=>logout.click();
   const _oldProfile=profile;
-  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
+  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;window.currentProfile=currentProfile;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
 
 /* ===== NEXORA COMMUNITY CHAT — ADDITIVE FEATURE JS ===== */
 (function(){
