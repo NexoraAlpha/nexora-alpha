@@ -252,6 +252,48 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 
 /* ===== NEXORA WEB PUSH NOTIFICATION FEATURE ONLY ===== */
 .push-settings-box{margin:10px 0 2px;padding:14px;border:1px solid rgba(157,189,255,.12);border-radius:16px;background:linear-gradient(145deg,rgba(157,189,255,.07),rgba(255,255,255,.025));display:grid;gap:10px}.push-settings-box>div:first-child{display:flex;flex-direction:column;gap:4px}.push-settings-box b{font-size:11px}.push-settings-box span{font-size:9px;color:#7f8da7;line-height:1.5}.push-settings-actions{display:flex;gap:8px;flex-wrap:wrap}.push-settings-actions .cms-btn{flex:1;min-width:120px}@media(max-width:700px){.push-settings-box{padding:12px}.push-settings-actions{display:grid;grid-template-columns:1fr 1fr}.push-settings-actions .cms-btn{min-width:0}}
+
+/* ===== NEXORA COMMUNITY CHAT — ADDITIVE FEATURE ===== */
+body.chat-mode .bottom-nav,
+body.chat-mode #nav{display:none!important}
+body.chat-mode main{padding-top:0!important}
+.chat-page{position:fixed;inset:0;z-index:40;background:
+  radial-gradient(circle at 18% 8%,rgba(57,105,184,.20),transparent 34%),
+  radial-gradient(circle at 88% 90%,rgba(23,64,112,.18),transparent 32%),
+  #040914;overflow:hidden}
+.chat-shell{height:100%;display:flex;flex-direction:column;max-width:1180px;margin:0 auto;border-left:1px solid rgba(157,189,255,.08);border-right:1px solid rgba(157,189,255,.08);background:linear-gradient(180deg,rgba(7,13,27,.96),rgba(3,7,16,.98))}
+.chat-header{height:72px;flex:0 0 72px;display:flex;align-items:center;gap:12px;padding:0 18px;border-bottom:1px solid rgba(157,189,255,.13);background:rgba(5,10,21,.86);backdrop-filter:blur(22px);position:relative;z-index:5}
+.chat-back{width:42px;height:42px;border:1px solid rgba(157,189,255,.15);border-radius:14px;background:rgba(157,189,255,.055);font-size:20px;color:#dbe7ff}
+.chat-brand-btn{display:flex;align-items:center;gap:10px;min-width:0;text-align:left}
+.chat-brand-btn img{width:39px;height:39px;object-fit:contain;filter:drop-shadow(0 0 15px rgba(157,189,255,.28))}
+.chat-brand-copy{min-width:0}.chat-brand-copy b{display:block;font-family:Poppins;font-size:13px;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-brand-copy span{display:block;font-size:9px;color:#71809a;margin-top:2px;letter-spacing:.08em;text-transform:uppercase}
+.chat-header-spacer{flex:1}.chat-head-action{position:relative;width:42px;height:42px;border-radius:14px;border:1px solid rgba(157,189,255,.13);background:rgba(157,189,255,.045);font-size:18px}.chat-unread-badge{display:none;position:absolute;right:-3px;top:-4px;min-width:17px;height:17px;padding:0 5px;border-radius:99px;background:#ff5f79;color:white;font:800 9px/17px Inter;text-align:center;box-shadow:0 0 14px rgba(255,95,121,.4)}.chat-unread-badge.show{display:block}
+.chat-body{flex:1;min-height:0;display:flex;position:relative}
+.chat-main{flex:1;min-width:0;display:flex;flex-direction:column}
+.chat-toolbar{padding:11px 16px;border-bottom:1px solid rgba(157,189,255,.08);display:flex;gap:9px;align-items:center;background:rgba(7,13,25,.74)}
+.chat-search{flex:1;min-width:0;height:40px;border:1px solid rgba(157,189,255,.13);background:rgba(255,255,255,.035);border-radius:13px;color:#eef4ff;padding:0 13px;outline:none;font-size:12px}.chat-search:focus{border-color:rgba(157,189,255,.38);box-shadow:0 0 0 3px rgba(157,189,255,.06)}
+.chat-tool-btn{height:40px;padding:0 13px;border:1px solid rgba(157,189,255,.13);border-radius:13px;background:rgba(157,189,255,.05);font-size:11px;color:#c8d6ef;white-space:nowrap}
+.chat-pinned{display:none;padding:9px 16px;border-bottom:1px solid rgba(157,189,255,.09);background:linear-gradient(90deg,rgba(157,189,255,.08),rgba(157,189,255,.025));font-size:11px;color:#cbd9f0;gap:8px;align-items:center}.chat-pinned.show{display:flex}.chat-pinned b{color:#91b6ff}.chat-pinned span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-messages{flex:1;min-height:0;overflow:auto;padding:20px clamp(12px,4vw,34px) 16px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.chat-empty{margin:auto;text-align:center;max-width:420px;color:#71809a;padding:30px}.chat-empty .ce-icon{width:62px;height:62px;border-radius:20px;margin:0 auto 14px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(157,189,255,.14),rgba(255,255,255,.03));border:1px solid rgba(157,189,255,.13);font-size:28px}.chat-empty b{display:block;color:#dce8ff;font-family:Poppins;font-size:16px;margin-bottom:6px}.chat-empty span{font-size:11px;line-height:1.7}
+.chat-day{align-self:center;font-size:9px;color:#71809a;background:rgba(157,189,255,.06);border:1px solid rgba(157,189,255,.08);padding:5px 9px;border-radius:99px;margin:5px 0}
+.chat-msg{display:flex;align-items:flex-end;gap:8px;max-width:min(82%,720px);position:relative}.chat-msg.mine{align-self:flex-end;flex-direction:row-reverse}.chat-msg.theirs{align-self:flex-start}.chat-msg-avatar{width:30px;height:30px;flex:0 0 30px;border-radius:10px;object-fit:cover;background:#13213a;border:1px solid rgba(157,189,255,.12)}.chat-msg-content{min-width:0}.chat-msg-author{font-size:9px;color:#8fa1be;margin:0 8px 4px;font-weight:700}.chat-msg.mine .chat-msg-author{text-align:right}.chat-bubble{position:relative;padding:10px 12px;border-radius:17px 17px 17px 5px;background:linear-gradient(145deg,rgba(19,31,55,.93),rgba(11,19,34,.93));border:1px solid rgba(157,189,255,.10);box-shadow:0 8px 25px rgba(0,0,0,.15);font-size:12px;line-height:1.55;color:#e7efff;word-break:break-word}.chat-msg.mine .chat-bubble{border-radius:17px 17px 5px 17px;background:linear-gradient(145deg,rgba(33,62,108,.92),rgba(17,33,59,.94));border-color:rgba(157,189,255,.18)}.chat-msg.announcement .chat-bubble{border-color:rgba(157,189,255,.34);box-shadow:0 0 25px rgba(72,121,206,.10)}
+.chat-msg.deleted .chat-bubble{color:#738199;font-style:italic;background:rgba(255,255,255,.025)}
+.chat-reply{border-left:3px solid #86aef5;background:rgba(157,189,255,.07);padding:6px 8px;margin:-2px 0 7px;border-radius:7px;font-size:9px;color:#9eb0cb}.chat-reply b{display:block;color:#bcd1f3;margin-bottom:2px}.chat-image{display:block;max-width:min(330px,65vw);max-height:320px;border-radius:12px;margin-bottom:7px;border:1px solid rgba(255,255,255,.10);cursor:pointer}.chat-meta{display:flex;justify-content:flex-end;gap:7px;align-items:center;margin-top:4px;color:#71809a;font-size:8px}.chat-msg.mine .chat-meta{color:#9fb8dd}.chat-actions{display:flex;gap:4px;margin-top:5px;opacity:.75;flex-wrap:wrap}.chat-msg:not(:hover) .chat-actions{opacity:.35}.chat-action{font-size:8px;color:#8ea3c5;border:1px solid rgba(157,189,255,.08);border-radius:7px;padding:3px 6px;background:rgba(255,255,255,.025)}.chat-action:hover{color:#e5efff;background:rgba(157,189,255,.08)}
+.chat-reactions{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}.chat-reaction{font-size:10px;border:1px solid rgba(157,189,255,.10);background:rgba(5,10,20,.45);border-radius:99px;padding:3px 7px;color:#a9b8d0}.chat-reaction.active{border-color:rgba(157,189,255,.35);background:rgba(157,189,255,.11);color:#eef4ff}
+.chat-compose{border-top:1px solid rgba(157,189,255,.10);padding:9px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(5,10,20,.94)}
+.chat-reply-bar{display:none;align-items:center;gap:8px;margin-bottom:7px;padding:8px 10px;border:1px solid rgba(157,189,255,.10);border-radius:11px;background:rgba(157,189,255,.05);font-size:9px;color:#9cafc9}.chat-reply-bar.show{display:flex}.chat-reply-bar span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-reply-close{width:23px;height:23px;border-radius:8px;background:rgba(255,255,255,.06)}
+.chat-compose-row{display:flex;gap:7px;align-items:flex-end}.chat-icon-btn{width:42px;height:42px;flex:0 0 42px;border-radius:13px;border:1px solid rgba(157,189,255,.12);background:rgba(157,189,255,.045);font-size:17px}.chat-textarea{flex:1;min-height:42px;max-height:130px;resize:none;border:1px solid rgba(157,189,255,.12);background:rgba(255,255,255,.035);border-radius:13px;color:#edf4ff;padding:11px 12px;outline:none;font:12px/1.4 Inter}.chat-textarea:focus{border-color:rgba(157,189,255,.34)}.chat-send{height:42px;padding:0 16px;border-radius:13px;background:linear-gradient(135deg,#dce8ff,#8db3ff);color:#07101f;font-size:11px;font-weight:900}.chat-compose-note{font-size:8px;color:#66758d;margin:5px 0 0 49px}.chat-admin-toggle{display:none;align-items:center;gap:6px;font-size:9px;color:#a9bad4;margin-bottom:6px}.chat-admin-toggle.show{display:flex}.chat-admin-toggle input{accent-color:#9dbdff}
+.chat-side{width:320px;border-left:1px solid rgba(157,189,255,.09);background:rgba(5,10,20,.75);display:none;flex-direction:column}.chat-side.show{display:flex}.chat-side-head{padding:16px;border-bottom:1px solid rgba(157,189,255,.09)}.chat-side-head .kicker{font-size:9px}.chat-side-head h3{font-family:Poppins;font-size:19px;margin-top:3px}.chat-member-search{margin-top:12px;width:100%;height:38px;border:1px solid rgba(157,189,255,.12);border-radius:12px;background:rgba(255,255,255,.035);padding:0 11px;color:#edf4ff;outline:none;font-size:11px}.chat-members{flex:1;overflow:auto;padding:9px}.chat-member-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;cursor:pointer;border:1px solid transparent}.chat-member-row:hover{background:rgba(157,189,255,.05);border-color:rgba(157,189,255,.07)}.chat-member-avatar-wrap{position:relative;flex:0 0 40px}.chat-member-avatar{width:40px;height:40px;border-radius:13px;object-fit:cover;background:#122039;border:1px solid rgba(157,189,255,.10)}.chat-online-dot{position:absolute;right:-1px;bottom:-1px;width:10px;height:10px;border-radius:50%;background:#55647a;border:2px solid #07101d}.chat-online-dot.online{background:#61e4b0;box-shadow:0 0 10px rgba(97,228,176,.45)}.chat-member-copy{min-width:0;flex:1}.chat-member-copy b{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-member-copy span{display:block;color:#71809a;font-size:8px;margin-top:3px}.chat-role{font-size:7px;letter-spacing:.08em;padding:4px 6px;border-radius:99px;border:1px solid rgba(157,189,255,.12);color:#9eb8e0}.chat-role.admin{color:#dbe8ff;border-color:rgba(157,189,255,.3);background:rgba(157,189,255,.08)}.chat-member-actions{display:flex;gap:5px;margin-left:auto}.chat-mini{font-size:8px;border:1px solid rgba(157,189,255,.10);padding:5px 7px;border-radius:8px;color:#9fb1cc;background:rgba(255,255,255,.025)}
+.chat-screen{position:absolute;inset:0;display:none;flex-direction:column;background:#040914}.chat-screen.active{display:flex}.chat-screen-body{flex:1;overflow:auto}.chat-profile-card{max-width:560px;margin:30px auto;padding:26px;border:1px solid rgba(157,189,255,.12);border-radius:26px;background:linear-gradient(145deg,rgba(14,24,43,.85),rgba(6,12,23,.9));text-align:center}.chat-profile-avatar{width:92px;height:92px;border-radius:28px;object-fit:cover;border:1px solid rgba(157,189,255,.18);box-shadow:0 15px 45px rgba(0,0,0,.25)}.chat-profile-card h2{font-family:Poppins;font-size:24px;margin:14px 0 5px}.chat-profile-card p{font-size:11px;color:#7f8da7;line-height:1.6}.chat-profile-status{margin:14px auto;padding:10px 12px;border-radius:12px;background:rgba(157,189,255,.05);font-size:10px;color:#aab9d0}.chat-profile-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}.chat-admin-tools{margin-top:22px;padding-top:18px;border-top:1px solid rgba(157,189,255,.09);text-align:left}.chat-admin-tools h4{font-family:Poppins;font-size:12px;margin-bottom:10px}.chat-admin-tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.chat-admin-tool-grid button{padding:10px;border:1px solid rgba(157,189,255,.11);border-radius:11px;background:rgba(255,255,255,.035);font-size:9px;color:#b4c2d8}.chat-admin-tool-grid button.danger{color:#ff9aaa;border-color:rgba(255,116,140,.16)}
+.chat-toast{position:fixed;left:50%;bottom:95px;transform:translate(-50%,12px);opacity:0;pointer-events:none;z-index:90;background:rgba(8,15,29,.95);border:1px solid rgba(157,189,255,.18);border-radius:12px;padding:9px 13px;font-size:10px;color:#dbe7fb;transition:.25s;box-shadow:0 15px 45px rgba(0,0,0,.35)}.chat-toast.show{opacity:1;transform:translate(-50%,0)}
+.chat-file-input{display:none}
+@media(min-width:900px){.chat-side{display:flex}.chat-main{max-width:none}}
+@media(max-width:899px){.chat-side{position:absolute;inset:0;width:100%;z-index:10}.chat-side.show{display:flex}.chat-side-head{padding-top:18px}.chat-main{width:100%}}
+@media(max-width:640px){.chat-header{height:64px;flex-basis:64px;padding:0 10px;gap:8px}.chat-back,.chat-head-action{width:38px;height:38px;border-radius:12px}.chat-brand-btn img{width:34px;height:34px}.chat-brand-copy b{font-size:11px}.chat-brand-copy span{font-size:8px}.chat-toolbar{padding:8px 9px}.chat-tool-btn{padding:0 10px}.chat-messages{padding:14px 9px 10px}.chat-msg{max-width:92%}.chat-msg-avatar{width:27px;height:27px;flex-basis:27px}.chat-bubble{font-size:11px;padding:9px 10px}.chat-image{max-width:72vw}.chat-actions{opacity:.75}.chat-compose{padding-left:8px;padding-right:8px}.chat-send{padding:0 12px}.chat-compose-note{margin-left:48px}.chat-profile-card{margin:20px 12px;padding:22px}.chat-admin-tool-grid{grid-template-columns:1fr}}
+/* Market / News switcher — intentionally additive; existing content remains untouched. */
+.mn-switcher{display:flex;align-items:center;gap:4px;width:max-content;padding:4px;border:1px solid rgba(157,189,255,.13);border-radius:999px;background:rgba(6,12,24,.72);box-shadow:0 12px 35px rgba(0,0,0,.16);margin-bottom:18px}.mn-switcher button{height:34px;padding:0 14px;border-radius:999px;color:#8190a9;font-size:10px;font-weight:800;letter-spacing:.04em}.mn-switcher button.active{background:linear-gradient(135deg,rgba(157,189,255,.24),rgba(157,189,255,.08));color:#edf4ff;box-shadow:0 5px 18px rgba(0,0,0,.18)}.mn-switcher button:hover{color:#dce8ff}
+@media(max-width:640px){.mn-switcher{margin-bottom:14px}.mn-switcher button{padding:0 12px;height:32px}}
 </style></head>
 <body>
 <div class="ambient-bubbles"><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span></div><div class="touch-orb" id="touchOrb"></div>
@@ -446,9 +488,10 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 </div>
 <main>
 <div class="page active" id="home">
-<section class="hero"><img class="hero-logo" src="hero-logo.png" alt="Nexora Alpha logo"><div class="eyebrow">NEXORA ALPHA • V6 ELITE</div><h1>WELCOME TO THE NEXORA ALPHA ERA</h1><p>Trade Smart. Manage Risk. Build Legacy. Jelajahi market, bangun fondasi trading, dan pelajari cara membaca pergerakan harga dengan lebih terstruktur.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">✦ Join Nexora</a><a class="btn secondary" href="#academy">Explore Academy →</a></div><div class="home-quick"><button type="button" onclick="goSection('market')"><i>📈</i><b>Market</b><span>Terminal & live chart</span></button><button type="button" onclick="goSection('macro')"><i>📰</i><b>News</b><span>FOMC, CPI, PPI & NFP</span></button><button type="button" onclick="goSection('academy')"><i>🎓</i><b>Academy</b><span>Belajar trading terstruktur</span></button><button type="button" onclick="goSection('community')"><i>👥</i><b>Community</b><span>WhatsApp resmi Nexora</span></button></div></section>
+<section class="hero"><img class="hero-logo" src="hero-logo.png" alt="Nexora Alpha logo"><div class="eyebrow">NEXORA ALPHA • V6 ELITE</div><h1>WELCOME TO THE NEXORA ALPHA ERA</h1><p>Trade Smart. Manage Risk. Build Legacy. Jelajahi market, bangun fondasi trading, dan pelajari cara membaca pergerakan harga dengan lebih terstruktur.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">✦ Join Nexora</a><a class="btn secondary" href="#academy">Explore Academy →</a></div><div class="home-quick"><button type="button" onclick="goSection('market')"><i>📈</i><b>Market</b><span>Terminal & live chart</span></button><button type="button" onclick="goSection('chat')"><i>💬</i><b>Chat</b><span>Nexora Community Chat</span></button><button type="button" onclick="goSection('academy')"><i>🎓</i><b>Academy</b><span>Belajar trading terstruktur</span></button><button type="button" onclick="goSection('community')"><i>👥</i><b>Community</b><span>WhatsApp resmi Nexora</span></button></div></section>
 </div>
 <div class="page" id="marketPage"><section id="market" class="market-page-shell"><div class="wrap">
+  <div class="mn-switcher" aria-label="Market dan News"><button type="button" class="active" onclick="goSection('market')">📈 Market</button><button type="button" onclick="goSection('macro')">📰 News</button></div>
   <div class="section-head">
     <div class="kicker">Nexora Market Intelligence</div>
     <h2 class="title">Market Dashboard</h2>
@@ -551,7 +594,61 @@ body{padding-bottom:calc(var(--navh) + 22px)}
     </div>
   </div>
 </div></section></div>
-<div class="page" id="newsPage"><section id="macro"><div class="wrap"><div class="section-head macro-head" id="macroHead" style="margin-top:58px"><div class="kicker">Nexora Macro Radar</div><h2 class="title">High-Impact Economic News</h2><p class="sub">Pantau event makro yang paling relevan buat trader: <b>FOMC • CPI • PPI • NFP</b>. Kalender di bawah mengambil jadwal dan update event ekonomi secara live dari TradingView.</p></div><div class="macro-focus"><article class="glass macro-card"><span class="macro-tag">FED / RATES</span><b>FOMC</b><p>Keputusan suku bunga & komunikasi Federal Reserve. Fokus utama untuk USD, gold, indeks, dan crypto.</p></article><article class="glass macro-card"><span class="macro-tag">INFLATION</span><b>CPI</b><p>Inflasi konsumen AS. Surprise terhadap forecast sering memicu volatilitas besar di USD & XAUUSD.</p></article><article class="glass macro-card"><span class="macro-tag">INFLATION</span><b>PPI</b><p>Inflasi producer AS. Berguna sebagai konteks tekanan harga sebelum membaca CPI berikutnya.</p></article><article class="glass macro-card"><span class="macro-tag">LABOR</span><b>NFP</b><p>Data payroll AS. Salah satu event tenaga kerja paling diperhatikan pasar setiap bulan.</p></article></div><div class="glass macro-calendar"><div class="macro-calendar-head"><div><div class="macro-calendar-title">Nexora Economic Calendar</div><small class="muted">US • High & medium impact • Upcoming events</small></div><div class="macro-calendar-live">● LIVE CALENDAR</div></div><div class="macro-widget"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>{"colorTheme":"dark","isTransparent":true,"locale":"en","countryFilter":"us","importanceFilter":"0,1","width":"100%","height":"100%"}</script></div></div></div></div></section></div>
+<div class="page" id="newsPage"><section id="macro"><div class="wrap"><div class="mn-switcher" aria-label="Market dan News"><button type="button" onclick="goSection('market')">📈 Market</button><button type="button" class="active" onclick="goSection('macro')">📰 News</button></div><div class="section-head macro-head" id="macroHead" style="margin-top:58px"><div class="kicker">Nexora Macro Radar</div><h2 class="title">High-Impact Economic News</h2><p class="sub">Pantau event makro yang paling relevan buat trader: <b>FOMC • CPI • PPI • NFP</b>. Kalender di bawah mengambil jadwal dan update event ekonomi secara live dari TradingView.</p></div><div class="macro-focus"><article class="glass macro-card"><span class="macro-tag">FED / RATES</span><b>FOMC</b><p>Keputusan suku bunga & komunikasi Federal Reserve. Fokus utama untuk USD, gold, indeks, dan crypto.</p></article><article class="glass macro-card"><span class="macro-tag">INFLATION</span><b>CPI</b><p>Inflasi konsumen AS. Surprise terhadap forecast sering memicu volatilitas besar di USD & XAUUSD.</p></article><article class="glass macro-card"><span class="macro-tag">INFLATION</span><b>PPI</b><p>Inflasi producer AS. Berguna sebagai konteks tekanan harga sebelum membaca CPI berikutnya.</p></article><article class="glass macro-card"><span class="macro-tag">LABOR</span><b>NFP</b><p>Data payroll AS. Salah satu event tenaga kerja paling diperhatikan pasar setiap bulan.</p></article></div><div class="glass macro-calendar"><div class="macro-calendar-head"><div><div class="macro-calendar-title">Nexora Economic Calendar</div><small class="muted">US • High & medium impact • Upcoming events</small></div><div class="macro-calendar-live">● LIVE CALENDAR</div></div><div class="macro-widget"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>{"colorTheme":"dark","isTransparent":true,"locale":"en","countryFilter":"us","importanceFilter":"0,1","width":"100%","height":"100%"}</script></div></div></div></div></section></div>
+
+<div class="page" id="chatPage">
+  <section class="chat-page" id="chatApp">
+    <div class="chat-shell">
+      <header class="chat-header">
+        <button class="chat-back" id="chatBackBtn" type="button" aria-label="Kembali">←</button>
+        <button class="chat-brand-btn" id="chatBrandBtn" type="button" aria-label="Buka member list">
+          <img src="logo.png" alt="Nexora Alpha">
+          <span class="chat-brand-copy"><b id="chatHeaderTitle">NEXORA COMMUNITY</b><span id="chatHeaderSub">Group Chat • Member Only</span></span>
+        </button>
+        <span class="chat-header-spacer"></span>
+        <button class="chat-head-action" id="chatNotifyBtn" type="button" aria-label="Notifikasi">🔔<span class="chat-unread-badge" id="chatUnreadBadge">0</span></button>
+      </header>
+
+      <div class="chat-body">
+        <div class="chat-main" id="chatMain">
+          <div class="chat-toolbar">
+            <input class="chat-search" id="chatSearchInput" placeholder="Cari pesan di chat..." autocomplete="off">
+            <button class="chat-tool-btn" id="chatMembersBtn" type="button">👥 Member</button>
+            <button class="chat-tool-btn" id="chatPinnedBtn" type="button">📌 Pinned</button><button class="chat-tool-btn" id="chatReportsBtn" type="button" style="display:none">🛡 Reports</button>
+          </div>
+          <div class="chat-pinned" id="chatPinned"><b>📌</b><span id="chatPinnedText"></span></div>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="chat-compose" id="chatCompose">
+            <div class="chat-reply-bar" id="chatReplyBar"><span id="chatReplyText"></span><button class="chat-reply-close" id="chatReplyClose" type="button">×</button></div>
+            <label class="chat-admin-toggle" id="chatAnnouncementWrap"><input id="chatAnnouncement" type="checkbox"> Jadikan announcement admin</label>
+            <div class="chat-compose-row">
+              <button class="chat-icon-btn" id="chatAttachBtn" type="button" aria-label="Kirim gambar">＋</button>
+              <textarea class="chat-textarea" id="chatInput" rows="1" maxlength="3000" placeholder="Tulis pesan..."></textarea>
+              <button class="chat-send" id="chatSendBtn" type="button">KIRIM</button>
+            </div>
+            <div class="chat-compose-note">Enter untuk kirim • Shift + Enter untuk baris baru • Maks. 3000 karakter</div>
+            <input class="chat-file-input" id="chatFileInput" type="file" accept="image/png,image/jpeg,image/webp">
+          </div>
+        </div>
+
+        <aside class="chat-side" id="chatMemberSide">
+          <div class="chat-side-head">
+            <div class="kicker">NEXORA DIRECTORY</div>
+            <h3>Member List</h3>
+            <input class="chat-member-search" id="chatMemberSearch" placeholder="Cari username..." autocomplete="off">
+          </div>
+          <div class="chat-members" id="chatMembers"></div>
+        </aside>
+
+        <div class="chat-screen" id="chatProfileScreen">
+          <div class="chat-screen-body" id="chatProfileBody"></div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-toast" id="chatToast"></div>
+  </section>
+</div>
+
 <div class="page" id="academyPage"><section id="academy"><div class="wrap"><div class="section-head"><div class="kicker">Nexora Education</div><h2 class="title">Education Academy</h2><p class="sub">Pilih modul untuk membuka halaman pembelajaran. Trading Psychology memiliki 10 bab dan Risk Management memiliki 8 bab yang bisa dibuka satu per satu.</p></div><div class="grid academy-grid" id="academyGrid"></div></div></section></div>
 <div class="page" id="communityPage"><section id="community" class="community"><div class="wrap"><div class="glass community-box"><div class="kicker">Community</div><h2>JOIN THE NEXORA ALPHA ERA</h2><p class="sub">Gabung ke ekosistem Nexora Alpha dan tetap terhubung dengan komunitas.</p><div class="actions"><a class="btn primary" href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">WhatsApp Nexora</a><a class="btn secondary" href="https://whatsapp.com/channel/0029Vb9b06X8V0tubqn6kA00" target="_blank">WhatsApp Channel</a></div></div><div class="glass community-legal"><h3>Informasi &amp; Disclaimer</h3><p>Nexora Alpha menyediakan materi edukasi, informasi pasar, analisis, dan fitur pembelajaran terkait trading dan financial market. Seluruh informasi di platform ini ditujukan untuk tujuan edukasi dan informasi saja, bukan merupakan ajakan, rekomendasi, atau jaminan untuk melakukan transaksi tertentu.</p><p><strong>Peringatan Risiko:</strong> Trading Forex, CFD, cryptocurrency, saham, komoditas, dan instrumen keuangan lainnya memiliki risiko kerugian yang tinggi. Nilai aset dapat naik maupun turun dan Anda dapat kehilangan sebagian atau seluruh modal yang digunakan. Pastikan Anda memahami risiko yang terlibat sebelum melakukan transaksi.</p><p>Setiap keputusan trading merupakan tanggung jawab pengguna masing-masing. Nexora Alpha tidak menjamin keuntungan atau hasil tertentu dari penggunaan materi, analisis, indikator, maupun informasi yang tersedia di platform.</p><p><strong>Penting:</strong> Riwayat performa atau hasil sebelumnya tidak menjamin hasil di masa mendatang. Lakukan riset sendiri, gunakan manajemen risiko yang sesuai, dan jangan menggunakan dana yang tidak mampu Anda tanggung jika mengalami kerugian.</p><div class="legal-links"><a href="#community">Disclaimer</a><a href="#community">Kebijakan Privasi</a><a href="#community">Syarat &amp; Ketentuan</a><a href="https://wa.me/message/JMMHA4EVQPGBC1" target="_blank">Kontak Nexora</a></div><p class="legal-copy">© 2026 Nexora Alpha — All Rights Reserved.</p></div></div></section>
 <footer class="footer">NEXORA ALPHA • V6 ELITE — Educational interface. Market data is provided by TradingView widgets.</footer></section></div>
@@ -693,9 +790,17 @@ psychologyChapters.forEach(c=>{const el=document.createElement('article');el.cla
 function setBottomActive(id){document.querySelectorAll('#bottomNav [data-section]').forEach(b=>b.classList.toggle('active',b.dataset.section===id));}
 function goSection(id){
   setBottomActive(id);
-  const pageMap={home:'home',market:'marketPage',macro:'newsPage',academy:'academyPage',community:'communityPage'};
+  const pageMap={home:'home',market:'marketPage',macro:'newsPage',academy:'academyPage',community:'communityPage',chat:'chatPage'};
   const pageId=pageMap[id]||id;
-  if(document.getElementById(pageId)){showPage(pageId);location.hash=id;return;}
+  if(document.getElementById(pageId)){
+    showPage(pageId);
+    document.body.classList.toggle('chat-mode',id==='chat');
+    if(id==='chat'&&window.nexoraChatOpen) window.nexoraChatOpen();
+    if(id!=='chat'&&window.nexoraChatClose) window.nexoraChatClose();
+    location.hash=id;
+    return;
+  }
+  document.body.classList.remove('chat-mode');
   showPage('home');location.hash='home';
 }
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
@@ -747,7 +852,7 @@ let orbTimer;
 document.addEventListener('pointerdown',e=>{const r=document.createElement('span');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);touchOrb.style.left=e.clientX+'px';touchOrb.style.top=e.clientY+'px';touchOrb.classList.remove('show');void touchOrb.offsetWidth;touchOrb.classList.add('show');clearTimeout(orbTimer);orbTimer=setTimeout(()=>touchOrb.classList.remove('show'),520);setTimeout(()=>r.remove(),850)});
 let scrollTick=false;window.addEventListener('scroll',()=>{if(scrollTick)return;scrollTick=true;requestAnimationFrame(()=>{document.querySelector('.ambient-bubbles').style.setProperty('--scroll',window.scrollY);scrollTick=false})},{passive:true});
 document.querySelectorAll('.card').forEach(card=>card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%')}));
-window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h.startsWith('module/')&&window.nexoraCMS?.loaded)openCmsModule(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(['market','macro','academy','community'].includes(h)){goSection(h)}else if(h==='home'||h==='')home()});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h.startsWith('lesson/'))openLesson(h.split('/')[1]);else if(h.startsWith('module/')&&window.nexoraCMS?.loaded)openCmsModule(h.split('/')[1]);else if(h==='psychology')openPsychologyIndex();else if(h==='risk'){openRiskIndex()}else if(h==='liquidity'){openLiquidityIndex()}else if(['market','macro','academy','community','chat'].includes(h)){goSection(h)}else if(h==='home'||h==='')home()});
 if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if(lessons[id])openLesson(id)}
 
 /* Nexora V7 — live market layer only */
@@ -1702,6 +1807,329 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   document.getElementById('profileLogoutBtn').onclick=()=>logout.click();
   const _oldProfile=profile;
   profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
+
+/* ===== NEXORA COMMUNITY CHAT — ADDITIVE FEATURE JS ===== */
+(function(){
+  const chatApp=document.getElementById('chatApp');
+  if(!chatApp)return;
+  const chatMessages=document.getElementById('chatMessages');
+  const chatInput=document.getElementById('chatInput');
+  const chatSendBtn=document.getElementById('chatSendBtn');
+  const chatSearchInput=document.getElementById('chatSearchInput');
+  const chatMemberSide=document.getElementById('chatMemberSide');
+  const chatMembers=document.getElementById('chatMembers');
+  const chatMemberSearch=document.getElementById('chatMemberSearch');
+  const chatProfileScreen=document.getElementById('chatProfileScreen');
+  const chatProfileBody=document.getElementById('chatProfileBody');
+  const chatToast=document.getElementById('chatToast');
+  const chatReplyBar=document.getElementById('chatReplyBar');
+  const chatReplyText=document.getElementById('chatReplyText');
+  const chatAnnouncementWrap=document.getElementById('chatAnnouncementWrap');
+  const chatAnnouncement=document.getElementById('chatAnnouncement');
+  let groupConversationId=null,currentConversationId=null,currentConversationType='group',currentConversationName='NEXORA COMMUNITY';
+  let chatRows=[],chatReactions=[],chatMembersRows=[],chatRealtime=null,chatReactionRealtime=null;
+  let chatReplyId=null,chatEditId=null,chatSelectedMember=null,chatPinnedRows=[],chatUnread=0,chatReady=false;
+  let toastTimer=null;
+
+  function cEsc(v){return escapeHtml(String(v??''));}
+  function cAvatar(v){return cEsc(v||'logo.png');}
+  function chatToastMsg(t){chatToast.textContent=t;chatToast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>chatToast.classList.remove('show'),2400);}
+  function isAdmin(){return currentProfile?.role==='admin';}
+  function isOnline(row){return !!row?.last_seen && Date.now()-new Date(row.last_seen).getTime()<45000;}
+  function formatTime(iso){try{return new Date(iso).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});}catch(e){return ''}}
+  function formatDay(iso){try{return new Date(iso).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});}catch(e){return ''}}
+  function linkifyText(v){
+    let s=cEsc(v);
+    s=s.replace(/(^|[\s])(@[A-Za-z0-9_ .-]{3,24})/g,'$1<b style="color:#b8d0ff">$2</b>');
+    s=s.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:#9fc1ff;text-decoration:underline">$1</a>');
+    return s.replace(/\n/g,'<br>');
+  }
+  function setChatHeader(name,sub){
+    document.getElementById('chatHeaderTitle').textContent=name||'NEXORA COMMUNITY';
+    document.getElementById('chatHeaderSub').textContent=sub||'Group Chat • Member Only';
+  }
+  function setUnread(n){
+    chatUnread=Math.max(0,Number(n)||0);
+    const b=document.getElementById('chatUnreadBadge');b.textContent=chatUnread>99?'99+':String(chatUnread);b.classList.toggle('show',chatUnread>0);
+  }
+  async function ensureGroup(){
+    if(groupConversationId)return groupConversationId;
+    const {data,error}=await client.rpc('nexora_get_group_chat');
+    if(error)throw error;
+    groupConversationId=data;return data;
+  }
+  async function markChatRead(conversationId){
+    if(!conversationId||!currentProfile)return;
+    try{await client.from('chat_participants').update({last_read_at:new Date().toISOString()}).eq('conversation_id',conversationId).eq('user_id',currentProfile.id);}catch(e){}
+  }
+  function replyPreview(id){
+    const r=chatRows.find(x=>x.id===id);
+    if(!r)return '';
+    const sender=r.sender_id===currentProfile?.id?'You':(r.sender?.username||'Member');
+    const body=r.deleted_at?'Pesan dihapus':(r.body||'📷 Image');
+    return `<b>${cEsc(sender)}</b>${cEsc(body).slice(0,100)}`;
+  }
+  function reactionCounts(id){
+    const out={};chatReactions.filter(x=>x.message_id===id).forEach(x=>{out[x.emoji]=(out[x.emoji]||0)+1});
+    return out;
+  }
+  function hasReacted(id,emoji){return chatReactions.some(x=>x.message_id===id&&x.emoji===emoji&&x.user_id===currentProfile?.id)}
+  function renderPinned(){
+    chatPinnedRows=chatRows.filter(x=>x.pinned_at&&!x.deleted_at).sort((a,b)=>new Date(b.pinned_at)-new Date(a.pinned_at));
+    const box=document.getElementById('chatPinned');
+    if(!chatPinnedRows.length){box.classList.remove('show');return}
+    const p=chatPinnedRows[0];box.classList.add('show');document.getElementById('chatPinnedText').textContent=(p.body||'📷 Image').slice(0,140);
+  }
+  function renderMessages(){
+    const q=(chatSearchInput.value||'').trim().toLowerCase();
+    const rows=chatRows.filter(r=>!q||String(r.body||'').toLowerCase().includes(q)||(r.sender?.username||'').toLowerCase().includes(q));
+    if(!rows.length){
+      chatMessages.innerHTML=`<div class="chat-empty"><div class="ce-icon">💬</div><b>${q?'Pesan tidak ditemukan':'Belum ada pesan'}</b><span>${q?'Coba kata kunci lain.':'Jadilah yang pertama memulai percakapan di Nexora Community.'}</span></div>`;
+      renderPinned();return;
+    }
+    let lastDay='';
+    chatMessages.innerHTML=rows.map(r=>{
+      const mine=r.sender_id===currentProfile?.id, day=formatDay(r.created_at);
+      let dayHtml='';if(day!==lastDay){lastDay=day;dayHtml=`<div class="chat-day">${cEsc(day)}</div>`}
+      const author=r.sender?.username||'Member', avatar=cAvatar(r.sender?.avatar_url);
+      const reply=r.reply_to_id?chatRows.find(x=>x.id===r.reply_to_id):null;
+      const counts=reactionCounts(r.id);
+      const reactions=Object.entries(counts).map(([emoji,count])=>`<button type="button" class="chat-reaction ${hasReacted(r.id,emoji)?'active':''}" data-react="${cEsc(r.id)}" data-emoji="${cEsc(emoji)}">${cEsc(emoji)} ${count}</button>`).join('');
+      const deleted=!!r.deleted_at;
+      const body=deleted?'<i>Pesan dihapus</i>':(r.body?linkifyText(r.body):'');
+      const image=r.image_url&&!deleted?`<img class="chat-image" src="${cAvatar(r.image_url)}" alt="Lampiran" loading="lazy" onclick="window.open(this.src,'_blank')">`:'';
+      const adminActions=isAdmin()?`<button class="chat-action" data-pin="${cEsc(r.id)}">${r.pinned_at?'Unpin':'Pin'}</button><button class="chat-action" data-admin-delete="${cEsc(r.id)}">Hapus</button>`:'';
+      const ownActions=!deleted&&mine?`<button class="chat-action" data-reply="${cEsc(r.id)}">Reply</button><button class="chat-action" data-edit="${cEsc(r.id)}">Edit</button><button class="chat-action" data-delete="${cEsc(r.id)}">Hapus</button>`:`<button class="chat-action" data-reply="${cEsc(r.id)}">Reply</button><button class="chat-action" data-report="${cEsc(r.id)}">Report</button>`;
+      return `${dayHtml}<article class="chat-msg ${mine?'mine':'theirs'} ${r.is_announcement?'announcement':''} ${deleted?'deleted':''}" data-message="${cEsc(r.id)}">
+        <img class="chat-msg-avatar" src="${avatar}" onerror="this.src='logo.png'" alt="">
+        <div class="chat-msg-content">
+          ${!mine?`<div class="chat-msg-author">${cEsc(author)} ${r.sender?.role==='admin'?'<span class="chat-role admin">ADMIN</span>':''}</div>`:''}
+          <div class="chat-bubble">
+            ${r.is_announcement&&!deleted?'<div style="font-size:8px;color:#9fc1ff;font-weight:900;letter-spacing:.1em;margin-bottom:5px">📢 ANNOUNCEMENT</div>':''}
+            ${reply&&!deleted?`<div class="chat-reply">${replyPreview(reply.id)}</div>`:''}
+            ${image}${body}
+            <div class="chat-meta"><span>${formatTime(r.created_at)}</span>${r.edited_at&&!deleted?'<span>edited</span>':''}${r.pinned_at&&!deleted?'<span>📌</span>':''}</div>
+          </div>
+          ${reactions?`<div class="chat-reactions">${reactions}</div>`:''}
+          ${!deleted?`<div class="chat-reactions"><button class="chat-reaction" data-react="${cEsc(r.id)}" data-emoji="👍">👍</button><button class="chat-reaction" data-react="${cEsc(r.id)}" data-emoji="❤️">❤️</button><button class="chat-reaction" data-react="${cEsc(r.id)}" data-emoji="🔥">🔥</button></div>`:''}
+          <div class="chat-actions">${ownActions}${adminActions}</div>
+        </div>
+      </article>`;
+    }).join('');
+    chatMessages.querySelectorAll('[data-reply]').forEach(b=>b.onclick=()=>setReply(b.dataset.reply));
+    chatMessages.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>beginEdit(b.dataset.edit));
+    chatMessages.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteOwnMessage(b.dataset.delete));
+    chatMessages.querySelectorAll('[data-report]').forEach(b=>b.onclick=()=>reportMessage(b.dataset.report));
+    chatMessages.querySelectorAll('[data-admin-delete]').forEach(b=>b.onclick=()=>adminDeleteMessage(b.dataset.adminDelete));
+    chatMessages.querySelectorAll('[data-pin]').forEach(b=>b.onclick=()=>togglePin(b.dataset.pin));
+    chatMessages.querySelectorAll('[data-react]').forEach(b=>b.onclick=()=>toggleReaction(b.dataset.react,b.dataset.emoji));
+    renderPinned();
+  }
+  async function loadConversation(conversationId,type,name){
+    currentConversationId=conversationId;currentConversationType=type;currentConversationName=name||'NEXORA COMMUNITY';
+    setChatHeader(currentConversationName,type==='group'?'Group Chat • Member Only':'Private Chat • Nexora Member');
+    chatRows=[];chatReactions=[];renderMessages();
+    const {data,error}=await client.from('chat_messages').select('id,conversation_id,sender_id,body,image_url,reply_to_id,is_announcement,pinned_at,created_at,updated_at,edited_at,deleted_at,sender:profiles!chat_messages_sender_id_fkey(id,username,role,avatar_url)').eq('conversation_id',conversationId).order('created_at',{ascending:true}).limit(500);
+    if(error){chatToastMsg(error.message||'Gagal memuat chat.');return}
+    chatRows=data||[];
+    const ids=chatRows.map(x=>x.id);
+    if(ids.length){const rr=await client.from('chat_reactions').select('id,message_id,user_id,emoji,created_at').in('message_id',ids);chatReactions=rr.data||[]}
+    renderMessages();
+    const lastRead=await client.from('chat_participants').select('last_read_at').eq('conversation_id',conversationId).eq('user_id',currentProfile.id).maybeSingle();
+    const unreadRows=(chatRows||[]).filter(x=>x.sender_id!==currentProfile.id && (!lastRead.data?.last_read_at || new Date(x.created_at)>new Date(lastRead.data.last_read_at)));
+    setUnread(unreadRows.length);
+    await markChatRead(conversationId);setUnread(0);
+    subscribeConversation(conversationId);
+    setTimeout(()=>{chatMessages.scrollTop=chatMessages.scrollHeight},30);
+  }
+  async function subscribeConversation(conversationId){
+    if(chatRealtime){try{await client.removeChannel(chatRealtime)}catch(e){}}
+    if(chatReactionRealtime){try{await client.removeChannel(chatReactionRealtime)}catch(e){}}
+    chatRealtime=client.channel('nexora-chat-'+conversationId);
+    chatRealtime.on('postgres_changes',{event:'*',schema:'public',table:'chat_messages',filter:'conversation_id=eq.'+conversationId},async payload=>{
+      const row=payload.new||payload.old;
+      if(!row)return;
+      if(payload.eventType==='INSERT'){
+        if(!chatRows.some(x=>x.id===row.id)){
+          const s=await client.from('profiles').select('id,username,role,avatar_url').eq('id',row.sender_id).maybeSingle();
+          chatRows.push({...row,sender:s.data||{username:'Member'}});
+          renderMessages();
+          if(row.sender_id!==currentProfile?.id&&document.getElementById('chatPage').classList.contains('active')){await markChatRead(conversationId)}
+        }
+      }else if(payload.eventType==='UPDATE'){
+        const i=chatRows.findIndex(x=>x.id===row.id);if(i>=0)chatRows[i]={...chatRows[i],...row};renderMessages();
+      }else if(payload.eventType==='DELETE'){chatRows=chatRows.filter(x=>x.id!==row.id);renderMessages()}
+      setTimeout(()=>{chatMessages.scrollTop=chatMessages.scrollHeight},20);
+    }).subscribe();
+    chatReactionRealtime=client.channel('nexora-reactions-'+conversationId);
+    chatReactionRealtime.on('postgres_changes',{event:'*',schema:'public',table:'chat_reactions'},async()=>{
+      const ids=chatRows.map(x=>x.id);if(!ids.length)return;
+      const rr=await client.from('chat_reactions').select('id,message_id,user_id,emoji,created_at').in('message_id',ids);chatReactions=rr.data||[];renderMessages();
+    }).subscribe();
+  }
+  async function sendMessage(){
+    if(!currentConversationId||!currentProfile)return;
+    const body=chatInput.value.trim();
+    if(!body&&!pendingChatFile)return;
+    chatSendBtn.disabled=true;
+    try{
+      if(chatEditId){
+        const {error}=await client.from('chat_messages').update({body,edited_at:new Date().toISOString()}).eq('id',chatEditId).eq('sender_id',currentProfile.id);
+        if(error)throw error;
+        chatEditId=null;chatInput.value='';chatSendBtn.textContent='KIRIM';chatToastMsg('Pesan diperbarui.');return;
+      }
+      let image_url=null;
+      if(pendingChatFile)image_url=await uploadChatImage(pendingChatFile);
+      const {error}=await client.from('chat_messages').insert({conversation_id:currentConversationId,sender_id:currentProfile.id,body:body||null,image_url,reply_to_id:chatReplyId||null,is_announcement:isAdmin()&&chatAnnouncement.checked});
+      if(error)throw error;
+      chatInput.value='';chatInput.style.height='42px';clearReply();chatAnnouncement.checked=false;pendingChatFile=null;chatFileInput.value='';
+      setTimeout(()=>{chatMessages.scrollTop=chatMessages.scrollHeight},40);
+    }catch(e){chatToastMsg(e.message||'Gagal mengirim pesan.')}finally{chatSendBtn.disabled=false}
+  }
+  let pendingChatFile=null;
+  const chatFileInput=document.getElementById('chatFileInput');
+  async function uploadChatImage(file){
+    if(file.size>6*1024*1024)throw new Error('Gambar maksimal 6 MB.');
+    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+    const path=currentProfile.id+'/'+Date.now()+'-'+Math.random().toString(36).slice(2)+'.'+ext;
+    const {error}=await client.storage.from('chat-media').upload(path,file,{upsert:false,contentType:file.type||'image/jpeg',cacheControl:'3600'});
+    if(error)throw new Error('Upload gambar gagal. Pastikan bucket "chat-media" sudah dibuat lewat SQL setup.');
+    return client.storage.from('chat-media').getPublicUrl(path).data.publicUrl;
+  }
+  function setReply(id){const r=chatRows.find(x=>x.id===id);if(!r)return;chatReplyId=id;chatReplyText.innerHTML=replyPreview(id);chatReplyBar.classList.add('show');chatInput.focus()}
+  function clearReply(){chatReplyId=null;chatReplyBar.classList.remove('show');chatReplyText.textContent=''}
+  function beginEdit(id){const r=chatRows.find(x=>x.id===id);if(!r||r.sender_id!==currentProfile?.id||r.deleted_at)return;chatEditId=id;chatInput.value=r.body||'';chatInput.focus();chatSendBtn.textContent='UPDATE';clearReply();chatInput.dispatchEvent(new Event('input'))}
+  async function deleteOwnMessage(id){
+    if(!confirm('Hapus pesan ini?'))return;
+    const {error}=await client.from('chat_messages').update({deleted_at:new Date().toISOString(),body:null,image_url:null}).eq('id',id).eq('sender_id',currentProfile.id);
+    if(error)chatToastMsg(error.message||'Gagal menghapus pesan.');
+  }
+  async function adminDeleteMessage(id){
+    if(!isAdmin()||!confirm('Hapus pesan ini sebagai admin?'))return;
+    const {error}=await client.from('chat_messages').update({deleted_at:new Date().toISOString(),body:null,image_url:null}).eq('id',id);
+    if(error)chatToastMsg(error.message||'Gagal menghapus pesan.');
+  }
+  async function reportMessage(id){
+    const reason=prompt('Kenapa pesan ini perlu dilaporkan?');
+    if(!reason||!reason.trim())return;
+    const {error}=await client.from('chat_reports').insert({message_id:id,reporter_id:currentProfile.id,reason:reason.trim()});
+    if(error)chatToastMsg(error.message||'Gagal mengirim laporan.');else chatToastMsg('Laporan terkirim ke admin.');
+  }
+  async function togglePin(id){
+    if(!isAdmin())return;
+    const row=chatRows.find(x=>x.id===id);if(!row)return;
+    const {error}=await client.rpc('nexora_chat_pin_message',{p_message_id:id,p_pinned:!row.pinned_at});
+    if(error)chatToastMsg(error.message||'Gagal mengubah pin.');
+  }
+  async function toggleReaction(id,emoji){
+    if(!currentProfile)return;
+    const existing=chatReactions.find(x=>x.message_id===id&&x.user_id===currentProfile.id&&x.emoji===emoji);
+    if(existing){const {error}=await client.from('chat_reactions').delete().eq('id',existing.id);if(error)chatToastMsg(error.message)}
+    else {const {error}=await client.from('chat_reactions').insert({message_id:id,user_id:currentProfile.id,emoji});if(error)chatToastMsg(error.message)}
+  }
+  async function loadReports(){
+    if(!isAdmin())return;
+    const {data,error}=await client.from('chat_reports').select('id,message_id,reporter_id,reason,created_at,resolved_at').is('resolved_at',null).order('created_at',{ascending:false}).limit(100);
+    if(error){chatToastMsg(error.message||'Gagal memuat reports.');return}
+    chatProfileBody.innerHTML=`<div class="chat-profile-card" style="text-align:left"><button class="chat-tool-btn" id="chatReportsBack" type="button">← Kembali</button><h2 style="text-align:left;margin-top:20px">Reports</h2><p style="text-align:left">Laporan member yang belum diselesaikan.</p><div style="margin-top:18px">${(data||[]).length?(data||[]).map(r=>`<div style="padding:12px;border:1px solid rgba(157,189,255,.10);border-radius:12px;background:rgba(255,255,255,.025);margin-bottom:8px"><b style="font-size:10px">${cEsc(r.reason)}</b><div style="font-size:8px;color:#71809a;margin:5px 0">${formatTime(r.created_at)} • message ${cEsc(r.message_id)}</div><button class="chat-mini" data-resolve-report="${cEsc(r.id)}">Tandai selesai</button></div>`).join(''):'<div style="color:#71809a;font-size:11px">Tidak ada laporan aktif.</div>'}</div></div>`;
+    chatMemberSide.classList.remove('show');chatProfileScreen.classList.add('active');
+    document.getElementById('chatReportsBack').onclick=()=>chatProfileScreen.classList.remove('active');
+    chatProfileBody.querySelectorAll('[data-resolve-report]').forEach(b=>b.onclick=async()=>{
+      const {error:e}=await client.from('chat_reports').update({resolved_at:new Date().toISOString(),resolved_by:currentProfile.id}).eq('id',b.dataset.resolveReport);
+      if(e)chatToastMsg(e.message);else loadReports();
+    });
+  }
+  async function loadMembers(){
+    const q=(chatMemberSearch.value||'').trim();
+    const {data,error}=await client.rpc('nexora_member_directory',{p_search:q||null});
+    if(error){chatMembers.innerHTML=`<div class="chat-empty"><div class="ce-icon">⚠️</div><b>Member List belum tersedia</b><span>${cEsc(error.message)}</span></div>`;return}
+    chatMembersRows=data||[];renderMembers();
+  }
+  function renderMembers(){
+    const q=(chatMemberSearch.value||'').trim().toLowerCase();
+    const rows=chatMembersRows.filter(x=>!q||String(x.username||'').toLowerCase().includes(q));
+    if(!rows.length){chatMembers.innerHTML='<div class="chat-empty"><div class="ce-icon">👥</div><b>Member tidak ditemukan</b><span>Coba username lain.</span></div>';return}
+    chatMembers.innerHTML=rows.map(x=>{
+      const self=x.id===currentProfile?.id;
+      const status=x.status||'Learning & growing';
+      return `<div class="chat-member-row" data-member="${cEsc(x.id)}">
+        <div class="chat-member-avatar-wrap"><img class="chat-member-avatar" src="${cAvatar(x.avatar_url)}" onerror="this.src='logo.png'" alt=""><i class="chat-online-dot ${isOnline(x)?'online':''}"></i></div>
+        <div class="chat-member-copy"><b>${cEsc(x.username||'Member')} ${self?'<span style="display:inline;color:#9dbdff">(You)</span>':''}</b><span>${cEsc(status)}</span></div>
+        <span class="chat-role ${x.role==='admin'?'admin':''}">${x.role==='admin'?'ADMIN':'MEMBER'}</span>
+      </div>`;
+    }).join('');
+    chatMembers.querySelectorAll('[data-member]').forEach(el=>el.onclick=()=>openMemberProfile(el.dataset.member));
+  }
+  async function openMemberProfile(id){
+    const member=chatMembersRows.find(x=>x.id===id);if(!member)return;
+    chatSelectedMember=member;
+    chatProfileBody.innerHTML=`<div class="chat-profile-card">
+      <button class="chat-tool-btn" id="chatProfileBack" type="button" style="float:left">← Member List</button>
+      <div style="clear:both;padding-top:12px"><img class="chat-profile-avatar" src="${cAvatar(member.avatar_url)}" onerror="this.src='logo.png'" alt=""></div>
+      <h2>${cEsc(member.username||'Member')}</h2>
+      <p>${member.role==='admin'?'<span class="chat-role admin">ADMIN</span>':'<span class="chat-role">MEMBER</span>'} • ${isOnline(member)?'Online':'Offline'}</p>
+      <div class="chat-profile-status">${cEsc(member.status||'Member Nexora Alpha')}</div>
+      <div class="chat-profile-actions">${member.id!==currentProfile?.id?'<button class="btn primary" id="chatPrivateBtn" type="button">💬 Private Chat</button>':''}<button class="btn secondary" id="chatProfileClose" type="button">Tutup</button></div>
+      ${isAdmin()&&member.id!==currentProfile?.id?`<div class="chat-admin-tools"><h4>Admin Moderation</h4><div class="chat-admin-tool-grid"><button type="button" id="chatMuteBtn">🔇 Mute</button><button type="button" id="chatBanBtn" class="danger">⛔ Ban / Remove</button><button type="button" id="chatUnmuteBtn">🔊 Unmute</button><button type="button" id="chatUnbanBtn">♻️ Unban</button></div></div>`:''}
+    </div>`;
+    chatMemberSide.classList.remove('show');chatProfileScreen.classList.add('active');
+    document.getElementById('chatProfileBack').onclick=()=>{chatProfileScreen.classList.remove('active');chatMemberSide.classList.add('show')};
+    document.getElementById('chatProfileClose').onclick=()=>chatProfileScreen.classList.remove('active');
+    document.getElementById('chatPrivateBtn')?.addEventListener('click',()=>openPrivateChat(member));
+    document.getElementById('chatMuteBtn')?.addEventListener('click',()=>moderateMember(member.id,'mute'));
+    document.getElementById('chatBanBtn')?.addEventListener('click',()=>moderateMember(member.id,'ban'));
+    document.getElementById('chatUnmuteBtn')?.addEventListener('click',()=>moderateMember(member.id,'unmute'));
+    document.getElementById('chatUnbanBtn')?.addEventListener('click',()=>moderateMember(member.id,'unban'));
+  }
+  async function moderateMember(userId,action){
+    if(!isAdmin())return;
+    let mins=0;
+    if(action==='mute'||action==='ban'){const raw=prompt(action==='mute'?'Mute berapa menit? (contoh 60)':'Ban berapa menit? (contoh 1440)',action==='mute'?'60':'1440');if(raw===null)return;mins=Math.max(1,parseInt(raw,10)||0);if(!mins)return}
+    const {error}=await client.rpc('nexora_chat_admin_control',{p_user_id:userId,p_action:action,p_minutes:mins});
+    if(error)chatToastMsg(error.message||'Aksi admin gagal.');else{chatToastMsg('Moderasi berhasil diperbarui.');loadMembers()}
+  }
+  async function openPrivateChat(member){
+    if(!member||member.id===currentProfile?.id)return;
+    const {data,error}=await client.rpc('nexora_start_private_chat',{p_other_user_id:member.id});
+    if(error){chatToastMsg(error.message||'Private chat gagal dibuka.');return}
+    chatProfileScreen.classList.remove('active');chatMemberSide.classList.remove('show');await loadConversation(data,'private',member.username||'Private Chat');
+  }
+  async function openGroupChat(){
+    try{
+      const id=await ensureGroup();
+      chatAnnouncementWrap.classList.toggle('show',isAdmin());
+      await loadConversation(id,'group','NEXORA COMMUNITY');
+    }catch(e){chatToastMsg(e.message||'Chat belum terhubung.')}
+  }
+  async function openChat(){
+    if(!currentProfile||!client){chatToastMsg('Silakan login sebagai member.');return}
+    chatReady=true;document.body.classList.add('chat-mode');document.getElementById('chatReportsBtn').style.display=isAdmin()?'inline-flex':'none';
+    chatMemberSide.classList.remove('show');chatProfileScreen.classList.remove('active');
+    await openGroupChat();
+  }
+  function closeChat(){
+    document.body.classList.remove('chat-mode');
+    if(chatRealtime){client?.removeChannel(chatRealtime).catch(()=>{});chatRealtime=null}
+    if(chatReactionRealtime){client?.removeChannel(chatReactionRealtime).catch(()=>{});chatReactionRealtime=null}
+  }
+  window.nexoraChatOpen=openChat;window.nexoraChatClose=closeChat; if(location.hash==='#chat'&&currentProfile) setTimeout(()=>openChat(),50);
+  document.getElementById('chatBackBtn').onclick=()=>goSection('home');
+  document.getElementById('chatBrandBtn').onclick=async()=>{chatProfileScreen.classList.remove('active');chatMemberSide.classList.toggle('show');if(chatMemberSide.classList.contains('show'))await loadMembers()};
+  document.getElementById('chatMembersBtn').onclick=async()=>{chatMemberSide.classList.add('show');chatProfileScreen.classList.remove('active');await loadMembers()};
+  document.getElementById('chatReportsBtn').onclick=loadReports;
+  document.getElementById('chatPinnedBtn').onclick=()=>{const p=chatPinnedRows[0];if(p){const el=chatMessages.querySelector(`[data-message="${CSS.escape(p.id)}"]`);el?.scrollIntoView({behavior:'smooth',block:'center'})}else chatToastMsg('Belum ada pesan pinned.')};
+  document.getElementById('chatNotifyBtn').onclick=()=>document.getElementById('notifyBtn')?.click();
+  document.getElementById('chatReplyClose').onclick=clearReply;
+  document.getElementById('chatSendBtn').onclick=sendMessage;
+  document.getElementById('chatAttachBtn').onclick=()=>chatFileInput.click();
+  chatFileInput.onchange=e=>{pendingChatFile=e.target.files?.[0]||null;if(pendingChatFile)chatToastMsg('Gambar siap dikirim.');};
+  chatInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});
+  chatInput.addEventListener('input',()=>{chatInput.style.height='42px';chatInput.style.height=Math.min(130,chatInput.scrollHeight)+'px'});
+  chatSearchInput.addEventListener('input',renderMessages);
+  chatMemberSearch.addEventListener('input',()=>{clearTimeout(chatMemberSearch._t);chatMemberSearch._t=setTimeout(loadMembers,180)});
+  window.addEventListener('nexora-profile-ready',()=>{if(document.getElementById('chatPage').classList.contains('active'))openGroupChat().catch(()=>{})});
+})();
+
   if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
 })();
 </script>
