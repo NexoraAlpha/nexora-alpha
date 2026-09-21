@@ -1,0 +1,6 @@
+NEXORA ALPHA — AUTH RESET
+
+The previous Supabase login/register/profile runtime has been removed from the active application flow.
+The public site is intentionally accessible without login.
+Community Chat is a placeholder until the new authentication system is built.
+The old auth runtime must not be restored.

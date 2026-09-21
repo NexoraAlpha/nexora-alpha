@@ -257,6 +257,9 @@ body{padding-bottom:calc(var(--navh) + 22px)}
 /* ===== NEXORA COMMUNITY CHAT — additive feature ===== */
 .chat-page{padding:110px 16px 90px;min-height:100vh}.chat-shell{max-width:1180px;margin:0 auto}.chat-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.chat-brand-btn{display:flex;align-items:center;gap:10px;color:#fff;font-weight:900;font-family:Poppins}.chat-brand-btn img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(169,197,255,.3))}.chat-brand-btn small{display:block;color:#7f8ba2;font:700 9px Inter;letter-spacing:.16em;text-transform:uppercase}.chat-actions{display:flex;gap:8px}.chat-icon-btn{border:1px solid var(--line);background:rgba(255,255,255,.055);color:#dfe8ff;border-radius:14px;padding:10px 12px}.chat-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px}.chat-panel,.chat-main{border:1px solid var(--line);background:rgba(7,12,24,.72);backdrop-filter:blur(18px);border-radius:24px;overflow:hidden}.chat-panel{padding:16px}.chat-panel h3{margin:0 0 12px;font-family:Poppins}.chat-search{width:100%;box-sizing:border-box;padding:11px 12px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:#fff;outline:none}.chat-member-list{margin-top:12px;display:grid;gap:6px;max-height:calc(100vh - 300px);overflow:auto}.chat-member{display:flex;align-items:center;gap:9px;padding:9px;border-radius:13px}.chat-member:hover{background:rgba(255,255,255,.055)}.chat-member img{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#111827}.chat-member b{font-size:11px}.chat-member small{display:block;color:#75829a;font-size:9px}.chat-dot{width:7px;height:7px;border-radius:50%;background:#65728a;margin-left:auto}.chat-dot.online{background:#64e7b2;box-shadow:0 0 9px rgba(100,231,178,.55)}.chat-main{display:flex;flex-direction:column;min-height:650px}.chat-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}.chat-head strong{font-family:Poppins}.chat-head span{display:block;color:#7f8ba2;font-size:10px;margin-top:2px}.chat-messages{flex:1;padding:18px;overflow:auto;display:flex;flex-direction:column;gap:9px;min-height:450px;background:radial-gradient(circle at 20% 0,rgba(78,110,180,.08),transparent 35%)}.chat-msg{max-width:min(78%,650px);display:flex;flex-direction:column;gap:4px;align-self:flex-start}.chat-msg.mine{align-self:flex-end}.chat-bubble{padding:10px 12px;border-radius:16px 16px 16px 5px;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.07);color:#eaf0ff;line-height:1.5;font-size:12px;white-space:pre-wrap;word-break:break-word}.chat-msg.mine .chat-bubble{border-radius:16px 16px 5px 16px;background:rgba(132,166,240,.18)}.chat-meta{font-size:9px;color:#738098;padding:0 4px}.chat-msg.mine .chat-meta{text-align:right}.chat-reply{border-left:3px solid #8eaff5;background:rgba(255,255,255,.04);padding:6px 8px;border-radius:8px;font-size:9px;color:#9eabc2;margin-bottom:7px}.chat-msg-actions{display:flex;gap:6px;opacity:.7}.chat-msg-actions button{font-size:9px;color:#aebbd2}.chat-compose{border-top:1px solid var(--line);padding:12px;display:flex;gap:8px;align-items:flex-end}.chat-compose textarea{flex:1;resize:none;min-height:42px;max-height:130px;padding:11px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:#fff;outline:none;font:inherit;font-size:12px}.chat-send{padding:11px 15px;border-radius:14px;background:linear-gradient(135deg,#eef4ff,#a9c2f6);color:#071020;font-weight:900}.chat-empty{text-align:center;color:#718098;margin:auto;font-size:12px}.chat-replybar{display:none;padding:8px 12px;border-top:1px solid var(--line);background:rgba(255,255,255,.035);font-size:10px;color:#9eabc2}.chat-replybar.show{display:flex;align-items:center;justify-content:space-between}.chat-back{display:none}.chat-member-modal{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(10px);z-index:4100;display:none;padding:18px}.chat-member-modal.open{display:flex;justify-content:center;align-items:center}.chat-member-card{width:min(480px,100%);max-height:80vh;overflow:auto;background:#07101f;border:1px solid var(--line);border-radius:24px;padding:18px}.chat-member-card-head{display:flex;align-items:center;justify-content:space-between}.chat-member-card-head h3{margin:0;font-family:Poppins}.chat-admin-tools{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}.chat-admin-tools button{font-size:9px;color:#ffb0bd}.chat-pinned{padding:8px 12px;border-bottom:1px solid var(--line);background:rgba(168,195,255,.06);font-size:10px;color:#b9c8e8;display:none}.chat-pinned.show{display:block}.chat-locked-note{padding:12px;color:#ffabb9;text-align:center;font-size:11px;display:none}.chat-locked .chat-compose{display:none}.chat-locked .chat-locked-note{display:block}
 @media(max-width:800px){.chat-page{padding:82px 10px 80px}.chat-layout{grid-template-columns:1fr}.chat-panel{display:none}.chat-main{min-height:calc(100vh - 155px);border-radius:18px}.chat-messages{min-height:0}.chat-back{display:inline-flex}.chat-top{margin-bottom:8px}.chat-msg{max-width:88%}}
+
+/* AUTH RESET: public site is intentionally unlocked until the new auth is built. */
+#authGate{display:none!important}body.auth-locked{overflow:auto!important}body.auth-locked>#nav,body.auth-locked>main{visibility:visible!important;pointer-events:auto!important}.login-success-overlay{display:none!important}
 </style></head>
 <body>
 <div class="ambient-bubbles"><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span><span class="ambient-bubble"></span></div><div class="touch-orb" id="touchOrb"></div>
@@ -1298,439 +1301,25 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+/* ===== NEXORA PUBLIC SUPABASE RUNTIME — OLD AUTH REMOVED ===== */
 (async function(){
-  document.body.classList.add('auth-locked');
-  const gate=document.getElementById('authGate'), form=document.getElementById('authForm'), note=document.getElementById('authNote');
-  const loginTab=document.getElementById('loginTab'), registerTab=document.getElementById('registerTab'), usernameWrap=document.getElementById('usernameWrap'), confirmWrap=document.getElementById('confirmWrap');
-  const email=document.getElementById('authEmail'), pass=document.getElementById('authPassword'), confirm=document.getElementById('authConfirm'), username=document.getElementById('authUsername'), submit=document.getElementById('authSubmit');
-  const forgot=document.getElementById('forgotBtn'), resend=document.getElementById('resendBtn'), memberBtn=document.getElementById('memberBtn'), memberMenu=document.getElementById('memberMenu'), logout=document.getElementById('logoutBtn');
-  const settingsBtn=document.getElementById('settingsBtn'), settingsModal=document.getElementById('settingsModal'), settingsClose=document.getElementById('settingsClose'), settingsAdminBtn=document.getElementById('settingsAdminBtn');
-  let mode='login', client=null, lastSignupEmail=''; let adminProfileChannel=null, newMemberNotifications=[];
-  function msg(t,type=''){note.textContent=t;note.className='auth-note '+type}
-  function setMode(m){mode=m;loginTab.classList.toggle('active',m==='login');registerTab.classList.toggle('active',m==='register');usernameWrap.style.display=m==='register'?'block':'none';confirmWrap.style.display=m==='register'?'block':'none';forgot.style.display=m==='login'?'block':'none';submit.textContent=m==='login'?'MASUK KE NEXORA':'BUAT AKUN MEMBER';resend.style.display='none';msg('')}
-  loginTab.onclick=()=>setMode('login'); registerTab.onclick=()=>setMode('register');
-  function showGate(){gate.style.display='flex';document.body.classList.add('auth-locked')}
-  function hideGate(){gate.style.display='none';document.body.classList.remove('auth-locked')}
-  let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
-  let notificationRows=[], notificationReads=new Set(), notificationEditingId=null;
-  async function profile(user){
-    const u=(user&&user.user_metadata&&user.user_metadata.username)||user.email.split('@')[0]||'Member';
-    document.getElementById('memberUsername').textContent=u;document.getElementById('menuUsername').textContent=u;document.getElementById('menuEmail').textContent=user.email;memberBtn.classList.add('show');
-    currentProfile={id:user.id,username:u,email:user.email,role:'member',avatar_url:null,settings:{}};
-    try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};}}catch(e){console.warn('profile lookup',e)}
-    const av=currentProfile.avatar_url||'logo.png';
-    document.getElementById('topAvatar').src=av;
-    document.getElementById('profileAvatar').src=av;
-    const admin=currentProfile.role==='admin'; document.getElementById('adminBtn').classList.toggle('show',admin); document.getElementById('notifyBtn').classList.add('show'); settingsBtn.classList.add('show'); settingsAdminBtn.hidden=!admin; if(window.nexoraCMS) window.nexoraCMS.isAdmin=admin;
-    // Jangan blokir login gara-gara realtime/CMS. Semua ini dijalankan di background.
-    if(admin) setupAdminPresence(user).catch(e=>console.warn('admin presence',e));
-    else setupMemberPresence(user).catch(e=>console.warn('member presence',e));
-    if(window.nexoraCMS?.client && typeof window.cmsLoad==='function') {
-      window.cmsLoad(window.nexoraCMS.client).catch(e=>console.warn('CMS load',e));
+  async function getConfig(){
+    const r=await fetch('/api/config',{cache:'no-store'});
+    if(!r.ok) throw new Error('Config belum tersedia');
+    const c=await r.json();
+    if(!c.url||!c.key) throw new Error('Supabase config belum diisi di Vercel');
+    return c;
+  }
+  try{
+    const c=await getConfig();
+    const client=window.supabase.createClient(c.url,c.key);
+    window.nexoraPublicClient=client;
+    if(window.nexoraCMS){
+      window.nexoraCMS.client=client;
+      window.nexoraCMS.isAdmin=false;
+      if(typeof window.cmsLoad==='function') await window.cmsLoad(client);
     }
-    loadNotifications().catch(e=>console.warn('notifications load',e));
-    loadEventData().catch(e=>console.warn('event load',e));
-  }
-  async function renderOnline(){
-    const list=document.getElementById('onlineList');
-    try{
-      const cutoff=new Date(Date.now()-45000).toISOString();
-      const {data,error}=await client.from('profiles').select('id,username,email,role,avatar_url,last_seen').gte('last_seen',cutoff).order('username');
-      if(error)throw error;
-      const rows=(data||[]).filter(x=>x.last_seen);
-      document.getElementById('adminOnline').textContent=rows.length;
-      document.getElementById('onlineLabel').textContent='• '+rows.length+' online';
-      list.innerHTML=rows.length?rows.map(x=>{
-        const av=x.avatar_url||'logo.png';
-        return `<div class="online-row"><div style="display:flex;align-items:center;gap:10px"><img src="${escapeHtml(av)}" alt="" style="width:36px;height:36px;border-radius:12px;object-fit:cover;background:#18243a;border:1px solid rgba(255,255,255,.1)" onerror="this.src='logo.png'"><div><div class="online-user"><i></i>${escapeHtml(x.username||'Member')}</div><div class="online-email">${escapeHtml(x.email||'')}</div></div></div><span class="role-pill">${escapeHtml(x.role||'member')}</span></div>`;
-      }).join(''):'<div class="empty-online">Belum ada member online.</div>';
-    }catch(e){
-      console.warn('online members lookup',e);
-      list.innerHTML='<div class="empty-online">Gagal memuat status online.</div>';
-    }
-  }
-  /* ===== EVENT TRACKING ===== */
-  let nexoraEvent=null, eventTimer=null, eventHeartbeatBusy=false;
-  function fmtDuration(sec){sec=Math.max(0,Math.floor(Number(sec)||0));const d=Math.floor(sec/86400);sec%=86400;const h=Math.floor(sec/3600);sec%=3600;const m=Math.floor(sec/60);const s=sec%60;return d?`${d}h ${h}j ${m}m`:`${h}j ${m}m ${s}d`.replace('0j ','');}
-  function fmtLong(sec){sec=Math.max(0,Math.floor(Number(sec)||0));const d=Math.floor(sec/86400);sec%=86400;const h=Math.floor(sec/3600);sec%=3600;const m=Math.floor(sec/60);const s=sec%60;const a=[];if(d)a.push(d+' Hari');if(h||d)a.push(h+' Jam');if(m||h||d)a.push(m+' Menit');a.push(s+' Detik');return a.join(' ')}
-  function toLocalInput(iso){if(!iso)return '';const d=new Date(iso);const pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`}
-  function parsePrize(v,fallback){const n=Number(String(v||'').replace(/[^0-9.]/g,''));return Number.isFinite(n)?n:fallback}
-  function notifyEsc(v){return escapeHtml(String(v??''))}
-  function notifyTypeLabel(t){return ({info:'INFO',update:'UPDATE',materi:'MATERI',event:'EVENT',important:'PENTING'})[t]||'INFO'}
-  function notifyDate(v){try{return new Date(v).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}catch(e){return ''}}
-  function setNotifyBadge(n){const b=document.getElementById('notifyBadge');b.textContent=n>99?'99+':String(n);b.classList.toggle('show',n>0)}
-  async function loadNotifications(){
-    if(!client||!currentProfile)return;
-    try{
-      const q= currentProfile.role==='admin'
-        ? client.from('notifications').select('*').order('created_at',{ascending:false}).limit(100)
-        : client.from('notifications').select('id,title,body,type,created_at,updated_at').eq('published',true).order('created_at',{ascending:false}).limit(100);
-      const [nr,rr]=await Promise.all([q,client.from('notification_reads').select('notification_id').eq('user_id',currentProfile.id)]);
-      if(nr.error)throw nr.error;
-      notificationRows=nr.data||[];notificationReads=new Set((rr.data||[]).map(x=>x.notification_id));
-      setNotifyBadge(notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).length);
-      renderNotifications(); if(currentProfile.role==='admin')renderNotifyAdmin();
-    }catch(e){console.warn('notifications load',e);setNotifyBadge(0);}
-  }
-  function renderNotifications(){
-    const el=document.getElementById('notifyList'); if(!el)return;
-    const rows=notificationRows.filter(n=>currentProfile?.role==='admin'||n.published!==false);
-    if(!rows.length){el.innerHTML='<div class="notify-empty">Belum ada informasi baru.</div>';return}
-    el.innerHTML=rows.map(n=>{const unread=!notificationReads.has(n.id);return `<article class="notify-item ${unread?'unread':''}" data-notify-id="${notifyEsc(n.id)}"><span class="notify-type">${notifyTypeLabel(n.type)}</span><div class="notify-item-top"><div class="notify-item-title">${notifyEsc(n.title)}</div><span class="notify-item-meta">${notifyDate(n.created_at)}</span></div><div class="notify-item-body">${notifyEsc(n.body)}</div></article>`}).join('');
-    el.querySelectorAll('.notify-item').forEach(item=>item.addEventListener('click',()=>markNotificationRead(item.dataset.notifyId)));
-  }
-  async function markNotificationRead(id){
-    if(!currentProfile||!id||notificationReads.has(id))return;
-    try{const {error}=await client.from('notification_reads').upsert({notification_id:id,user_id:currentProfile.id},{onConflict:'notification_id,user_id'});if(error)throw error;notificationReads.add(id);setNotifyBadge(notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).length);renderNotifications()}catch(e){console.warn('notification read',e)}
-  }
-  async function markAllNotificationsRead(){
-    if(!currentProfile)return;const ids=notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).map(n=>n.id);if(!ids.length)return;
-    try{const {error}=await client.from('notification_reads').upsert(ids.map(id=>({notification_id:id,user_id:currentProfile.id})),{onConflict:'notification_id,user_id'});if(error)throw error;ids.forEach(id=>notificationReads.add(id));setNotifyBadge(0);renderNotifications()}catch(e){console.warn('notification mark all',e)}
-  }
-  function notifyAdminMsg(t,good=false){const el=document.getElementById('notifyAdminNote');if(el){el.textContent=t;el.style.color=good?'#65e7b2':'#ff9aae'}}
-  function resetNotifyAdminForm(){notificationEditingId=null;document.getElementById('notifyAdminTitle').value='';document.getElementById('notifyAdminType').value='info';document.getElementById('notifyAdminBody').value='';document.getElementById('notifyAdminPublished').checked=true;document.getElementById('notifyAdminSave').textContent='＋ Publikasikan';document.getElementById('notifyAdminCancel').style.display='none';notifyAdminMsg('')}
-  function editNotification(id){const n=notificationRows.find(x=>x.id===id);if(!n)return;notificationEditingId=id;document.getElementById('notifyAdminTitle').value=n.title||'';document.getElementById('notifyAdminType').value=n.type||'info';document.getElementById('notifyAdminBody').value=n.body||'';document.getElementById('notifyAdminPublished').checked=n.published!==false;document.getElementById('notifyAdminSave').textContent='Simpan Perubahan';document.getElementById('notifyAdminCancel').style.display='block';document.getElementById('notifyAdminTitle').focus()}
-  function renderNotifyAdmin(){const el=document.getElementById('notifyAdminList');if(!el)return;const rows=notificationRows;if(!rows.length){el.innerHTML='<div class="empty-online">Belum ada notifikasi.</div>';return}el.innerHTML=rows.map(n=>`<div class="notify-admin-item"><div class="notify-admin-copy"><b>${notifyEsc(n.title)}</b><span>${notifyTypeLabel(n.type)} • ${n.published!==false?'Published':'Draft'} • ${notifyDate(n.created_at)}</span></div><div class="notify-admin-actions"><button type="button" data-edit-notify="${notifyEsc(n.id)}">Edit</button><button type="button" class="danger" data-delete-notify="${notifyEsc(n.id)}">Hapus</button></div></div>`).join('');el.querySelectorAll('[data-edit-notify]').forEach(b=>b.onclick=()=>editNotification(b.dataset.editNotify));el.querySelectorAll('[data-delete-notify]').forEach(b=>b.onclick=()=>deleteNotification(b.dataset.deleteNotify))}
-  async function saveNotificationAdmin(){if(currentProfile?.role!=='admin')return;const title=document.getElementById('notifyAdminTitle').value.trim(),body=document.getElementById('notifyAdminBody').value.trim(),type=document.getElementById('notifyAdminType').value,published=document.getElementById('notifyAdminPublished').checked; if(!title||!body)return notifyAdminMsg('Judul dan isi wajib diisi.');const btn=document.getElementById('notifyAdminSave');btn.disabled=true;notifyAdminMsg('Menyimpan...');try{const payload={title,body,type,published,updated_at:new Date().toISOString()};let res;if(notificationEditingId)res=await client.from('notifications').update(payload).eq('id',notificationEditingId).select().single();else res=await client.from('notifications').insert(payload).select().single();if(res.error)throw res.error;if(!notificationEditingId&&published&&res.data)sendPushForNewNotification(res.data);notifyAdminMsg(notificationEditingId?'Notifikasi diperbarui.':'Notifikasi berhasil dipublikasikan.',true);resetNotifyAdminForm();await loadNotifications()}catch(e){notifyAdminMsg(e.message||'Gagal menyimpan notifikasi.')}finally{btn.disabled=false}}
-  async function deleteNotification(id){
-    if(currentProfile?.role!=='admin'||!id)return;
-    if(!window.confirm('Hapus notifikasi ini?'))return;
-    const btn=[...document.querySelectorAll('[data-delete-notify]')].find(x=>String(x.dataset.deleteNotify)===String(id));
-    if(btn)btn.disabled=true;
-    notifyAdminMsg('Menghapus...');
-    try{
-      let {data,error}=await client.rpc('nexora_delete_notification',{p_notification_id:String(id)});
-      if(error){
-        console.warn('notification delete RPC failed',error);
-        const missingFunction=error.code==='42883'||/nexora_delete_notification|does not exist/i.test(error.message||'');
-        if(missingFunction){
-          const fallback=await client.from('notifications').delete().eq('id',id).select('id').maybeSingle();
-          if(fallback.error)throw fallback.error;
-          data=!!fallback.data;
-        }else throw error;
-      }
-      if(data!==true)throw new Error('Notifikasi tidak ditemukan atau akses ditolak.');
-      notificationRows=notificationRows.filter(n=>String(n.id)!==String(id));
-      notificationReads.delete(id);
-      renderNotifyAdmin();
-      renderNotifications();
-      setNotifyBadge(notificationRows.filter(n=>n.published!==false&&!notificationReads.has(n.id)).length);
-      notifyAdminMsg('Notifikasi berhasil dihapus.',true);
-    }catch(e){
-      console.error('notification delete',e);
-      notifyAdminMsg(e.message||'Gagal menghapus notifikasi.');
-    }finally{if(btn)btn.disabled=false}
-  }
-  function initNotificationUI(){const b=document.getElementById('notifyBtn'),m=document.getElementById('notifyModal'),c=document.getElementById('notifyClose');if(!b||!m)return;b.onclick=()=>{m.classList.add('open');m.setAttribute('aria-hidden','false');loadNotifications()};c.onclick=()=>{m.classList.remove('open');m.setAttribute('aria-hidden','true')};m.addEventListener('click',e=>{if(e.target===m)c.click()});document.getElementById('notifyMarkAll').onclick=markAllNotificationsRead;document.getElementById('notifyAdminSave').onclick=saveNotificationAdmin;document.getElementById('notifyAdminCancel').onclick=resetNotifyAdminForm}
-  initNotificationUI();
-  function eventStatusLabel(status){return status==='live'?'● EVENT AKTIF':status==='paused'?'● EVENT DIJEDA':status==='frozen'?'● HASIL DIKUNCI':status==='ended'?'● EVENT SELESAI':'● EVENT AKAN DATANG'}
-  function startEventTimer(){if(eventTimer)clearInterval(eventTimer);const tick=()=>{if(!nexoraEvent)return;const end=new Date(nexoraEvent.end_at).getTime();const start=new Date(nexoraEvent.start_at).getTime();const now=Date.now();let diff=Math.max(0,end-now);if(now<start){diff=Math.max(0,start-now);document.getElementById('eventCountdownLabel').textContent='Event dimulai dalam'}else document.getElementById('eventCountdownLabel').textContent='Event berakhir dalam';const total=Math.floor(diff/1000),days=Math.floor(total/86400),hours=Math.floor(total%86400/3600),mins=Math.floor(total%3600/60),secs=total%60;document.getElementById('eventDays').textContent=String(days).padStart(2,'0');document.getElementById('eventHours').textContent=String(hours).padStart(2,'0');document.getElementById('eventMinutes').textContent=String(mins).padStart(2,'0');document.getElementById('eventSeconds').textContent=String(secs).padStart(2,'0');document.getElementById('eventEndText').textContent='Selesai: '+new Date(nexoraEvent.end_at).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'});};tick();eventTimer=setInterval(tick,1000)}
-  window.nexoraEventMarkRead=async function(chapterId){if(!currentProfile||!client||!chapterId)return;try{const cmsChapter=window.nexoraCMS?.loaded?window.nexoraCMS.chapters?.find(c=>c.id===chapterId||c.slug===chapterId):null;const realChapterId=cmsChapter?.id||chapterId;if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(realChapterId)))return;await client.rpc('nexora_mark_chapter_read',{p_chapter_id:realChapterId});await eventHeartbeat();}catch(e){}};
-  async function eventHeartbeat(){if(!currentProfile||!client||eventHeartbeatBusy||document.visibilityState!=='visible')return;eventHeartbeatBusy=true;try{const {data,error}=await client.rpc('nexora_event_heartbeat');if(error)throw error;if(data?.event_id){nexoraEvent=nexoraEvent||{id:data.event_id};}}catch(e){/* event SQL may not have been installed yet */}finally{eventHeartbeatBusy=false}}
-  async function loadEventData(){if(!client||!currentProfile)return;try{const {data:event,error}=await client.from('events').select('id,title,subtitle,start_at,end_at,status,prize_1,prize_2,prize_3').in('status',['live','paused','frozen','draft']).order('start_at',{ascending:false}).limit(1).maybeSingle();if(error)throw error;if(!event){document.getElementById('eventBubble').classList.remove('show');return}nexoraEvent=event;document.getElementById('eventBubble').classList.add('show');document.getElementById('eventBubbleSub').textContent=event.status==='live'?'Leaderboard sedang berlangsung':'Event '+event.status;document.getElementById('eventTitle').textContent=event.title||'NEXORA ALPHA CHALLENGE';document.getElementById('eventSubtitle').textContent=event.subtitle||'Jadilah member paling aktif dan raih hadiah.';document.getElementById('eventStatusPill').textContent=eventStatusLabel(event.status);document.getElementById('prize1').textContent='$'+Number(event.prize_1||75).toFixed(0);document.getElementById('prize2').textContent='$'+Number(event.prize_2||45).toFixed(0);document.getElementById('prize3').textContent='$'+Number(event.prize_3||20).toFixed(0);startEventTimer();const {data:parts,error:pe}=await client.rpc('nexora_event_leaderboard',{p_event_id:event.id});if(pe)throw pe;const rows=(parts||[]).map(p=>({...p,profile:{username:p.username||'Member',avatar_url:p.avatar_url||'logo.png',last_seen:p.last_seen}}));renderEventLeaderboard(rows);const mine=rows.find(x=>x.user_id===currentProfile.id);document.getElementById('eventMyRank').textContent=mine?'#'+mine.rank:'—';document.getElementById('eventMyTime').textContent=mine?fmtLong(mine.active_seconds):'0 Detik';document.getElementById('eventMyMaterial').textContent=(mine?Number(mine.material_percent||0):0).toFixed(0)+'%';document.getElementById('eventMyParticipants').textContent=rows.length;const ac=document.getElementById('eventAdminCard');ac.style.display=currentProfile.role==='admin'?'block':'none';if(currentProfile.role==='admin')loadEventAdmin(event)}catch(e){console.warn('event load',e)}}
-  function renderEventLeaderboard(rows){const top=document.getElementById('eventTop3'), table=document.getElementById('eventLeaderboardRows');if(!rows.length){top.innerHTML='<div class="event-empty" style="grid-column:1/-1">Belum ada peserta aktif. Login dan mulai eksplor Nexora.</div>';table.innerHTML='';return}const prize=[nexoraEvent?.prize_2||45,nexoraEvent?.prize_1||75,nexoraEvent?.prize_3||20];const order=[1,0,2];top.innerHTML=order.map((idx)=>{const r=rows[idx];if(!r)return '<div class="event-rank-card"></div>';const rank=idx+1,p=r.profile||{};const online=p.last_seen&&Date.now()-new Date(p.last_seen).getTime()<45000;return `<div class="event-rank-card rank${rank}"><div class="rank-crown">${rank===1?'👑':rank===2?'🥈':'🥉'}</div><img class="event-avatar" src="${escapeHtml(p.avatar_url||'logo.png')}" onerror="this.src='logo.png'" alt=""><div class="event-rank-name">${escapeHtml(p.username||'Member')}</div><div class="event-rank-time">${fmtLong(r.active_seconds)}</div><div class="event-rank-material">Materi dibaca <b>${Number(r.material_percent||0).toFixed(0)}%</b></div><div class="event-progress"><i style="width:${Math.min(100,Math.max(0,Number(r.material_percent)||0))}%"></i></div><span class="event-prize-mini">$${Number(rank===1?(nexoraEvent?.prize_1||75):rank===2?(nexoraEvent?.prize_2||45):(nexoraEvent?.prize_3||20)).toFixed(0)}</span><div style="margin-top:5px;font-size:8px;color:${online?'#65e7b2':'#7b879a'}">● ${online?'Aktif':'Offline'}</div></div>`}).join('');table.innerHTML=rows.map((r,i)=>{const p=r.profile||{},online=p.last_seen&&Date.now()-new Date(p.last_seen).getTime()<45000;return `<div class="event-row"><span style="font-family:Poppins;font-weight:900">${i+1}</span><div class="event-member"><img src="${escapeHtml(p.avatar_url||'logo.png')}" onerror="this.src='logo.png'" alt=""><span>${escapeHtml(p.username||'Member')}</span></div><span>${fmtLong(r.active_seconds)}</span><span><b>${Number(r.material_percent||0).toFixed(0)}%</b><div class="event-progress"><i style="width:${Math.min(100,Math.max(0,Number(r.material_percent)||0))}%"></i></div></span><span class="event-status-dot ${online?'':'off'}">● ${online?'Online':'Offline'}</span></div>`}).join('')}
-  function loadEventAdmin(event){document.getElementById('eventAdminTitle').value=event.title||'';document.getElementById('eventAdminStatus').value=event.status||'draft';document.getElementById('eventAdminStart').value=toLocalInput(event.start_at);document.getElementById('eventAdminEnd').value=toLocalInput(event.end_at);document.getElementById('eventAdminPrize1').value='$'+Number(event.prize_1||75).toFixed(0);document.getElementById('eventAdminPrizes23').value='$'+Number(event.prize_2||45)+' / $'+Number(event.prize_3||20)}
-  function eventAdminMsg(t,good=false){const e=document.getElementById('eventAdminNote');e.textContent=t;e.style.color=good?'#65e7b2':'#7f90aa'}
-  async function saveEventAdmin(){if(currentProfile?.role!=='admin'||!nexoraEvent)return;const btn=document.getElementById('eventAdminSave');btn.disabled=true;eventAdminMsg('Menyimpan...');try{const pair=document.getElementById('eventAdminPrizes23').value.split('/');const p1=parsePrize(document.getElementById('eventAdminPrize1').value,75),p2=parsePrize(pair[0],45),p3=parsePrize(pair[1],20);const payload={title:document.getElementById('eventAdminTitle').value.trim()||'Nexora Alpha Challenge',status:document.getElementById('eventAdminStatus').value,start_at:new Date(document.getElementById('eventAdminStart').value).toISOString(),end_at:new Date(document.getElementById('eventAdminEnd').value).toISOString(),prize_1:p1,prize_2:p2,prize_3:p3};const {data,error}=await client.from('events').update(payload).eq('id',nexoraEvent.id).select().single();if(error)throw error;nexoraEvent=data;eventAdminMsg('Event berhasil disimpan.',true);await loadEventData()}catch(e){eventAdminMsg(e.message||'Gagal menyimpan event.')}finally{btn.disabled=false}}
-  document.getElementById('eventBubble').onclick=()=>{document.getElementById('eventModal').classList.add('open');document.getElementById('eventModal').setAttribute('aria-hidden','false');loadEventData()};document.getElementById('eventClose').onclick=()=>{document.getElementById('eventModal').classList.remove('open');document.getElementById('eventModal').setAttribute('aria-hidden','true')};document.getElementById('eventModal').addEventListener('click',e=>{if(e.target.id==='eventModal')document.getElementById('eventClose').click()});document.getElementById('eventAdminSave').onclick=saveEventAdmin;document.getElementById('eventAdminRefresh').onclick=loadEventData;
-  async function trackPresence(){
-    if(!currentProfile)return;
-    const now=new Date().toISOString();
-    if(document.visibilityState==='visible') eventHeartbeat().catch(()=>{});
-    try{
-      const {error}=await client.from('profiles').update({last_seen:now}).eq('id',currentProfile.id);
-      if(error)throw error;
-    }catch(e){console.warn('online heartbeat',e)}
-    if(presenceChannel){
-      try{await presenceChannel.track({user_id:currentProfile.id,username:currentProfile.username||'Member',email:currentProfile.email||'',role:currentProfile.role||'member',avatar_url:currentProfile.avatar_url||'logo.png',online_at:now})}catch(e){}
-    }
-  }
-  function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-  function renderAdminNotifications(){
-    const list=document.getElementById('adminNotifList'), badge=document.getElementById('adminNotifBadge');
-    const count=newMemberNotifications.length;
-    badge.textContent=count>99?'99+':String(count);
-    badge.classList.toggle('show',count>0);
-    list.innerHTML=count?newMemberNotifications.map(n=>`<div class="admin-notif-row"><div class="admin-notif-icon">👤</div><div class="admin-notif-copy"><b>${escapeHtml(n.username||'New Member')}</b><span>${escapeHtml(n.email||'Member baru terdaftar')}</span></div><span class="admin-notif-time">${escapeHtml(n.time||'Baru saja')}</span></div>`).join(''):'<div class="empty-online">Belum ada member baru.</div>';
-  }
-  function addMemberNotification(row,showToast=true){
-    if(!row||!row.id||row.role==='admin')return;
-    if(newMemberNotifications.some(n=>n.id===row.id))return;
-    newMemberNotifications.unshift({id:row.id,username:row.username,email:row.email,time:'Baru saja'});
-    newMemberNotifications=newMemberNotifications.slice(0,8);
-    renderAdminNotifications();
-    if(showToast){
-      const who=row.username||'Member baru';
-      if(typeof msg==='function') msg('🔔 '+who+' baru saja mendaftar di Nexora.','good');
-      if('Notification' in window && Notification.permission==='granted'){
-        try{new Notification('Nexora — Member Baru',{body:who+' baru saja mendaftar.'})}catch(e){}
-      }
-    }
-  }
-  async function setupAdminMemberNotifications(){
-    if(adminProfileChannel){try{await client.removeChannel(adminProfileChannel)}catch(e){}adminProfileChannel=null}
-    adminProfileChannel=client.channel('nexora:member-notifications',{config:{private:true}});
-    adminProfileChannel.on('postgres_changes',{event:'INSERT',schema:'public',table:'profiles'},payload=>{
-      addMemberNotification(payload.new,true);
-    });
-    adminProfileChannel.subscribe(status=>{
-      if(status!=='SUBSCRIBED') console.warn('member notifications:',status);
-    });
-  }
-  async function setupMemberPresence(user){
-    if(presenceHeartbeat)clearInterval(presenceHeartbeat);
-    if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch(e){} presenceChannel=null}
-    // DB heartbeat is the source of truth for ADMIN online monitoring.
-    await trackPresence();
-    presenceHeartbeat=setInterval(trackPresence,15000);
-  }
-  async function setupAdminPresence(user){
-    if(presenceHeartbeat)clearInterval(presenceHeartbeat);
-    if(adminOnlinePoll)clearInterval(adminOnlinePoll);
-    await setupAdminMemberNotifications();
-    // Admin also publishes its own heartbeat so it appears in the list.
-    await trackPresence();
-    presenceHeartbeat=setInterval(trackPresence,15000);
-    await renderOnline();
-    adminOnlinePoll=setInterval(renderOnline,10000);
-    const {count}=await client.from('profiles').select('id',{count:'exact',head:true}); document.getElementById('adminTotal').textContent=count??'—';
-  }
-  function verified(user){return !!(user&&user.email_confirmed_at)}
-  async function config(){const r=await fetch('/api/config',{cache:'no-store'});if(!r.ok)throw new Error('Config belum tersedia');const c=await r.json();if(!c.url||!c.key)throw new Error('Supabase config belum diisi di Vercel');return c}
-  try{const c=await config();client=window.supabase.createClient(c.url,c.key)}catch(e){msg('Website belum terhubung ke Supabase. Tambahkan SUPABASE_URL dan SUPABASE_ANON_KEY di Vercel.', 'bad');return}
-  window.nexoraCMS.client=client;
-
-  /* ===== NEXORA WEB PUSH NOTIFICATION FEATURE ONLY ===== */
-  const pushStatus=document.getElementById('pushStatus'), pushEnableBtn=document.getElementById('pushEnableBtn'), pushTestSoundBtn=document.getElementById('pushTestSoundBtn');
-  let pushRegistrationPromise=null, pushAudio=null;
-  function pushSetStatus(text,good=false){if(pushStatus){pushStatus.textContent=text;pushStatus.style.color=good?'#65e7b2':'#7f8ba2'}}
-  function base64ToUint8Array(base64){const pad='='.repeat((4-base64.length%4)%4);const raw=atob((base64+pad).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(raw,c=>c.charCodeAt(0))}
-  async function getPushRegistration(){
-    if(!('serviceWorker' in navigator))throw new Error('Perangkat/browser ini tidak mendukung Service Worker.');
-    if(!pushRegistrationPromise)pushRegistrationPromise=navigator.serviceWorker.ready;
-    return pushRegistrationPromise;
-  }
-  async function getPushSubscription(){const reg=await getPushRegistration();return reg.pushManager.getSubscription()}
-  async function playNexoraSound(){
-    try{if(!pushAudio)pushAudio=new Audio('./nexora-notification.wav');pushAudio.currentTime=0;pushAudio.volume=.8;await pushAudio.play()}catch(e){console.warn('Nexora custom sound blocked:',e)}
-  }
-  async function syncPushUI(){
-    if(!('Notification' in window)||!('PushManager' in window)){pushSetStatus('Push notification tidak didukung di browser ini.');if(pushEnableBtn)pushEnableBtn.disabled=true;return}
-    try{const sub=await getPushSubscription();if(sub){pushSetStatus(Notification.permission==='granted'?'Push aktif — Nexora siap memberi kabar.':'Subscription tersimpan, izin notifikasi perlu diaktifkan.',true);if(pushEnableBtn){pushEnableBtn.textContent='PUSH AKTIF';pushEnableBtn.disabled=false}}else{pushSetStatus(Notification.permission==='denied'?'Notifikasi diblokir browser. Buka izin situs untuk mengaktifkannya.':'Belum aktif. Aktifkan sekali agar push bisa masuk saat PWA/background.');if(pushEnableBtn){pushEnableBtn.textContent='AKTIFKAN PUSH';pushEnableBtn.disabled=false}}}catch(e){pushSetStatus(e.message||'Gagal membaca status push.');if(pushEnableBtn)pushEnableBtn.disabled=false}
-  }
-  async function enableNexoraPush(){
-    if(!currentProfile)return;
-    try{
-      if(!('Notification' in window)||!('PushManager' in window))throw new Error('Browser ini belum mendukung Web Push.');
-      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
-      if(permission!=='granted')throw new Error('Izin notifikasi belum diberikan.');
-      const cfgRes=await fetch('/api/push/config',{cache:'no-store'});if(!cfgRes.ok)throw new Error('Web Push belum dikonfigurasi di server.');
-      const cfg=await cfgRes.json();if(!cfg.enabled||!cfg.publicKey)throw new Error(cfg.error||'VAPID public key belum tersedia.');
-      const reg=await getPushRegistration();
-      let sub=await reg.pushManager.getSubscription();
-      if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:base64ToUint8Array(cfg.publicKey)});
-      const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(!token)throw new Error('Sesi login tidak ditemukan.');
-      const save=await fetch('/api/push/subscribe',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({subscription:sub.toJSON()})});
-      if(!save.ok){const j=await save.json().catch(()=>({}));throw new Error(j.error||'Gagal menyimpan push subscription.')}
-      const settings={...(currentProfile.settings||{}),notifications:true};currentProfile.settings=settings;if(typeof settingsOnlyNotifications!=='undefined'&&settingsOnlyNotifications)settingsOnlyNotifications.checked=true;
-      await playNexoraSound();pushSetStatus('Push aktif — notifikasi bisa masuk saat Nexora/PWA berada di background.',true);if(pushEnableBtn)pushEnableBtn.textContent='PUSH AKTIF';
-    }catch(e){console.warn('enable push',e);pushSetStatus(e.message||'Gagal mengaktifkan push.');throw e}
-  }
-  async function disableNexoraPush(){
-    try{const sub=await getPushSubscription();if(!sub){pushSetStatus('Push sudah nonaktif.');return}const endpoint=sub.endpoint;await sub.unsubscribe();const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(token)await fetch('/api/push/unsubscribe',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({endpoint})});pushSetStatus('Push dinonaktifkan.');if(pushEnableBtn)pushEnableBtn.textContent='AKTIFKAN PUSH'}catch(e){console.warn('disable push',e);pushSetStatus('Gagal mematikan push.')}
-  }
-  window.nexoraEnablePush=enableNexoraPush;
-  window.nexoraTestNotificationSound=playNexoraSound;
-  pushEnableBtn?.addEventListener('click',()=>enableNexoraPush().catch(()=>{}));
-  pushTestSoundBtn?.addEventListener('click',()=>playNexoraSound());
-  navigator.serviceWorker?.addEventListener('message',event=>{
-    const m=event.data||{};
-    if(m.type==='NEXORA_PUSH'){playNexoraSound();if(typeof msg==='function')msg('🔔 '+(m.title||'Informasi baru')+' — '+(m.body||''),'good');loadNotifications().catch(()=>{})}
-  });
-  getPushRegistration().then(()=>syncPushUI()).catch(()=>{});
-
-  async function sendPushForNewNotification(row){
-    if(!row?.id||row.published===false)return;
-    try{const sessionRes=await client.auth.getSession(),token=sessionRes.data?.session?.access_token;if(!token)return;const type=String(row.type||'info');const url=type==='materi'?'./#academy':type==='event'?'./#home':type==='update'?'./#market':type==='important'?'./#macro':'./#home';await fetch('/api/push/send',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({notificationId:row.id,title:row.title,body:row.body,url})})}catch(e){console.warn('push send trigger',e)}
-  }
-
-  async function handleUser(user){
-    if(!user){memberBtn.classList.remove('show');showGate();return}
-    if(!verified(user)){showGate();setMode('login');email.value=user.email||'';resend.style.display='block';msg('Akun sudah dibuat. Silakan verifikasi email dulu, lalu login kembali.','bad');return}
-    await profile(user);hideGate();
-  }
-  form.addEventListener('submit',async e=>{e.preventDefault();submit.disabled=true;msg('Memproses...');
-    try{
-      if(mode==='register'){
-        const un=username.value.trim(); if(!/^[A-Za-z0-9_ .-]{3,24}$/.test(un))throw new Error('Username 3–24 karakter. Gunakan huruf, angka, spasi, _ , . atau -.');
-        if(pass.value.length<6)throw new Error('Password minimal 6 karakter.'); if(pass.value!==confirm.value)throw new Error('Konfirmasi password tidak sama.');
-        lastSignupEmail=email.value.trim().toLowerCase();
-        const {data,error}=await client.auth.signUp({email:lastSignupEmail,password:pass.value,options:{data:{username:un},emailRedirectTo:location.origin+location.pathname}}); if(error)throw error;
-        if(data.session&&data.user&&verified(data.user)){await profile(data.user);hideGate();msg('Akun berhasil dibuat.','good')}else{resend.style.display='block';msg('Akun berhasil dibuat. Cek inbox/spam email untuk verifikasi sebelum login.','good')}
-      }else{
-        const {data,error}=await client.auth.signInWithPassword({email:email.value.trim().toLowerCase(),password:pass.value}); if(error)throw error;
-        if(!verified(data.user)){await client.auth.signOut();resend.style.display='block';throw new Error('Email belum diverifikasi. Cek inbox/spam lalu klik link verifikasi.')}
-        await profile(data.user);hideGate();playLoginSuccessAnimation();
-      }
-    }catch(err){msg(err.message||'Terjadi kesalahan.','bad')}finally{submit.disabled=false}
-  });
-  forgot.onclick=async()=>{const em=email.value.trim();if(!em)return msg('Masukkan email dulu untuk reset password.','bad');forgot.disabled=true;try{const {error}=await client.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname+'?reset=1'});if(error)throw error;msg('Link reset password sudah dikirim. Cek inbox/spam email kamu.','good')}catch(e){msg(e.message,'bad')}finally{forgot.disabled=false}};
-  resend.onclick=async()=>{const em=(lastSignupEmail||email.value).trim();if(!em)return;resend.disabled=true;try{const {error}=await client.auth.resend({type:'signup',email:em});if(error)throw error;msg('Email verifikasi dikirim ulang.','good')}catch(e){msg(e.message,'bad')}finally{resend.disabled=false}};
-  memberBtn.onclick=()=>memberMenu.classList.toggle('open');
-  function showAdminView(view){
-    const home=document.getElementById('adminHome');
-    if(home) home.hidden=view!=='home';
-    document.querySelectorAll('.admin-view').forEach(el=>el.hidden=true);
-    if(view!=='home'){
-      const el=document.getElementById('adminView'+view.charAt(0).toUpperCase()+view.slice(1));
-      if(el) el.hidden=false;
-    }
-    if(view==='overview') refreshAdminStats();
-    if(view==='online') renderOnline();
-    if(view==='notifications'){loadNotifications();renderNotifyAdmin();}
-    if(view==='event'){
-      adminPanel.classList.remove('open');
-      const em=document.getElementById('eventModal'); if(em) em.classList.add('open');
-    }
-  }
-  document.querySelectorAll('[data-admin-view]').forEach(btn=>btn.addEventListener('click',()=>showAdminView(btn.dataset.adminView)));
-  document.querySelectorAll('[data-admin-home]').forEach(btn=>btn.addEventListener('click',()=>showAdminView('home')));
-  async function refreshAdminStats(){
-    if(currentProfile?.role!=='admin'||!client)return;
-    renderAdminNotifications();
-    try{const {count,error}=await client.from('profiles').select('id',{count:'exact',head:true});if(!error){const el=document.getElementById('adminTotal');if(el)el.textContent=count??'—';}}catch(e){}
-    renderOnline();
-  }
-  const adminBtn=document.getElementById('adminBtn'), adminPanel=document.getElementById('adminPanel'), adminClose=document.getElementById('adminClose');
-  adminBtn.onclick=()=>{if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();if('Notification' in window&&Notification.permission==='default'){Notification.requestPermission().catch(()=>{})}}};
-  adminClose.onclick=()=>adminPanel.classList.remove('open');
-
-  document.addEventListener('click',e=>{if(!memberBtn.contains(e.target)&&!memberMenu.contains(e.target))memberMenu.classList.remove('open')});
-  logout.onclick=async()=>{if(presenceHeartbeat){clearInterval(presenceHeartbeat);presenceHeartbeat=null}if(adminOnlinePoll){clearInterval(adminOnlinePoll);adminOnlinePoll=null}if(presenceChannel){try{await client.removeChannel(presenceChannel)}catch(e){}presenceChannel=null}if(adminProfileChannel){try{await client.removeChannel(adminProfileChannel)}catch(e){}adminProfileChannel=null}adminPanel.classList.remove('open');await client.auth.signOut();memberMenu.classList.remove('open');settingsModal.classList.remove('open');settingsModal.setAttribute('aria-hidden','true');settingsBtn.classList.remove('show');document.getElementById('adminBtn').classList.remove('show');document.getElementById('notifyBtn').classList.remove('show');setNotifyBadge(0);if(window.nexoraCMS) window.nexoraCMS.isAdmin=false;showGate();setMode('login');email.value='';pass.value='';msg('Kamu sudah logout.','good')};
-
-  /* ===== LOGIN SUCCESS ANIMATION — LOGIN ONLY ===== */
-  const loginSuccessOverlay=document.getElementById('loginSuccessOverlay');
-  const nexoraLoginShatterSfx=document.getElementById('nexoraLoginShatterSfx');
-  let loginAnimationTimer=null, loginSoundTimer=null;
-  function playLoginSuccessAnimation(){
-    if(!loginSuccessOverlay)return;
-    if(loginAnimationTimer)clearTimeout(loginAnimationTimer);
-    if(loginSoundTimer)clearTimeout(loginSoundTimer);
-    loginSuccessOverlay.classList.remove('closing');
-    loginSuccessOverlay.classList.remove('open');
-    void loginSuccessOverlay.offsetWidth;
-    loginSuccessOverlay.classList.add('open');
-    loginSuccessOverlay.setAttribute('aria-hidden','false');
-    loginSoundTimer=setTimeout(()=>{
-      if(!nexoraLoginShatterSfx)return;
-      try{nexoraLoginShatterSfx.currentTime=0;nexoraLoginShatterSfx.volume=.78;const pr=nexoraLoginShatterSfx.play();if(pr&&pr.catch)pr.catch(()=>{});}catch(e){}
-    },780);
-    loginAnimationTimer=setTimeout(()=>{
-      loginSuccessOverlay.classList.add('closing');
-      setTimeout(()=>{loginSuccessOverlay.classList.remove('open','closing');loginSuccessOverlay.setAttribute('aria-hidden','true')},560);
-    },7200);
-  }
-  /* ===== END LOGIN SUCCESS ANIMATION ===== */
-
-  client.auth.onAuthStateChange(async(event,session)=>{if(event==='PASSWORD_RECOVERY'){showGate();loginTab.style.display='none';registerTab.style.display='none';usernameWrap.style.display='none';confirmWrap.style.display='block';confirmWrap.querySelector('label').textContent='NEW PASSWORD';confirm.placeholder='Masukkan password baru';submit.textContent='SIMPAN PASSWORD';forgot.style.display='none';form.onsubmit=null;form.addEventListener('submit',async function resetHandler(ev){if(submit.textContent!=='SIMPAN PASSWORD')return;ev.preventDefault();if(pass.value.length<6)return msg('Password minimal 6 karakter.','bad');if(pass.value!==confirm.value)return msg('Konfirmasi password tidak sama.','bad');submit.disabled=true;try{const {error}=await client.auth.updateUser({password:pass.value});if(error)throw error;msg('Password berhasil diperbarui. Silakan login kembali.','good');await client.auth.signOut();setTimeout(()=>location.reload(),900)}catch(e){msg(e.message,'bad')}finally{submit.disabled=false}}, {once:true});return} if(event==='SIGNED_IN'&&session?.user)handleUser(session.user)});
-  const {data:{session}}=await client.auth.getSession(); await handleUser(session?.user||null);
-
-  /* ===== SEPARATE SETTINGS BUTTON ===== */
-  const settingsOnlyNotifications=document.getElementById('settingsOnlyNotifications'), settingsOnlyAutoRefresh=document.getElementById('settingsOnlyAutoRefresh'), settingsOnlyReduceMotion=document.getElementById('settingsOnlyReduceMotion'), settingsOnlyCompact=document.getElementById('settingsOnlyCompact');
-  function closeSettings(){settingsModal.classList.remove('open');settingsModal.setAttribute('aria-hidden','true')}
-  function syncSeparateSettings(){
-    const s=currentProfile?.settings||{};
-    settingsOnlyNotifications.checked=!!s.notifications;
-    settingsOnlyAutoRefresh.checked=s.autoRefresh!==false;
-    settingsOnlyReduceMotion.checked=!!s.reduceMotion;
-    settingsOnlyCompact.checked=!!s.compact;
-  }
-  async function persistSeparateSettings(){
-    if(!currentProfile)return;
-    const nextSettings={...(currentProfile.settings||{}),notifications:settingsOnlyNotifications.checked,autoRefresh:settingsOnlyAutoRefresh.checked,reduceMotion:settingsOnlyReduceMotion.checked,compact:settingsOnlyCompact.checked};
-    applyLocalSettings(nextSettings);
-    try{
-      const {data,error}=await client.from('profiles').update({settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
-      if(error)throw error;
-      currentProfile={...currentProfile,...data,email:currentProfile.email};
-      loadSettings(nextSettings);
-    }catch(e){
-      console.warn('separate settings save',e);
-      syncSeparateSettings();
-    }
-    if(nextSettings.notifications&&'Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{});
-  }
-  async function openSettings(){
-    if(!currentProfile)return;
-    syncSeparateSettings();
-    settingsAdminBtn.hidden=currentProfile.role!=='admin';
-    settingsModal.classList.add('open');settingsModal.setAttribute('aria-hidden','false');
-  }
-  settingsBtn.onclick=()=>{memberMenu.classList.remove('open');openSettings()};
-  settingsClose.onclick=closeSettings;
-  settingsModal.addEventListener('click',e=>{if(e.target===settingsModal)closeSettings()});
-  [settingsOnlyNotifications,settingsOnlyAutoRefresh,settingsOnlyReduceMotion,settingsOnlyCompact].forEach(el=>el.addEventListener('change',persistSeparateSettings));
-  settingsOnlyNotifications?.addEventListener('change',e=>{if(e.target.checked)enableNexoraPush().catch(()=>{e.target.checked=false});else disableNexoraPush()});
-  settingsAdminBtn.onclick=()=>{closeSettings();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');showAdminView('home');renderOnline();}};
-
-  /* ===== MEMBER PROFILE + SETTINGS ===== */
-  const profileModal=document.getElementById('profileModal'), profileClose=document.getElementById('profileClose'), avatarInput=document.getElementById('avatarInput');
-  const profileAvatar=document.getElementById('profileAvatar'), topAvatar=document.getElementById('topAvatar'), profileName=document.getElementById('profileName'), profileDisplayName=document.getElementById('profileDisplayName'), profileDisplayEmail=document.getElementById('profileDisplayEmail'), profileRole=document.getElementById('profileRole'), profileStatusText=document.getElementById('profileStatusText'), profileTimeframe=document.getElementById('profileTimeframe'), profileStatus=document.getElementById('profileStatus');
-  let pendingAvatarFile=null;
-  function closeProfile(){profileModal.classList.remove('open');profileModal.setAttribute('aria-hidden','true')}
-  window.closeProfile=closeProfile;
-  function profileMsg(text,good=false){profileStatus.textContent=text;profileStatus.className='profile-status '+(good?'good':'bad');}
-  function applyLocalSettings(settings={}){
-    document.body.classList.toggle('nexora-compact',!!settings.compact);
-    document.documentElement.classList.toggle('reduce-motion',!!settings.reduceMotion);
-    if(settings.compact) document.body.style.setProperty('--navh','70px'); else document.body.style.removeProperty('--navh');
-  }
-  function loadSettings(settings={}){
-    profileStatusText.value=settings.status||'';profileTimeframe.value=String(settings.defaultTimeframe||'15');applyLocalSettings({...settings,compact:!!settings.compact,reduceMotion:!!settings.reduceMotion});
-  }
-  function currentProfileSettings(){const s=currentProfile?.settings||{};return {...s,status:profileStatusText.value.trim(),defaultTimeframe:profileTimeframe.value};}
-  async function openProfile(){
-    if(!currentProfile){return}
-    profileMsg('');
-    profileName.value=currentProfile.username||'';profileDisplayName.textContent=currentProfile.username||'Member';profileDisplayEmail.textContent=currentProfile.email||'';profileRole.textContent=(currentProfile.role||'member').toUpperCase();
-    const avatar=currentProfile.avatar_url||'logo.png';profileAvatar.src=avatar;topAvatar.src=avatar;
-    loadSettings(currentProfile.settings||{});
-    const pab=document.getElementById('profileAdminBtn');pab.classList.toggle('show',currentProfile.role==='admin');
-    profileModal.classList.add('open');profileModal.setAttribute('aria-hidden','false');
-  }
-  memberBtn.onclick=()=>{memberMenu.classList.remove('open');openProfile()};
-  profileClose.onclick=closeProfile;profileModal.addEventListener('click',e=>{if(e.target===profileModal)closeProfile()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeProfile();closeSettings()}});
-  document.getElementById('avatarEdit').onclick=()=>avatarInput.click();
-  avatarInput.onchange=e=>{pendingAvatarFile=e.target.files?.[0]||null;if(pendingAvatarFile){profileAvatar.src=URL.createObjectURL(pendingAvatarFile);profileMsg('Foto siap diupload. Tekan Simpan Profil.',true)}};
-  async function uploadAvatar(file){
-    if(!file||!currentProfile) return currentProfile?.avatar_url||'logo.png';
-    if(file.size>4*1024*1024) throw new Error('Ukuran foto maksimal 4 MB.');
-    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-    const path=currentProfile.id+'/'+Date.now()+'.'+ext;
-    const {error}=await client.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type||'image/jpeg',cacheControl:'3600'});
-    if(error) throw new Error('Upload foto gagal. Pastikan bucket Storage “avatars” sudah dibuat lewat SQL setup Nexora.');
-    const {data}=client.storage.from('avatars').getPublicUrl(path);return data.publicUrl;
-  }
-  document.getElementById('saveProfileBtn').onclick=async()=>{
-    if(!currentProfile)return;const name=profileName.value.trim();if(!/^[A-Za-z0-9_ .-]{3,24}$/.test(name))return profileMsg('Nama 3–24 karakter. Gunakan huruf, angka, spasi, _ , . atau -.');
-    const btn=document.getElementById('saveProfileBtn');btn.disabled=true;profileMsg('Menyimpan...');
-    try{
-      let avatar=currentProfile.avatar_url||null;if(pendingAvatarFile)avatar=await uploadAvatar(pendingAvatarFile);
-      const nextSettings=currentProfileSettings();
-      const {data,error}=await client.from('profiles').update({username:name,avatar_url:avatar,settings:nextSettings}).eq('id',currentProfile.id).select('id,username,role,avatar_url,settings').single();
-      if(error)throw error;currentProfile={...currentProfile,...data,email:currentProfile.email};
-      profileDisplayName.textContent=name;profileName.value=name;profileAvatar.src=avatar||'logo.png';topAvatar.src=avatar||'logo.png';memberUsername.textContent=name;menuUsername.textContent=name;pendingAvatarFile=null;avatarInput.value='';applyLocalSettings(nextSettings);
-      try{await trackPresence()}catch(e){console.warn('presence profile refresh',e)}
-      profileMsg('Profil berhasil diperbarui.',true);
-    }catch(e){profileMsg(e.message||'Gagal menyimpan profil.')}finally{btn.disabled=false}
-  };
-  document.getElementById('profileAdminBtn').onclick=()=>{closeProfile();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');renderOnline();}};
-  document.getElementById('profileLogoutBtn').onclick=()=>logout.click();
-  const _oldProfile=profile;
-  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
-  window.nexoraAuth={getClient:()=>client,getProfile:()=>currentProfile};
-  if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
+  }catch(e){ console.warn('Nexora public Supabase runtime:',e); }
 })();
 </script>
 
@@ -1752,62 +1341,23 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   setTimeout(()=>setTab(location.hash==='#macro'?'news':'market'),0);
 })();
 
-/* ===== NEXORA COMMUNITY CHAT — additive feature ===== */
+/* ===== NEXORA COMMUNITY CHAT — waiting for the new authentication ===== */
 (function(){
-  const $=id=>document.getElementById(id);
-  const state={client:null,profile:null,channel:null,reply:null,members:[],messages:[],ready:false,banned:false};
-  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-  const time=v=>new Date(v).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-  function avatar(m){return m?.avatar_url||'logo.png'}
-  function getAuth(){try{return window.nexoraAuth?.getClient?.()&&window.nexoraAuth?.getProfile?.()?{client:window.nexoraAuth.getClient(),profile:window.nexoraAuth.getProfile()}:null}catch(e){return null}}
-  function status(t){if($('chatStatus'))$('chatStatus').textContent=t}
-  function renderMembers(filter=''){
-    const lists=[$('chatMemberList'),$('chatMemberModalList')].filter(Boolean), q=filter.toLowerCase();
-    const html=state.members.filter(m=>(m.username||'').toLowerCase().includes(q)).map(m=>`<div class="chat-member"><img src="${esc(avatar(m))}" alt=""><div><b>${esc(m.username||'Member')}</b><small>${m.role==='admin'?'ADMIN':'MEMBER'}</small></div><span class="chat-dot"></span></div>`).join('')||'<div class="chat-empty">Member tidak ditemukan.</div>';
-    lists.forEach(l=>l.innerHTML=html);
-  }
-  function renderPinned(){const p=state.messages.find(m=>m.pinned&&!m.deleted_at);const el=$('chatPinned');if(!el)return;if(!p){el.classList.remove('show');el.innerHTML='';return}el.classList.add('show');el.innerHTML=`📌 <b>${esc(p.username)}</b>: ${esc(p.content)}`}
-  function renderMessages(){
-    const box=$('chatMessages');if(!box)return; if(!state.messages.length){box.innerHTML='<div class="chat-empty">Belum ada pesan. Jadilah yang pertama menyapa 👋</div>';return}
-    box.innerHTML=state.messages.map(m=>{const mine=m.user_id===state.profile?.id;const deleted=!!m.deleted_at;const reply=m.reply_to?state.messages.find(x=>x.id===m.reply_to):null;return `<div class="chat-msg ${mine?'mine':''}" data-id="${esc(m.id)}"><div class="chat-meta"><b>${esc(mine?'Kamu':m.username||'Member')}</b> · ${time(m.created_at)}</div><div class="chat-bubble">${deleted?'<i>Pesan dihapus.</i>':(reply?`<div class="chat-reply">↪ ${esc(reply.username)}: ${esc(reply.content).slice(0,100)}</div>`:'')+esc(m.content)}</div>${!deleted?`<div class="chat-msg-actions"><button type="button" data-chat-action="reply">Balas</button>${(mine||state.profile?.role==='admin')?`<button type="button" data-chat-action="delete">Hapus</button>`:''}${state.profile?.role==='admin'?`<button type="button" data-chat-action="pin">${m.pinned?'Lepas pin':'Pin'}</button>`:''}</div>`:''}</div>`}).join('');box.scrollTop=box.scrollHeight;renderPinned();
-  }
-  async function loadMembers(){
-    if(!state.client)return;const {data,error}=await state.client.from('chat_members').select('id,username,role,avatar_url').order('username');if(error){console.warn(error);return}state.members=data||[];renderMembers($('chatMemberSearch')?.value||'')
-  }
-  async function loadMessages(){
-    if(!state.client)return;const {data,error}=await state.client.from('chat_messages').select('id,user_id,username,avatar_url,content,reply_to,pinned,deleted_at,created_at').order('created_at',{ascending:true}).limit(300);if(error){status('Chat belum aktif — jalankan SQL Chat.');console.warn(error);return}state.messages=data||[];renderMessages();status(`${state.members.length} member`)}
-  async function refreshBan(){const {data}=await state.client.from('chat_bans').select('expires_at').eq('user_id',state.profile.id).maybeSingle();state.banned=!!data&&(!data.expires_at||new Date(data.expires_at)>new Date());$('chatMain')?.classList.toggle('chat-locked',state.banned);}
-  async function sendMessage(content){
-    if(state.banned)throw new Error('Akun kamu sedang dibatasi.');
-    if(!content.trim())return;const row={user_id:state.profile.id,username:state.profile.username||'Member',avatar_url:state.profile.avatar_url||'logo.png',content:content.trim(),reply_to:state.reply?.id||null};const {error}=await state.client.from('chat_messages').insert(row);if(error)throw error;state.reply=null;$('chatReplyBar')?.classList.remove('show');$('chatInput').value='';await loadMessages();
-  }
-  async function messageAction(id,action){
-    const m=state.messages.find(x=>x.id===id);if(!m)return;
-    if(action==='reply'){state.reply=m;$('chatReplyText').textContent=`Balas ${m.username}: ${m.content.slice(0,90)}`;$('chatReplyBar').classList.add('show');$('chatInput').focus();return}
-    if(action==='delete'){if(m.user_id!==state.profile.id&&state.profile.role!=='admin')return;const {error}=await state.client.from('chat_messages').update({deleted_at:new Date().toISOString()}).eq('id',id);if(error)alert(error.message);else await loadMessages();return}
-    if(action==='pin'&&state.profile.role==='admin'){const {error}=await state.client.from('chat_messages').update({pinned:!m.pinned}).eq('id',id);if(error)alert(error.message);else await loadMessages()}
-  }
-  async function init(){
-    const a=getAuth();if(!a)return false;state.client=a.client;state.profile=a.profile;state.ready=true;$('chatRoleBadge').textContent=state.profile.role==='admin'?'👑 ADMIN':'MEMBER';
-    await refreshBan();await loadMembers();await loadMessages();
-    if(state.channel){try{await state.client.removeChannel(state.channel)}catch(e){}}
-    state.channel=state.client.channel('nexora:chat').on('postgres_changes',{event:'*',schema:'public',table:'chat_messages'},()=>loadMessages()).subscribe(st=>{if(st==='SUBSCRIBED')status(`${state.members.length} member · realtime aktif`)})
-    return true;
-  }
-  window.nexoraChatOpen=async()=>{if(!state.ready)await init();else{await refreshBan();await loadMembers();await loadMessages()}};
-  function boot(){let tries=0;const t=setInterval(async()=>{tries++;if(await init()){clearInterval(t)}if(tries>80)clearInterval(t)},500)}
-  $('chatCompose')?.addEventListener('submit',e=>{e.preventDefault();sendMessage($('chatInput').value).catch(err=>alert(err.message||'Gagal mengirim pesan.'))});
-  $('chatMessages')?.addEventListener('click',e=>{const b=e.target.closest('[data-chat-action]');const msg=e.target.closest('.chat-msg');if(b&&msg)messageAction(msg.dataset.id,b.dataset.chatAction)});
-  $('chatCancelReply')?.addEventListener('click',()=>{state.reply=null;$('chatReplyBar').classList.remove('show')});
-  $('chatRefreshBtn')?.addEventListener('click',()=>window.nexoraChatOpen());
-  $('chatMemberBtn')?.addEventListener('click',()=>{});
-  $('chatMembersBtn')?.addEventListener('click',()=>{$('chatMemberModal').classList.add('open');$('chatMemberModal').setAttribute('aria-hidden','false');renderMembers('')});
-  $('chatMemberClose')?.addEventListener('click',()=>{$('chatMemberModal').classList.remove('open');$('chatMemberModal').setAttribute('aria-hidden','true')});
-  $('chatMemberModal')?.addEventListener('click',e=>{if(e.target.id==='chatMemberModal')$('chatMemberClose').click()});
-  $('chatMemberSearch')?.addEventListener('input',e=>renderMembers(e.target.value));$('chatMemberModalSearch')?.addEventListener('input',e=>renderMembers(e.target.value));
-  $('chatSearchBtn')?.addEventListener('click',()=>{$('chatMemberSearch')?.focus();document.querySelector('.chat-panel')?.scrollIntoView({behavior:'smooth',block:'center'})});
-  $('chatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('chatCompose').requestSubmit()}});
-  boot();
+  const status=document.getElementById('chatStatus');
+  const role=document.getElementById('chatRoleBadge');
+  const form=document.getElementById('chatCompose');
+  const input=document.getElementById('chatInput');
+  const send=form?.querySelector('.chat-send');
+  const members=document.getElementById('chatMemberList');
+  const messages=document.getElementById('chatMessages');
+  if(status) status.textContent='Login baru sedang disiapkan';
+  if(role) role.textContent='MEMBER CHAT';
+  if(members) members.innerHTML='<div class="chat-empty">Daftar member akan aktif setelah sistem login baru selesai.</div>';
+  if(messages) messages.innerHTML='<div class="chat-empty">💬 Community Chat siap. Login baru akan dipasang pada tahap berikutnya.</div>';
+  if(input){ input.disabled=true; input.placeholder='Login baru belum tersedia'; }
+  if(send) send.disabled=true;
+  form?.addEventListener('submit',e=>e.preventDefault());
+  window.nexoraChatOpen=()=>false;
 })();
 </script>
 
