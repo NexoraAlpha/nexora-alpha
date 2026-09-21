@@ -1671,14 +1671,15 @@ window.currentProfile=currentProfile;
   function loadSettings(settings={}){
     profileStatusText.value=settings.status||'';profileTimeframe.value=String(settings.defaultTimeframe||'15');applyLocalSettings({...settings,compact:!!settings.compact,reduceMotion:!!settings.reduceMotion});
   }
-  function currentProfileSettings(){const s=currentProfile?.settings||{};return {...s,status:profileStatusText.value.trim(),defaultTimeframe:profileTimeframe.value};}
+  function currentProfileSettings(){const s=window.currentProfile?.settings||{};return {...s,status:profileStatusText.value.trim(),defaultTimeframe:profileTimeframe.value};}
   async function openProfile(){
-    if(!currentProfile){return}
+    const cp=window.currentProfile;
+    if(!cp){return}
     profileMsg('');
-    profileName.value=currentProfile.username||'';profileDisplayName.textContent=currentProfile.username||'Member';profileDisplayEmail.textContent=currentProfile.email||'';profileRole.textContent=(currentProfile.role||'member').toUpperCase();
-    const avatar=currentProfile.avatar_url||'logo.png';profileAvatar.src=avatar;topAvatar.src=avatar;
-    loadSettings(currentProfile.settings||{});
-    const pab=document.getElementById('profileAdminBtn');pab.classList.toggle('show',currentProfile.role==='admin');
+    profileName.value=cp.username||'';profileDisplayName.textContent=cp.username||'Member';profileDisplayEmail.textContent=cp.email||'';profileRole.textContent=(cp.role||'member').toUpperCase();
+    const avatar=cp.avatar_url||'logo.png';profileAvatar.src=avatar;topAvatar.src=avatar;
+    loadSettings(cp.settings||{});
+    const pab=document.getElementById('profileAdminBtn');pab.classList.toggle('show',cp.role==='admin');
     profileModal.classList.add('open');profileModal.setAttribute('aria-hidden','false');
   }
   memberBtn.onclick=()=>{memberMenu.classList.remove('open');openProfile()};
@@ -1687,10 +1688,11 @@ window.currentProfile=currentProfile;
   document.getElementById('avatarEdit').onclick=()=>avatarInput.click();
   avatarInput.onchange=e=>{pendingAvatarFile=e.target.files?.[0]||null;if(pendingAvatarFile){profileAvatar.src=URL.createObjectURL(pendingAvatarFile);profileMsg('Foto siap diupload. Tekan Simpan Profil.',true)}};
   async function uploadAvatar(file){
-    if(!file||!currentProfile) return currentProfile?.avatar_url||'logo.png';
+    const cp=window.currentProfile;
+    if(!file||!cp) return cp?.avatar_url||'logo.png';
     if(file.size>4*1024*1024) throw new Error('Ukuran foto maksimal 4 MB.');
     const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-    const path=currentProfile.id+'/'+Date.now()+'.'+ext;
+    const path=cp.id+'/'+Date.now()+'.'+ext;
     const {error}=await client.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type||'image/jpeg',cacheControl:'3600'});
     if(error) throw new Error('Upload foto gagal. Pastikan bucket Storage “avatars” sudah dibuat lewat SQL setup Nexora.');
     const {data}=client.storage.from('avatars').getPublicUrl(path);return data.publicUrl;
@@ -1713,7 +1715,7 @@ window.currentProfile=currentProfile;
   document.getElementById('profileAdminBtn').onclick=()=>{closeProfile();if(currentProfile?.role==='admin'){adminPanel.classList.add('open');memberMenu.classList.remove('open');renderOnline();}};
   document.getElementById('profileLogoutBtn').onclick=()=>logout.click();
   const _oldProfile=profile;
-  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
+  profile=async function(user){await _oldProfile(user);try{const {data}=await client.from('profiles').select('id,username,role,avatar_url,settings,last_seen,email').eq('id',user.id).maybeSingle();if(data){currentProfile={...currentProfile,...data};currentProfile.email=user.email;window.currentProfile=currentProfile;const av=currentProfile.avatar_url||'logo.png';topAvatar.src=av;profileAvatar.src=av;memberUsername.textContent=currentProfile.username;menuUsername.textContent=currentProfile.username;loadSettings(currentProfile.settings||{});}}catch(e){console.warn('extended profile lookup',e)}};
   if(new URLSearchParams(location.search).get('reset')==='1'&&!session){msg('Buka link reset password dari email untuk melanjutkan.','bad')}
 })();
 </script>
