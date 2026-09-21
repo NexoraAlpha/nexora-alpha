@@ -1436,7 +1436,8 @@ if(location.hash.startsWith('#lesson/')){const id=location.hash.split('/')[1];if
   loginTab.onclick=()=>setMode('login'); registerTab.onclick=()=>setMode('register');
   function showGate(){gate.style.display='flex';document.body.classList.add('auth-locked')}
   function hideGate(){gate.style.display='none';document.body.classList.remove('auth-locked')}
-  let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
+  window.currentProfile = window.currentProfile || null;
+let currentProfile=null, presenceChannel=null, presenceHeartbeat=null, adminOnlinePoll=null;
   let notificationRows=[], notificationReads=new Set(), notificationEditingId=null;
   async function profile(user){
     const u=(user&&user.user_metadata&&user.user_metadata.username)||user.email.split('@')[0]||'Member';
