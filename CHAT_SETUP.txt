@@ -1,0 +1,35 @@
+NEXORA ALPHA — COMMUNITY CHAT SETUP
+
+1) Buka Supabase Dashboard -> SQL Editor.
+2) Pastikan SUPABASE_ADMIN_SETUP.sql yang sudah ada di project pernah dijalankan.
+3) Buka file SUPABASE_CHAT_SETUP.sql yang ikut dalam ZIP ini.
+4) Jalankan seluruh isi file sekali.
+5) Pastikan Vercel tetap memakai:
+   SUPABASE_URL
+   SUPABASE_ANON_KEY
+   Jangan masukkan service_role key ke frontend.
+
+FITUR YANG DISEDIAKAN
+- Member-only Community Chat
+- Private Chat antar member
+- Member List + profil member
+- Pesan kanan/kiri seperti WhatsApp
+- Upload gambar/screenshot
+- Reply
+- Edit pesan sendiri
+- Hapus pesan sendiri
+- Admin dapat hapus pesan siapa pun
+- Reactions
+- Pin / unpin oleh admin
+- Announcement admin
+- Search pesan & member
+- Online/offline indicator
+- Admin mute / unmute
+- Admin ban / unban
+- Realtime chat
+- Storage bucket chat-media
+
+CATATAN
+- File SUPABASE_ADMIN_SETUP.sql tidak diganti. Chat memakai file SQL baru agar setup lama tetap aman.
+- Jika Chat menampilkan "bucket chat-media belum dibuat", berarti SUPABASE_CHAT_SETUP.sql belum berhasil dijalankan.
+- Jika Member List kosong atau private chat gagal, jalankan ulang SUPABASE_CHAT_SETUP.sql dan cek tabel/RPC di Supabase.
